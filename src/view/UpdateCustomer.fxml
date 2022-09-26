@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="298.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Customer">
+   <children>
+      <AnchorPane prefHeight="298.0" prefWidth="518.0" style="-fx-border-radius: 10; -fx-border-color: black;">
+         <children>
+            <TextField fx:id="idTextField" editable="false" layoutX="109.0" layoutY="70.0" prefHeight="26.0" prefWidth="132.0" />
+            <TextField fx:id="postalCodeTextField" layoutX="346.0" layoutY="136.0" />
+            <TextField fx:id="nameTextField" layoutX="109.0" layoutY="138.0" prefHeight="26.0" prefWidth="132.0" />
+            <Label layoutX="273.0" layoutY="142.0" text="Postal Code" />
+            <Label layoutX="273.0" layoutY="52.0" text="Address:" />
+            <Label layoutX="17.0" layoutY="140.0" text="Name:" />
+            <Label layoutX="14.0" layoutY="207.0" text="Phone Number:" />
+            <Label layoutX="23.0" layoutY="24.0" text="Customer Information">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="addressTextField" layoutX="347.0" layoutY="46.0" prefHeight="73.0" prefWidth="147.0" />
+            <Label layoutX="18.0" layoutY="74.0" text="ID Number" />
+            <TextField fx:id="phoneTextField" layoutX="109.0" layoutY="202.0" prefHeight="26.0" prefWidth="132.0" />
+            <ChoiceBox fx:id="countryComboBox" layoutX="345.0" layoutY="180.0" prefWidth="150.0" />
+            <ChoiceBox layoutX="345.0" layoutY="225.0" prefWidth="150.0" />
+            <Label layoutX="275.0" layoutY="229.0" text="Division" />
+            <Label layoutX="275.0" layoutY="184.0" text="Country" />
+            <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionSave" text="Save" />
+            <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
