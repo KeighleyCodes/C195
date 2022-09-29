@@ -83,10 +83,10 @@
                             </Tab>
                           </tabs>
                         </TabPane>
-                        <Button fx:id="logoutAppointmentsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" text="Logout" />
+                        <Button fx:id="logoutAppointmentsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#onActionLogoutAppointments" text="Logout" />
                         <Button fx:id="deleteAppointmentsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" text="Delete" />
-                        <Button fx:id="updateAppointmentsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" text="Update" />
-                        <Button fx:id="addAppointmentsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" text="Add" />
+                        <Button fx:id="updateAppointmentsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionUpdateAppointment" text="Update" />
+                        <Button fx:id="addAppointmentsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddAppointment" text="Add" />
                      </children></AnchorPane>
                 </content>
             </Tab>
@@ -97,7 +97,7 @@
                         <Button fx:id="addReportsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" text="Add" />
                         <Button fx:id="updateReportsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" text="Update" />
                         <Button fx:id="deleteReportsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" text="Delete" />
-                        <Button fx:id="logoutReportsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" text="Logout" />
+                        <Button fx:id="logoutReportsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionLogoutReports" text="Logout" />
                         <TabPane layoutX="4.0" layoutY="6.0" prefHeight="385.0" prefWidth="757.0" tabClosingPolicy="UNAVAILABLE">
                           <tabs>
                             <Tab fx:id="appointmentsByMonthTab" text="Appointments by month">

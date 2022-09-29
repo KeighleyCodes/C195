@@ -26,7 +26,7 @@
       <TextField fx:id="appointmentIdTextField" editable="false" layoutX="137.0" layoutY="309.0" />
       <DatePicker fx:id="startTimeDatePicker" layoutX="388.0" layoutY="113.0" />
       <DatePicker fx:id="endTimeDatePicker" layoutX="388.0" layoutY="160.0" />
-      <Button fx:id="cancelButton" layoutX="512.0" layoutY="350.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="512.0" layoutY="350.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
       <Button fx:id="saveButton" layoutX="450.0" layoutY="350.0" mnemonicParsing="false" text="Save" />
    </children>
 </AnchorPane>

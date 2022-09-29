@@ -129,10 +129,7 @@ public class MainScreenController implements Initializable {
             stage.setTitle("Add Customer");
             stage.show();
 
-
         }
-
-
 
         /**
          * Update customer method.
@@ -143,17 +140,12 @@ public class MainScreenController implements Initializable {
         void OnActionUpdateCustomer (ActionEvent event) throws IOException {
 
             System.out.println("Update button clicked");
-            /*
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/UpdateCustomerController.fxml")));
+            scene = load(Objects.requireNonNull(getClass().getResource("/view/UpdateCustomer.fxml")));
             stage.setScene(new Scene((Parent) scene));
             stage.setTitle("Update Customer");
             stage.show();
-
-             */
         }
-
-
 
         /** Delete customer method. Deletes customer data when delete button clicked. */
 
@@ -173,7 +165,6 @@ public class MainScreenController implements Initializable {
         }
 
 
-
         /**
          * Logout customer method.
          * @param event Goes back to log in screen when log out button clicked.
@@ -183,59 +174,47 @@ public class MainScreenController implements Initializable {
         void OnActionLogoutCustomer (ActionEvent event) throws IOException {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
-
             Optional<ButtonType> result = alert.showAndWait();
-
             if (result.isPresent() && result.get() == ButtonType.OK) {
 
-                System.out.println("Logout button clicked");
-
-                /*
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-                scene = load(Objects.requireNonNull(getClass().getResource("/view/LoginController.fxml")));
+                scene = load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
                 stage.setScene(new Scene((Parent) scene));
-                stage.setTitle("Log in");
+                stage.setTitle("Add Customer");
                 stage.show();
-
-                 */
             }
         }
-
 
 
         /**
          * Add appointment method.
          * @param event Opens Add Appointment screen when add button clicked.
          */
-        /*
+
         @FXML
-        void OnActionAddAppointments (ActionEvent event) throws IOException {
+        void  OnActionAddAppointment (ActionEvent event) throws IOException {
 
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/controller.AddAppointmentsController.fxml")));
+            scene = load(Objects.requireNonNull(getClass().getResource("/view/AddAppointments.fxml")));
             stage.setScene(new Scene((Parent) scene));
             stage.setTitle("Add Appointment");
             stage.show();
         }
 
-         */
-
         /**
          * Update appointment method.
          * @param event Opens Update Appointment screen when update button clicked.
          */
-        /*
+
         @FXML
-        void OnActionUpdateAppointments (ActionEvent event) throws IOException {
+        void OnActionUpdateAppointment (ActionEvent event) throws IOException {
 
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/UpdateAppointmentController.fxml")));
+            scene = load(Objects.requireNonNull(getClass().getResource("/view/AddAppointments.fxml")));
             stage.setScene(new Scene((Parent) scene));
             stage.setTitle("Update Appointment");
             stage.show();
         }
-
-         */
 
         /** Delete appointment method in monthly view. Deletes appointment when delete button clicked. */
         /*
@@ -276,36 +255,42 @@ public class MainScreenController implements Initializable {
          * Logout appointment method.
          * @param event Goes back to log in screen when log out button clicked.
          */
-        /*
-        @FXML
-        void OnActionLogoutAppointments (ActionEvent event) throws IOException {
 
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/LoginController.fxml")));
-            stage.setScene(new Scene((Parent) scene));
-            stage.setTitle("Log in");
-            stage.show();
+        @FXML
+        void onActionLogoutAppointments(ActionEvent event) throws IOException {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
+                stage.setScene(new Scene((Parent) scene));
+                stage.setTitle("Add Customer");
+                stage.show();
+            }
         }
 
-
-         */
 
         /**
          * Logout report method.
          * @param event Goes back to log in screen when log out button clicked.
          */
-        /*
+
         @FXML
         void OnActionLogoutReports (ActionEvent event) throws IOException {
 
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/LoginController.fxml")));
-            stage.setScene(new Scene((Parent) scene));
-            stage.setTitle("Log in");
-            stage.show();
-        }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
 
-         */
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                scene = load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
+                stage.setScene(new Scene((Parent) scene));
+                stage.setTitle("Add Customer");
+                stage.show();
+            }
+        }
 
     }
 
