@@ -9,16 +9,17 @@
       <AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-border-radius: 10; -fx-border-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label layoutX="39.0" layoutY="70.0" text="Username:" />
-            <Label layoutX="41.0" layoutY="125.0" text="Password:" />
-            <PasswordField fx:id="passwordTextField" layoutX="125.0" layoutY="121.0" />
+            <Label layoutX="41.0" layoutY="116.0" text="Password:" />
+            <PasswordField fx:id="passwordTextField" layoutX="125.0" layoutY="112.0" />
             <TextField fx:id="usernameTextField" layoutX="125.0" layoutY="66.0" />
             <Label layoutX="39.0" layoutY="21.0" text="Enter login information">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button fx:id="enterButton" layoutX="330.0" layoutY="160.0" mnemonicParsing="false" onAction="#OnActionEnter" text="Enter" />
+            <Button fx:id="enterButton" layoutX="275.0" layoutY="160.0" mnemonicParsing="false" onAction="#OnActionEnter" text="Enter" />
             <Label fx:id="zoneIdLabel" layoutX="338.0" layoutY="22.0" text="ZoneID" />
+            <Button fx:id="exitButton" layoutX="340.0" layoutY="160.0" mnemonicParsing="false" onAction="#OnActionExit" text="Exit" />
          </children>
       </AnchorPane>
    </children>

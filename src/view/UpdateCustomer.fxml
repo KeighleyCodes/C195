@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="298.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Customer">
+<AnchorPane prefHeight="298.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateCustomerController">
    <children>
       <AnchorPane prefHeight="298.0" prefWidth="518.0" style="-fx-border-radius: 10; -fx-border-color: black;">
          <children>
@@ -24,11 +24,11 @@
             <Label layoutX="18.0" layoutY="74.0" text="ID Number" />
             <TextField fx:id="phoneTextField" layoutX="109.0" layoutY="202.0" prefHeight="26.0" prefWidth="132.0" />
             <ChoiceBox fx:id="countryComboBox" layoutX="345.0" layoutY="180.0" prefWidth="150.0" />
-            <ChoiceBox layoutX="345.0" layoutY="225.0" prefWidth="150.0" />
+            <ChoiceBox fx:id="divisionComboBox" layoutX="345.0" layoutY="225.0" prefWidth="150.0" />
             <Label layoutX="275.0" layoutY="229.0" text="Division" />
             <Label layoutX="275.0" layoutY="184.0" text="Country" />
-            <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionSave" text="Save" />
-            <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
+            <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" text="Save" />
+            <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" text="Cancel" />
          </children></AnchorPane>
    </children>
 </AnchorPane>
