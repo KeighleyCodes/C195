@@ -11,11 +11,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddCustomerController implements Initializable {
+
     public TextField idTextField;
     public TextField postalCodeTextField;
     public TextField nameTextField;
@@ -32,8 +35,21 @@ public class AddCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    // For testing purposes
+    int uniqueId = 46678;
+
+    /** Save part method.
+     @param event Saves modified part info and returns to Main Screen.
+     */
+
+    @FXML
+    void OnActionSaveCustomer(ActionEvent event) throws IOException {
+        System.out.println("Save button clicked");
 
     }
+
 
     /** Close window method.
      @param event Closes window and returns to Main Screen. */
@@ -49,4 +65,5 @@ public class AddCustomerController implements Initializable {
             this.stage.show();
         }
     }
+
 }

@@ -28,7 +28,7 @@
             <Label layoutX="275.0" layoutY="229.0" text="Division" />
             <Label layoutX="275.0" layoutY="184.0" text="Country" />
             <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" text="Save" />
-            <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" text="Cancel" />
+            <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionCancelCustomer" text="Cancel" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

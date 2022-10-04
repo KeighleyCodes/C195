@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /** Contacts class - provides contact objects. */
-public class Contacts {
+public abstract class Contacts {
 
     private int contactId;
     private String contactName;
@@ -44,6 +44,17 @@ public class Contacts {
 
     // Observable list
     public static ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
+
+    // toString method for the combo box to return
+    public String toString() {
+        return contactName;
+    }
+
+    /** Add contact method.
+     @param newContact Method for adding contacts. */
+    public static void addContact(Contacts newContact) {
+        allContacts.add(newContact);
+    }
 
     /** Deleted contact method.
      @param selectedContact Deletes selected contact. */

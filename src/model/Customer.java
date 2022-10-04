@@ -30,6 +30,17 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
+   // public static ObservableList<Customer> getAllCustomers= FXCollections.observableArrayList();
+
+    /** Get all parts method.
+     @return the parts observable list. */
+   /* public static ObservableList<Customer> getAllCustomers() {
+        return allCustomers;
+    }
+
+    */
+
+
     // Getters and setters
     public int getCustomerId() {
         return customerId;
@@ -89,6 +100,12 @@ public class Customer {
 
     // Observable list
     public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+
+    /** Add part method.
+     @param newCustomer Method for adding parts. */
+    public static void addCustomer(Customer newCustomer) {
+        allCustomers.add(newCustomer);
+    }
 
     /** Deleted customer method.
      @param selectedCustomer Deletes selected part. */

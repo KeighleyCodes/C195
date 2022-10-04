@@ -2,7 +2,6 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -109,12 +109,28 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button addCustomerButton;
 
+
     /**
      * Initialize method, initializes Main Screen.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+       /*
+        // Initializes part table
+        customerTable.setItems(Customer.getAllCustomers());
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        customerStateColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        customerCountryColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
+        */
+
+
     }
+
 
         /** Add customer method.
          * @param event Opens Add Customer screen when add button clicked.
@@ -270,6 +286,7 @@ public class MainScreenController implements Initializable {
                 stage.show();
             }
         }
+
 
 
         /**
