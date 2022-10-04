@@ -1,5 +1,6 @@
 package main;
 
+import database.DBConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -36,7 +37,8 @@ public class Main extends Application {
      @param args Launches program.
      Javadocs are in a directory in project zip file. */
     public static void main(String[] args) {
-        addTestData();
+        DBConnection.openConnection();
         launch(args);
+        DBConnection.closeConnection();
     }
 }
