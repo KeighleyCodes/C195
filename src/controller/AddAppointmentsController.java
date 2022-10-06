@@ -26,6 +26,10 @@ public class AddAppointmentsController implements Initializable {
     public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
+    public ComboBox startTimeComboBox;
+    public DatePicker startDatePicker;
+    public DatePicker endDatePicker;
+    public ComboBox endTimeComboBox;
 
     Stage stage;
     Parent scene;

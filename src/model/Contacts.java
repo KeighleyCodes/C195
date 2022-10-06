@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /** Contacts class - provides contact objects. */
-public abstract class Contacts {
+public class Contacts {
 
     private int contactId;
     private String contactName;
