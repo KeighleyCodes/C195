@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Customer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,13 +41,42 @@ public class AddCustomerController implements Initializable {
     // For testing purposes
     int uniqueId = 46678;
 
-    /** Save part method.
+    /** Save customer method.
      @param event Saves modified part info and returns to Main Screen.
      */
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException {
-        System.out.println("Save button clicked");
+        /*
+        try {
+           // int customerId = uniqueId;
+            String customerName = this.nameTextField.getText();
+            String phone = this.phoneTextField.getText();
+            String address = this.addressTextField.getText();
+            String postalCode = this.postalCodeTextField.getText();
+
+            Customer customer = new Customer(customerName, phone, address,postalCode);
+            Customer.addCustomer(customer);
+
+            */
+
+            this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            this.scene = (Parent)FXMLLoader.load((URL)Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage.setScene(new Scene(this.scene));
+            this.stage.setTitle("Main Screen");
+            this.stage.show();
+
+            /*
+
+        }
+        catch (NumberFormatException var10) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Please ensure all fields are filled in and contain correct data types");
+            alert.showAndWait();
+        }
+
+         */
 
     }
 

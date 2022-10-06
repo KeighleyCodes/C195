@@ -22,7 +22,7 @@ public class AddAppointmentsController implements Initializable {
     public TextField locationTextField;
     public TextField userIdTextField;
     public TextField appointmentIdTextField;
-    public DatePicker startTimeDatePicker;
+    public DatePicker datePicker;
     public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
@@ -35,6 +35,15 @@ public class AddAppointmentsController implements Initializable {
 
     }
 
+    @FXML
+    void OnActionSaveAppointment(ActionEvent event) throws IOException {
+        this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+        this.stage.setScene(new Scene(this.scene));
+        this.stage.setTitle("Main Screen");
+        this.stage.show();
+    }
+
     /** Close window method.
      @param event Closes window and returns to Main Screen. */
     @FXML
@@ -45,7 +54,7 @@ public class AddAppointmentsController implements Initializable {
             this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
             this.stage.setScene(new Scene(this.scene));
-            this.stage.setTitle("Main Inventory");
+            this.stage.setTitle("Main Screen");
             this.stage.show();
         }
     }

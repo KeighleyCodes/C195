@@ -3,42 +3,30 @@ package model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 /** Customer class creates customer objects. */
 public class Customer {
     private int customerId;
     private String customerName;
+    private String phone;
     private String address;
     private String postalCode;
-    private String phone;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private Timestamp lastUpdate;
     private int divisionId;
 
     // Constructor
-    public Customer(int customerId, String customerName, String address, String postalCode, String phone, LocalDateTime createDate,
-                    String createdBy, Timestamp lastUpdate, int divisionId) {
+    public Customer(int customerId, String customerName, String phone, String address, String postalCode, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;
+        this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
-        this.phone = phone;
-        this.createdBy = createdBy;
         this.divisionId = divisionId;
     }
 
-   // public static ObservableList<Customer> getAllCustomers= FXCollections.observableArrayList();
-
     /** Get all parts method.
      @return the parts observable list. */
-   /* public static ObservableList<Customer> getAllCustomers() {
+   public static ObservableList<Customer> getAllCustomers() {
         return allCustomers;
     }
-
-    */
 
 
     // Getters and setters
@@ -49,6 +37,7 @@ public class Customer {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
+
 
     public String getCustomerName() {
         return customerName;
@@ -82,6 +71,7 @@ public class Customer {
         this.phone = phone;
     }
 
+
     public int getDivisionId() {
         return divisionId;
     }
@@ -90,13 +80,6 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
 
     // Observable list
     public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();

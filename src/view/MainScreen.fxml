@@ -16,10 +16,11 @@
                             <TableColumn fx:id="customerIdColumn" prefWidth="62.200016021728516" text="ID" />
                             <TableColumn fx:id="customerNameColumn" prefWidth="68.80001831054688" text="Name" />
                               <TableColumn fx:id="customerPhoneColumn" prefWidth="78.39996337890625" text="Phone" />
-                              <TableColumn fx:id="customerAddressColumn" prefWidth="167.0" text="Address" />
-                              <TableColumn fx:id="customerStateColumn" prefWidth="123.40005493164062" text="State/Province" />
-                              <TableColumn fx:id="customerCountryColumn" prefWidth="127.60003662109375" text="Country" />
-                              <TableColumn fx:id="customerPostalCodeColumn" prefWidth="118.79998779296875" text="Postal Code" />
+                              <TableColumn fx:id="customerAddressColumn" prefWidth="126.20002746582031" text="Address" />
+                              <TableColumn fx:id="customerStateColumn" prefWidth="118.5999755859375" text="State/Province" />
+                              <TableColumn fx:id="customerCountryColumn" prefWidth="108.20001220703125" text="Country" />
+                              <TableColumn fx:id="customerPostalCodeColumn" prefWidth="100.79998779296875" text="Postal Code" />
+                              <TableColumn fx:id="divisionIdColumn" text="Division ID" />
                           </columns>
                         </TableView>
                         <Button fx:id="addCustomerButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddCustomer" text="Add" />

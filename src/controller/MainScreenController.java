@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.*;
 
@@ -115,7 +116,7 @@ public class MainScreenController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       /*
+
         // Initializes part table
         customerTable.setItems(Customer.getAllCustomers());
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -125,9 +126,6 @@ public class MainScreenController implements Initializable {
         customerStateColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         customerCountryColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-
-        */
-
 
     }
 

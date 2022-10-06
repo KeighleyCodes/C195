@@ -24,11 +24,15 @@ public class Main extends Application {
     }
 
     /** Add test data method - adds test data. */
+
+    /*
     private static void addTestData() {
 
         Customer one = new Customer(23159, "Bob", "2133 Main St", "12789", "8146678977",null ,"Jessica",null, 5497 );
         Customer.addCustomer(one);
     }
+
+     */
 
     // Test translation to French ** FIX ME **
    // Locale.setDefault(new Locale("fr"));
@@ -37,8 +41,9 @@ public class Main extends Application {
      @param args Launches program.
      Javadocs are in a directory in project zip file. */
     public static void main(String[] args) {
-        DBConnection.openConnection();
+       // DBConnection.openConnection();
+       // addTestData();
         launch(args);
-        DBConnection.closeConnection();
+       // DBConnection.closeConnection();
     }
 }
