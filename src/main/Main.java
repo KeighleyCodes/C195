@@ -8,10 +8,22 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 
+import java.util.Locale;
 import java.util.Objects;
+import java.util.ResourceBundle;
 
 /** Main class - this initializes the application and opens the login screen */
 public class Main extends Application {
+
+    /*
+    ResourceBundle rb = ResourceBundle.getBundle("properties.FR.properties", Locale.getDefault() );
+    if (Locale.getDefault().getLanguage().equals("fr")) {
+
+        System.out.println(rb.getString("Enter") + rb.getString("username") + rb.getString("and")
+                + rb.getString("password"));
+    }
+
+     */
 
     /** Loads Login page on initialization.
      @param stage Loads main stage. */
@@ -41,7 +53,7 @@ public class Main extends Application {
      @param args Launches program.
      Javadocs are in a directory in project zip file. */
     public static void main(String[] args) {
-       // DBConnection.openConnection();
+        DBConnection.openConnection();
        // addTestData();
         launch(args);
        // DBConnection.closeConnection();
