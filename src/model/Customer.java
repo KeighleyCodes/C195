@@ -1,5 +1,6 @@
 package model;
 
+import database.DBQuery;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -22,12 +23,6 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
-    /** Get all parts method.
-     @return the parts observable list. */
-   public static ObservableList<Customer> getAllCustomers() {
-        return allCustomers;
-    }
-
 
     // Getters and setters
     public int getCustomerId() {
@@ -37,7 +32,6 @@ public class Customer {
     public void setCustomerId(int customerId) {
         this.customerId = customerId;
     }
-
 
     public String getCustomerName() {
         return customerName;
@@ -71,7 +65,6 @@ public class Customer {
         this.phone = phone;
     }
 
-
     public int getDivisionId() {
         return divisionId;
     }
@@ -81,26 +74,45 @@ public class Customer {
     }
 
 
-    // Observable list
-    public static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+   // ObservableList<Customer> allCustomers = DBQuery.getAllCustomers();
 
-    /** Add part method.
-     @param newCustomer Method for adding parts. */
+
+
+    /** Get all customers method.
+     @return the customers observable list. */
+
+    public static ObservableList<Customer> getAllCustomers() {
+        return DBQuery.getAllCustomers();
+    }
+
+
+    /** Add customer method.
+     @param newCustomer Method for adding customers. */
+
+    /*
     public static void addCustomer(Customer newCustomer) {
         allCustomers.add(newCustomer);
     }
 
+     */
+
+
+
     /** Deleted customer method.
-     @param selectedCustomer Deletes selected part. */
+     @param selectedCustomer Deletes selected customer. */
+
     public static boolean deleteCustomer (Customer selectedCustomer) {
 
-        if (allCustomers.contains(selectedCustomer)) {
-            allCustomers.remove(selectedCustomer);
+        if (DBQuery.getAllCustomers().contains(selectedCustomer)) {
+            DBQuery.getAllCustomers().remove(selectedCustomer);
             return true;
         }
         else {
             return false;
         }
     }
+
+
+
 
 }

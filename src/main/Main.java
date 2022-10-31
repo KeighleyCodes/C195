@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 
+import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -21,6 +22,7 @@ public class Main extends Application {
 
         System.out.println(rb.getString("Enter") + rb.getString("username") + rb.getString("and")
                 + rb.getString("password"));
+
     }
 
      */
@@ -28,23 +30,13 @@ public class Main extends Application {
     /** Loads Login page on initialization.
      @param stage Loads main stage. */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
         stage.setTitle("Main Inventory");
         stage.setScene(new Scene(root, 400.0, 200.0));
         stage.show();
     }
 
-    /** Add test data method - adds test data. */
-
-    /*
-    private static void addTestData() {
-
-        Customer one = new Customer(23159, "Bob", "2133 Main St", "12789", "8146678977",null ,"Jessica",null, 5497 );
-        Customer.addCustomer(one);
-    }
-
-     */
 
     // Test translation to French ** FIX ME **
    // Locale.setDefault(new Locale("fr"));
@@ -56,6 +48,6 @@ public class Main extends Application {
         DBConnection.openConnection();
        // addTestData();
         launch(args);
-       // DBConnection.closeConnection();
+        DBConnection.closeConnection();
     }
 }

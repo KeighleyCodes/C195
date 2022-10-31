@@ -20,7 +20,7 @@
                               <TableColumn fx:id="customerStateColumn" prefWidth="118.5999755859375" text="State/Province" />
                               <TableColumn fx:id="customerCountryColumn" prefWidth="108.20001220703125" text="Country" />
                               <TableColumn fx:id="customerPostalCodeColumn" prefWidth="100.79998779296875" text="Postal Code" />
-                              <TableColumn fx:id="divisionIdColumn" text="Division ID" />
+                              <TableColumn fx:id="customerDivisionIdColumn" text="Division ID" />
                           </columns>
                         </TableView>
                         <Button fx:id="addCustomerButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddCustomer" text="Add" />

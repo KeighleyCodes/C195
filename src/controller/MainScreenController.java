@@ -1,5 +1,7 @@
 package controller;
 
+import database.DBQuery;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -29,6 +31,7 @@ public class MainScreenController implements Initializable {
     public TableColumn customerStateColumn;
     public TableColumn customerCountryColumn;
     public TableColumn customerPostalCodeColumn;
+    public TableColumn customerDivisionIdColumn;
     public Button updateCustomerButton;
     public Button deleteCustomerButton;
     public Button logoutCustomerButton;
@@ -117,15 +120,17 @@ public class MainScreenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Initializes part table
-        customerTable.setItems(Customer.getAllCustomers());
+        // Initializes customer table
+        ObservableList<Customer> customerList = DBQuery.getAllCustomers();
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        customerStateColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        customerCountryColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        customerStateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
+        customerCountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+        customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postal code"));
+        customerDivisionIdColumn.setCellValueFactory(new PropertyValueFactory<>("division id"));
+        customerTable.setItems(customerList);
 
     }
 
@@ -179,6 +184,8 @@ public class MainScreenController implements Initializable {
         }
 
 
+
+
         /**
          * Logout customer method.
          * @param event Goes back to log in screen when log out button clicked.
@@ -205,6 +212,7 @@ public class MainScreenController implements Initializable {
          * @param event Opens Add Appointment screen when add button clicked.
          */
 
+
         @FXML
         void  OnActionAddAppointment (ActionEvent event) throws IOException {
 
@@ -214,6 +222,8 @@ public class MainScreenController implements Initializable {
             stage.setTitle("Add Appointment");
             stage.show();
         }
+
+
 
         /**
          * Update appointment method.

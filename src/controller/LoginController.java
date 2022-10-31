@@ -48,19 +48,34 @@ public class LoginController implements Initializable {
     // *** FIX ME - need to have correct login info to proceed ***
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/MainScreen.fxml"));
-        loader.load();
 
-       // MainScreenController MSController = loader.getController();
-       // APController.sendParts(mainPartsTable.getItems());
+        String user = "testname";
+        String pass = "1234";
 
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        Parent scene = loader.getRoot();
-        stage.setScene(new Scene(scene));
-        stage.setTitle("Main Screen");
-        stage.show();
+        String username = usernameTextField.getText();
+        String password = passwordTextField.getText();
+
+        if(username.equals(user) && password.equals(pass)) {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/view/MainScreen.fxml"));
+            loader.load();
+
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            Parent scene = loader.getRoot();
+            stage.setScene(new Scene(scene));
+            stage.setTitle("Main Screen");
+            stage.show();
+        }
+
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Incorrect username or password");
+            alert.showAndWait();
+        }
+
     }
+
 
     /**
      * Exit method. Displays confirmation box and exits program when exit button clicked.
