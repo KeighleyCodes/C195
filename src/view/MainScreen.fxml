@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
    <children>
       <TabPane layoutX="19.0" layoutY="41.0" prefHeight="462.0" prefWidth="763.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -13,14 +13,12 @@
                      <children>
                         <TableView fx:id="customerTable" layoutX="9.0" layoutY="28.0" prefHeight="354.0" prefWidth="746.0">
                           <columns>
-                            <TableColumn fx:id="customerIdColumn" prefWidth="62.200016021728516" text="ID" />
-                            <TableColumn fx:id="customerNameColumn" prefWidth="68.80001831054688" text="Name" />
-                              <TableColumn fx:id="customerPhoneColumn" prefWidth="78.39996337890625" text="Phone" />
-                              <TableColumn fx:id="customerAddressColumn" prefWidth="126.20002746582031" text="Address" />
-                              <TableColumn fx:id="customerStateColumn" prefWidth="118.5999755859375" text="State/Province" />
-                              <TableColumn fx:id="customerCountryColumn" prefWidth="108.20001220703125" text="Country" />
-                              <TableColumn fx:id="customerPostalCodeColumn" prefWidth="100.79998779296875" text="Postal Code" />
-                              <TableColumn fx:id="customerDivisionIdColumn" text="Division ID" />
+                            <TableColumn fx:id="customerIdColumn" prefWidth="95.0" text="ID" />
+                            <TableColumn fx:id="customerNameColumn" prefWidth="128.0" text="Name" />
+                              <TableColumn fx:id="customerAddressColumn" prefWidth="183.0" text="Address" />
+                              <TableColumn fx:id="customerPostalCodeColumn" prefWidth="92.0" text="Postal Code" />
+                              <TableColumn fx:id="customerPhoneColumn" minWidth="3.0" prefWidth="130.0" text="Phone" />
+                              <TableColumn fx:id="customerDivisionIdColumn" prefWidth="117.0" text="Division ID" />
                           </columns>
                         </TableView>
                         <Button fx:id="addCustomerButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddCustomer" text="Add" />
@@ -46,14 +44,13 @@
                                                   <columns>
                                                     <TableColumn fx:id="monthlyAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
                                                     <TableColumn fx:id="monthlyTitleColumn" prefWidth="68.0" text="Title" />
-                                                      <TableColumn fx:id="monthlyDescriptionColumn" prefWidth="81.0" text="Description" />
-                                                      <TableColumn fx:id="monthlyLocationColumn" prefWidth="71.0" text="Location" />
-                                                      <TableColumn fx:id="monthlyContactColumn" prefWidth="58.4000244140625" text="Contact" />
-                                                      <TableColumn fx:id="monthlyTypeColumn" prefWidth="49.4000244140625" text="Type" />
-                                                      <TableColumn fx:id="monthlyStartColumn" prefWidth="80.80001831054688" text="Start Time" />
-                                                      <TableColumn fx:id="monthlyEndColumn" prefWidth="66.20001220703125" text="End Time" />
-                                                      <TableColumn fx:id="monthlyCustomerIdColumn" prefWidth="85.0" text="Customer ID" />
-                                                      <TableColumn fx:id="monthlyUserIdColumn" text="User ID" />
+                                                      <TableColumn fx:id="monthlyDescriptionColumn" prefWidth="91.0" text="Description" />
+                                                      <TableColumn fx:id="monthlyLocationColumn" prefWidth="101.0" text="Location" />
+                                                      <TableColumn fx:id="monthlyTypeColumn" prefWidth="64.0" text="Type" />
+                                                      <TableColumn fx:id="monthlyStartColumn" prefWidth="72.0" text="Start Time" />
+                                                      <TableColumn fx:id="monthlyEndColumn" prefWidth="76.0" text="End Time" />
+                                                      <TableColumn fx:id="monthlyCustomerIdColumn" prefWidth="93.0" text="Customer ID" />
+                                                      <TableColumn fx:id="monthlyUserIdColumn" prefWidth="76.0" text="User ID" />
                                                   </columns>
                                                 </TableView>
                                              </children>

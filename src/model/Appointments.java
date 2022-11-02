@@ -1,8 +1,9 @@
 package model;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
+import java.time.LocalDateTime;
 
 /** Contacts class - provides contact objects. */
 public class Appointments {
@@ -10,19 +11,25 @@ public class Appointments {
     private String title;
     private String description;
     private String location;
+    private String type;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private int customerId;
     private int userId;
-    private int contactId;
 
     // Constructor
-    public Appointments(int appointmentId, String title, String description, String location, int customerId, int userId, int contactId) {
+    public Appointments(int appointmentId, String title, String description, String location,
+                        String type, LocalDateTime startTime, LocalDateTime endTime, int customerId, int userId) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
+        this.type = type;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.customerId = customerId;
         this.userId = userId;
-        this.contactId = contactId;
+
     }
 
     // Getters and setters
@@ -74,13 +81,6 @@ public class Appointments {
         this.userId = userId;
     }
 
-    public int getContactId() {
-        return contactId;
-    }
-
-    public void setContactId(int contactId) {
-        this.contactId = contactId;
-    }
 
     // Observable list
     public static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
@@ -105,5 +105,29 @@ public class Appointments {
             return false;
         }
     }
-    
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
 }

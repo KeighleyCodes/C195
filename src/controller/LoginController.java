@@ -70,7 +70,7 @@ public class LoginController implements Initializable {
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText("Incorrect username or password");
+            alert.setContentText("Please provide valid username and / or password");
             alert.showAndWait();
         }
 

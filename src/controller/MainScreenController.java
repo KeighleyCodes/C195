@@ -122,15 +122,26 @@ public class MainScreenController implements Initializable {
 
         // Initializes customer table
         ObservableList<Customer> customerList = DBQuery.getAllCustomers();
-        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-        customerStateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
-        customerCountryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
-        customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postal code"));
-        customerDivisionIdColumn.setCellValueFactory(new PropertyValueFactory<>("division id"));
+        customerPostalCodeColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+        customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        customerDivisionIdColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         customerTable.setItems(customerList);
+
+        // Initializes appointment table
+        ObservableList<Appointments> appointmentsList = DBQuery.getAllAppointments();
+        monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        monthlyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        monthlyLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        monthlyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        monthlyStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        monthlyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        monthlyViewTable.setItems(appointmentsList);
 
     }
 

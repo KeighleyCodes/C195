@@ -8,13 +8,13 @@ import javafx.collections.ObservableList;
 public class Customer {
     private int customerId;
     private String customerName;
-    private String phone;
     private String address;
     private String postalCode;
+    private String phone;
     private int divisionId;
 
     // Constructor
-    public Customer(int customerId, String customerName, String phone, String address, String postalCode, int divisionId) {
+    public Customer(int customerId, String customerName, String address, String postalCode,  String phone, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.phone = phone;
@@ -74,8 +74,6 @@ public class Customer {
     }
 
 
-   // ObservableList<Customer> allCustomers = DBQuery.getAllCustomers();
-
 
 
     /** Get all customers method.
@@ -111,8 +109,6 @@ public class Customer {
             return false;
         }
     }
-
-
 
 
 }
