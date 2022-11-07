@@ -27,6 +27,8 @@ public class Main extends Application {
 
      */
 
+
+
     /** Loads Login page on initialization.
      @param stage Loads main stage. */
     @Override
@@ -38,15 +40,13 @@ public class Main extends Application {
     }
 
 
-    // Test translation to French ** FIX ME **
-   // Locale.setDefault(new Locale("fr"));
 
     /** Main method.
      @param args Launches program.
      Javadocs are in a directory in project zip file. */
     public static void main(String[] args) {
         DBConnection.openConnection();
-       // addTestData();
+        // Locale.setDefault(new Locale("fr")); // to test that language changed to French
         launch(args);
         DBConnection.closeConnection();
     }

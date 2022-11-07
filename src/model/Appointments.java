@@ -81,6 +81,11 @@ public class Appointments {
         this.userId = userId;
     }
 
+    // toString method for the combo box to return
+    public String toString() {
+        return type;
+    }
+
 
     // Observable list
     public static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();

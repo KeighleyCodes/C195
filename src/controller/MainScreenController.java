@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.*;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -92,6 +91,20 @@ public class MainScreenController implements Initializable {
     public TableColumn contactCustomerColumn;
     public TableColumn contactUserIdColumn;
     public ComboBox contactSelectorBox;
+    public Tab customerReportTab;
+    public TableView appointmentsByCustomerTable;
+    public TableColumn customerAppointmentIdColumn;
+    public TableColumn customerTitleColumn;
+    public TableColumn customerDescriptionColumn;
+    public TableColumn customerLocationColumn;
+    public TableColumn customerContactColumn;
+    public TableColumn customerTypeColumn;
+    public TableColumn customerStartDateColumn;
+    public TableColumn customerEndDateColumn;
+    public TableColumn customerCustomerIdColumn;
+    public TableColumn customerUserIdColumn;
+    public ComboBox customerIdSelectorBox;
+    public TableColumn divisionIdColumn;
     private Stage stage;
     private Object scene;
 
@@ -130,6 +143,7 @@ public class MainScreenController implements Initializable {
         customerDivisionIdColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         customerTable.setItems(customerList);
 
+
         // Initializes appointment table
         ObservableList<Appointments> appointmentsList = DBQuery.getAllAppointments();
         monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
@@ -142,6 +156,24 @@ public class MainScreenController implements Initializable {
         monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         monthlyViewTable.setItems(appointmentsList);
+
+
+        // Sets Contacts observable list
+        ObservableList<Contacts> allContacts = DBQuery.getAllContacts();
+        // Fills contact combo box
+        contactSelectorBox.setItems(allContacts);
+
+
+        // Sets Customer observable list
+        ObservableList<Customer> allCustomers = DBQuery.getAllCustomers();
+        //Fills customer combo box
+        customerIdSelectorBox.setItems(allCustomers);
+
+        // Sets Appointments observable list
+        ObservableList<Appointments> AppointmentsList = DBQuery.getAllAppointments();
+        // Fills type in combo box
+        typeSelectorBox.setItems(AppointmentsList);
+
 
     }
 

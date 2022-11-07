@@ -3,16 +3,12 @@ package model;
 public class Divisions {
     private int divisionId;
     private String division;
-    private String createdBy;
-    private String lastUpdatedBy;
     private int countryId;
 
     // Constructor
-    public Divisions(int divisionId, String division, String createdBy, String lastUpdatedBy, int countryId) {
+    public Divisions(int divisionId, String division, int countryId) {
         this.divisionId = divisionId;
         this.division = division;
-        this.createdBy = createdBy;
-        this.lastUpdatedBy = lastUpdatedBy;
         this.countryId = countryId;
     }
 
@@ -33,27 +29,16 @@ public class Divisions {
         this.division = division;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
-
     public int getCountryId() {
         return countryId;
     }
 
     public void setCountryId(int countryId) {
         this.countryId = countryId;
+    }
+
+    // toString method for the combo box to return
+    public String toString() {
+        return division;
     }
 }

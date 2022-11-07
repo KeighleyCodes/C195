@@ -3,157 +3,175 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
-   <children>
-      <TabPane layoutX="19.0" layoutY="41.0" prefHeight="462.0" prefWidth="763.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="customerTab" text="Customer">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="customerTable" layoutX="9.0" layoutY="28.0" prefHeight="354.0" prefWidth="746.0">
-                          <columns>
-                            <TableColumn fx:id="customerIdColumn" prefWidth="95.0" text="ID" />
-                            <TableColumn fx:id="customerNameColumn" prefWidth="128.0" text="Name" />
-                              <TableColumn fx:id="customerAddressColumn" prefWidth="183.0" text="Address" />
-                              <TableColumn fx:id="customerPostalCodeColumn" prefWidth="92.0" text="Postal Code" />
-                              <TableColumn fx:id="customerPhoneColumn" minWidth="3.0" prefWidth="130.0" text="Phone" />
-                              <TableColumn fx:id="customerDivisionIdColumn" prefWidth="117.0" text="Division ID" />
-                          </columns>
-                        </TableView>
-                        <Button fx:id="addCustomerButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddCustomer" text="Add" />
-                        <Button fx:id="updateCustomerButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionUpdateCustomer" text="Update" />
-                        <Button fx:id="deleteCustomerButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionDeleteCustomer" text="Delete" />
-                        <Button fx:id="logoutCustomerButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionLogoutCustomer" text="Logout" />
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-            <Tab fx:id="appointmentsTab" text="Appointments">
-                <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TabPane layoutX="3.0" layoutY="6.0" prefHeight="377.0" prefWidth="758.0" tabClosingPolicy="UNAVAILABLE">
-                          <tabs>
-                            <Tab fx:id="monthlyViewTab" text="Monthly View">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
+    <children>
+        <TabPane layoutX="19.0" layoutY="41.0" prefHeight="462.0" prefWidth="763.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab fx:id="customerTab" text="Customer">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="customerTable" layoutX="9.0" layoutY="28.0" prefHeight="354.0" prefWidth="746.0">
+                                    <columns>
+                                        <TableColumn fx:id="customerIdColumn" prefWidth="62.200016021728516" text="ID" />
+                                        <TableColumn fx:id="customerNameColumn" prefWidth="161.0" text="Name" />
+                                        <TableColumn fx:id="customerAddressColumn" prefWidth="217.0" text="Address" />
+                                        <TableColumn fx:id="customerPostalCodeColumn" prefWidth="120.0" text="Postal Code" />
+                                        <TableColumn fx:id="customerPhoneColumn" prefWidth="102.0" text="Phone" />
+                                        <TableColumn fx:id="customerDivisionIdColumn" prefWidth="82.0" text="Division ID" />
+                                    </columns>
+                                </TableView>
+                                <Button fx:id="addCustomerButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddCustomer" text="Add" />
+                                <Button fx:id="updateCustomerButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionUpdateCustomer" text="Update" />
+                                <Button fx:id="deleteCustomerButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionDeleteCustomer" text="Delete" />
+                                <Button fx:id="logoutCustomerButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionLogoutCustomer" text="Logout" />
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="appointmentsTab" text="Appointments">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TabPane layoutX="3.0" layoutY="6.0" prefHeight="377.0" prefWidth="758.0" tabClosingPolicy="UNAVAILABLE">
+                                    <tabs>
+                                        <Tab fx:id="monthlyViewTab" text="Monthly View">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <AnchorPane layoutX="7.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="749.0">
+                                                            <children>
+                                                                <TableView fx:id="monthlyViewTable" layoutX="-2.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="753.0">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="monthlyAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
+                                                                        <TableColumn fx:id="monthlyTitleColumn" prefWidth="68.0" text="Title" />
+                                                                        <TableColumn fx:id="monthlyDescriptionColumn" prefWidth="81.0" text="Description" />
+                                                                        <TableColumn fx:id="monthlyLocationColumn" prefWidth="71.0" text="Location" />
+                                                                        <TableColumn fx:id="monthlyContactColumn" prefWidth="58.4000244140625" text="Contact" />
+                                                                        <TableColumn fx:id="monthlyTypeColumn" prefWidth="49.4000244140625" text="Type" />
+                                                                        <TableColumn fx:id="monthlyStartColumn" prefWidth="80.80001831054688" text="Start Time" />
+                                                                        <TableColumn fx:id="monthlyEndColumn" prefWidth="66.20001220703125" text="End Time" />
+                                                                        <TableColumn fx:id="monthlyCustomerIdColumn" prefWidth="85.0" text="Customer ID" />
+                                                                        <TableColumn fx:id="monthlyUserIdColumn" text="User ID" />
+                                                                    </columns>
+                                                                </TableView>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </children></AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="weeklyViewTab" text="Weekly View">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <TableView fx:id="weeklyViewTable" layoutX="5.0" layoutY="5.0" prefHeight="341.0" prefWidth="752.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="weeklyAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
+                                                                <TableColumn fx:id="weeklyTitleColumn" prefWidth="68.0" text="Title" />
+                                                                <TableColumn fx:id="weeklyDescriptionColumn" prefWidth="81.0" text="Description" />
+                                                                <TableColumn fx:id="weeklyLocationColumn" prefWidth="71.0" text="Location" />
+                                                                <TableColumn fx:id="weeklyContactColumn" prefWidth="58.4000244140625" text="Contact" />
+                                                                <TableColumn fx:id="weeklyTypeColumn" prefWidth="49.4000244140625" text="Type" />
+                                                                <TableColumn fx:id="weeklyStartColumn" prefWidth="80.80001831054688" text="Start Time" />
+                                                                <TableColumn fx:id="weeklyEndColumn" prefWidth="66.20001220703125" text="End Time" />
+                                                                <TableColumn fx:id="weeklyCustomerIdColumn" prefWidth="85.0" text="Customer ID" />
+                                                                <TableColumn fx:id="weeklyUserIdColumn" text="User ID" />
+                                                            </columns>
+                                                        </TableView>
+                                                    </children></AnchorPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                                <Button fx:id="logoutAppointmentsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#onActionLogoutAppointments" text="Logout" />
+                                <Button fx:id="deleteAppointmentsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" text="Delete" />
+                                <Button fx:id="updateAppointmentsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionUpdateAppointment" text="Update" />
+                                <Button fx:id="addAppointmentsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddAppointment" text="Add" />
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="reportsTab" text="Reports">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="758.0">
+                            <children>
+                                <Button fx:id="addReportsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" text="Add" />
+                                <Button fx:id="updateReportsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" text="Update" />
+                                <Button fx:id="deleteReportsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" text="Delete" />
+                                <Button fx:id="logoutReportsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionLogoutReports" text="Logout" />
+                                <TabPane layoutX="4.0" layoutY="6.0" prefHeight="385.0" prefWidth="757.0" tabClosingPolicy="UNAVAILABLE">
+                                    <tabs>
+                                        <Tab fx:id="appointmentsByMonthTable" text="Appointments by month">
+                                            <content>
+                                                <AnchorPane layoutX="3.0" layoutY="6.0" minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="698.0">
+                                                    <children>
+                                                        <ComboBox fx:id="monthSelectorBox" layoutX="4.0" layoutY="13.0" prefWidth="150.0" promptText="Select month" />
+                                                        <ComboBox fx:id="typeSelectorBox" layoutX="167.0" layoutY="13.0" prefWidth="150.0" promptText="Select type" />
+                                                        <TableView fx:id="monthReportTable" layoutX="4.0" layoutY="47.0" prefHeight="301.0" prefWidth="751.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="monthlyReportAppointmentIdColumn" prefWidth="102.19999694824219" text="Appointment ID" />
+                                                                <TableColumn fx:id="monthlyReportTitleColumn" prefWidth="48.20001220703125" text="Title" />
+                                                                <TableColumn fx:id="monthlyReportDescriptionColumn" prefWidth="75.0" text="Description" />
+                                                                <TableColumn fx:id="monthlyReportLocationColumn" prefWidth="75.0" text="Location" />
+                                                                <TableColumn fx:id="monthlyReportContactColumn" prefWidth="75.0" text="Contact" />
+                                                                <TableColumn fx:id="monthlyReportTypeColumn" prefWidth="75.0" text="Type" />
+                                                                <TableColumn fx:id="monthlyReportStartColumn" prefWidth="75.0" text="Start Date" />
+                                                                <TableColumn fx:id="monthlyReportEndColumn" prefWidth="75.0" text="End Date" />
+                                                                <TableColumn fx:id="monthlyReportCustomerIdColumn" prefWidth="75.0" text="Customer ID" />
+                                                                <TableColumn fx:id="monthlyReportUserIdColumn" prefWidth="75.0" text="User ID" />
+                                                            </columns>
+                                                        </TableView>
+                                                    </children></AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="appointmentsByContactTab" text="Appointments by contact">
+                                            <content>
+                                                <AnchorPane layoutX="3.0" layoutY="6.0" minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="698.0">
+                                                    <children>
+                                                        <TableView fx:id="contactReportTable" layoutX="4.0" layoutY="47.0" prefHeight="301.0" prefWidth="751.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="contactAppointmentIdColumn" prefWidth="102.19999694824219" text="Appointment ID" />
+                                                                <TableColumn fx:id="contactTitleColumn" prefWidth="48.20001220703125" text="Title" />
+                                                                <TableColumn fx:id="contactDescriptionColumn" prefWidth="75.0" text="Description" />
+                                                                <TableColumn fx:id="contactLocationColumn" prefWidth="75.0" text="Location" />
+                                                                <TableColumn fx:id="contactContactColumn" prefWidth="75.0" text="Contact" />
+                                                                <TableColumn fx:id="contactTypeColumn" prefWidth="75.0" text="Type" />
+                                                                <TableColumn fx:id="contactStartColumn" prefWidth="75.0" text="Start Date" />
+                                                                <TableColumn fx:id="contactEndColumn" prefWidth="75.0" text="End Date" />
+                                                                <TableColumn fx:id="contactCustomerColumn" prefWidth="75.0" text="Customer ID" />
+                                                                <TableColumn fx:id="contactUserIdColumn" prefWidth="75.0" text="User ID" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <ComboBox fx:id="contactSelectorBox" layoutX="4.0" layoutY="13.0" prefWidth="150.0" promptText="Select contact" />
+                                                    </children></AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="customerReportTab" text="Appointments by customer">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="753.0">
                                        <children>
-                                      <AnchorPane layoutX="7.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="749.0">
-                                             <children>
-                                                <TableView fx:id="monthlyViewTable" layoutX="-2.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="753.0">
-                                                  <columns>
-                                                    <TableColumn fx:id="monthlyAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
-                                                    <TableColumn fx:id="monthlyTitleColumn" prefWidth="68.0" text="Title" />
-                                                      <TableColumn fx:id="monthlyDescriptionColumn" prefWidth="91.0" text="Description" />
-                                                      <TableColumn fx:id="monthlyLocationColumn" prefWidth="101.0" text="Location" />
-                                                      <TableColumn fx:id="monthlyTypeColumn" prefWidth="64.0" text="Type" />
-                                                      <TableColumn fx:id="monthlyStartColumn" prefWidth="72.0" text="Start Time" />
-                                                      <TableColumn fx:id="monthlyEndColumn" prefWidth="76.0" text="End Time" />
-                                                      <TableColumn fx:id="monthlyCustomerIdColumn" prefWidth="93.0" text="Customer ID" />
-                                                      <TableColumn fx:id="monthlyUserIdColumn" prefWidth="76.0" text="User ID" />
-                                                  </columns>
-                                                </TableView>
-                                             </children>
-                                          </AnchorPane>
-                                       </children></AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab fx:id="weeklyViewTab" text="Weekly View">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <TableView fx:id="weeklyViewTable" layoutX="5.0" layoutY="5.0" prefHeight="341.0" prefWidth="752.0">
+                                          <TableView fx:id="appointmentsByCustomerTable" layoutX="4.0" layoutY="47.0" prefHeight="301.0" prefWidth="751.0">
                                             <columns>
-                                              <TableColumn fx:id="weeklyAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
-                                              <TableColumn fx:id="weeklyTitleColumn" prefWidth="68.0" text="Title" />
-                                                <TableColumn fx:id="weeklyDescriptionColumn" prefWidth="81.0" text="Description" />
-                                                <TableColumn fx:id="weeklyLocationColumn" prefWidth="71.0" text="Location" />
-                                                <TableColumn fx:id="weeklyContactColumn" prefWidth="58.4000244140625" text="Contact" />
-                                                <TableColumn fx:id="weeklyTypeColumn" prefWidth="49.4000244140625" text="Type" />
-                                                <TableColumn fx:id="weeklyStartColumn" prefWidth="80.80001831054688" text="Start Time" />
-                                                <TableColumn fx:id="weeklyEndColumn" prefWidth="66.20001220703125" text="End Time" />
-                                                <TableColumn fx:id="weeklyCustomerIdColumn" prefWidth="85.0" text="Customer ID" />
-                                                <TableColumn fx:id="weeklyUserIdColumn" text="User ID" />
+                                              <TableColumn fx:id="customerAppointmentIdColumn" prefWidth="102.19999694824219" text="Appointment ID" />
+                                              <TableColumn fx:id="customerTitleColumn" prefWidth="48.20001220703125" text="Title" />
+                                                <TableColumn fx:id="customerDescriptionColumn" prefWidth="75.0" text="Description" />
+                                                <TableColumn fx:id="customerLocationColumn" prefWidth="75.0" text="Location" />
+                                                <TableColumn fx:id="customerContactColumn" prefWidth="75.0" text="Contact" />
+                                                <TableColumn fx:id="customerTypeColumn" prefWidth="75.0" text="Type" />
+                                                <TableColumn fx:id="customerStartDateColumn" prefWidth="75.0" text="Start Date" />
+                                                <TableColumn fx:id="customerEndDateColumn" prefWidth="75.0" text="End Date" />
+                                                <TableColumn fx:id="customerCustomerIdColumn" prefWidth="75.0" text="Customer ID" />
+                                                <TableColumn fx:id="customerUserIdColumn" prefWidth="75.0" text="User ID" />
                                             </columns>
                                           </TableView>
+                                          <ComboBox fx:id="customerIdSelectorBox" layoutX="4.0" layoutY="13.0" prefWidth="150.0" promptText="Select customer ID" />
                                        </children></AnchorPane>
-                              </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                        <Button fx:id="logoutAppointmentsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#onActionLogoutAppointments" text="Logout" />
-                        <Button fx:id="deleteAppointmentsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" text="Delete" />
-                        <Button fx:id="updateAppointmentsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionUpdateAppointment" text="Update" />
-                        <Button fx:id="addAppointmentsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddAppointment" text="Add" />
-                     </children></AnchorPane>
-                </content>
-            </Tab>
-          <Tab fx:id="reportsTab" text="Reports">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="758.0">
-                     <children>
-                        <Button fx:id="addReportsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" text="Add" />
-                        <Button fx:id="updateReportsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" text="Update" />
-                        <Button fx:id="deleteReportsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" text="Delete" />
-                        <Button fx:id="logoutReportsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionLogoutReports" text="Logout" />
-                        <TabPane layoutX="4.0" layoutY="6.0" prefHeight="385.0" prefWidth="757.0" tabClosingPolicy="UNAVAILABLE">
-                          <tabs>
-                            <Tab fx:id="appointmentsByMonthTab" text="Appointments by month">
-                              <content>
-                                <AnchorPane layoutX="3.0" layoutY="6.0" minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="698.0">
-                                       <children>
-                                          <ComboBox fx:id="monthSelectorBox" layoutX="14.0" layoutY="13.0" prefWidth="150.0" promptText="Select month" />
-                                          <ComboBox fx:id="typeSelectorBox" layoutX="183.0" layoutY="13.0" prefWidth="150.0" promptText="Select type" />
-                                          <TableView fx:id="monthReportTable" layoutX="4.0" layoutY="47.0" prefHeight="306.0" prefWidth="751.0">
-                                            <columns>
-                                              <TableColumn fx:id="monthlyReportAppointmentIdColumn" prefWidth="102.19999694824219" text="Appointment ID" />
-                                              <TableColumn fx:id="monthlyReportTitleColumn" prefWidth="48.20001220703125" text="Title" />
-                                                <TableColumn fx:id="monthlyReportDescriptionColumn" prefWidth="75.0" text="Description" />
-                                                <TableColumn fx:id="monthlyReportLocationColumn" prefWidth="75.0" text="Location" />
-                                                <TableColumn fx:id="monthlyReportContactColumn" prefWidth="75.0" text="Contact" />
-                                                <TableColumn fx:id="monthlyReportTypeColumn" prefWidth="75.0" text="Type" />
-                                                <TableColumn fx:id="monthlyReportStartColumn" prefWidth="75.0" text="Start Date" />
-                                                <TableColumn fx:id="monthlyReportEndColumn" prefWidth="75.0" text="End Date" />
-                                                <TableColumn fx:id="monthlyReportCustomerIdColumn" prefWidth="75.0" text="Customer ID" />
-                                                <TableColumn fx:id="monthlyReportUserIdColumn" prefWidth="75.0" text="User ID" />
-                                            </columns>
-                                          </TableView>
-                                       </children></AnchorPane>
-                              </content>
-                            </Tab>
-                              <Tab fx:id="appointmentsByContactTab" text="Appointments by contact">
-                                  <content>
-                                      <AnchorPane layoutX="3.0" layoutY="6.0" minHeight="0.0" minWidth="0.0" prefHeight="348.0" prefWidth="698.0">
-                                       <children>
-                                          <TableView fx:id="contactReportTable" layoutX="4.0" layoutY="47.0" prefHeight="306.0" prefWidth="751.0">
-                                            <columns>
-                                              <TableColumn fx:id="contactAppointmentIdColumn" prefWidth="102.19999694824219" text="Appointment ID" />
-                                              <TableColumn fx:id="contactTitleColumn" prefWidth="48.20001220703125" text="Title" />
-                                                <TableColumn fx:id="contactDescriptionColumn" prefWidth="75.0" text="Description" />
-                                                <TableColumn fx:id="contactLocationColumn" prefWidth="75.0" text="Location" />
-                                                <TableColumn fx:id="contactContactColumn" prefWidth="75.0" text="Contact" />
-                                                <TableColumn fx:id="contactTypeColumn" prefWidth="75.0" text="Type" />
-                                                <TableColumn fx:id="contactStartColumn" prefWidth="75.0" text="Start Date" />
-                                                <TableColumn fx:id="contactEndColumn" prefWidth="75.0" text="End Date" />
-                                                <TableColumn fx:id="contactCustomerColumn" prefWidth="75.0" text="Customer ID" />
-                                                <TableColumn fx:id="contactUserIdColumn" prefWidth="75.0" text="User ID" />
-                                            </columns>
-                                          </TableView>
-                                          <ComboBox fx:id="contactSelectorBox" layoutX="14.0" layoutY="13.0" prefWidth="150.0" promptText="Select contact" />
-                                       </children></AnchorPane>
-                                  </content>
-                              </Tab>
-                            <Tab text="** Custom **">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="360.0" prefWidth="753.0" />
-                              </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                            </children></AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>

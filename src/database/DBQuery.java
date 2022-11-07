@@ -1,19 +1,18 @@
 package database;
 
-import database.DBConnection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Appointments;
-import model.Customer;
+import model.*;
 
-import java.lang.ref.PhantomReference;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+
 public class DBQuery {
+
+    // Pulls customer list into observable list
     public static ObservableList<Customer> getAllCustomers() {
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
@@ -41,6 +40,7 @@ public class DBQuery {
         return allCustomers;
     }
 
+    // Pulls appointment list into observable list
     public static ObservableList<Appointments> getAllAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         try {
@@ -70,5 +70,102 @@ public class DBQuery {
 
         return allAppointments;
     }
+
+    // Pulls contact list into observable list
+    public static ObservableList<Contacts> getAllContacts() {
+        ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM contacts";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int contactId = rs.getInt("Contact_ID");
+                String contactName = rs.getString("Contact_Name");
+                String email = rs.getString("Email");
+                Contacts contactObject = new Contacts(contactId, contactName, email);
+                allContacts.add(contactObject);
+            }
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        };
+
+        return allContacts;
+    }
+
+    // Pulls country list into observable list
+    public static ObservableList<Countries> getAllCountries() {
+        ObservableList<Countries> allCountries = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM countries";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int countryId = rs.getInt("Country_ID");
+                String country = rs.getString("Country");
+                Countries countryObject = new Countries(countryId, country);
+                allCountries.add(countryObject);
+            }
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        };
+
+        return allCountries;
+    }
+
+    // Pulls division list into observable list
+    public static ObservableList<Divisions> getAllDivisions() {
+        ObservableList<Divisions> allDivisions = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM first-level divisions";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int divisionId = rs.getInt("Division_ID");
+                String division = rs.getString("Division");
+                int countryId = rs.getInt("Country_ID");
+                Divisions divisionsObject = new Divisions(divisionId, division,countryId);
+                allDivisions.add(divisionsObject);
+            }
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        };
+
+        return allDivisions;
+    }
+
+
+    // Pulls user list into observable list
+    public static ObservableList<Users> getAllUsers() {
+        ObservableList<Users> allUsers = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM users";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int userId = rs.getInt("User_ID");
+                String username = rs.getString("User_name");
+                String password = rs.getString("Password");
+                Users usersObject = new Users(userId, username, password);
+                allUsers.add(usersObject);
+            }
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        };
+
+        return allUsers;
+    }
+
 }
 

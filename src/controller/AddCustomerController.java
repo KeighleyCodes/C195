@@ -1,5 +1,7 @@
 package controller;
 
+import database.DBQuery;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Countries;
 import model.Customer;
+import model.Divisions;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,21 +29,31 @@ public class AddCustomerController implements Initializable {
     public TextField nameTextField;
     public TextArea addressTextField;
     public TextField phoneTextField;
-    public ChoiceBox countryComboBox;
-    public ChoiceBox divisionComboBox;
+    public ComboBox countryComboBox;
+    public ComboBox divisionComboBox;
     public Button saveButton;
     public Button cancelButton;
 
     Stage stage;
     Parent scene;
 
+    // Sets Countries observable list
+        ObservableList<Countries> allCountries = DBQuery.getAllCountries();
+
+    // Sets division observable list
+        ObservableList<Divisions> allDivisions = DBQuery.getAllDivisions();
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Countries works but divisions doesn't
+        countryComboBox.setItems(allCountries);
+       // divisionComboBox.setItems(allDivisions);
+
     }
 
-    // For testing purposes
-    int uniqueId = 46678;
+
 
     /** Save customer method.
      @param event Saves modified part info and returns to Main Screen.
@@ -47,18 +61,17 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException {
-        /*
-        try {
-           // int customerId = uniqueId;
+       /* try {
             String customerName = this.nameTextField.getText();
-            String phone = this.phoneTextField.getText();
             String address = this.addressTextField.getText();
             String postalCode = this.postalCodeTextField.getText();
+            String phone = this.phoneTextField.getText();
 
-            Customer customer = new Customer(customerName, phone, address,postalCode);
+            Customer customer = new Customer(customerName, address, postalCode, phone,);
             Customer.addCustomer(customer);
 
-            */
+        */
+
 
             this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             this.scene = (Parent)FXMLLoader.load((URL)Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
@@ -66,8 +79,8 @@ public class AddCustomerController implements Initializable {
             this.stage.setTitle("Main Screen");
             this.stage.show();
 
-            /*
 
+/*
         }
         catch (NumberFormatException var10) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -76,7 +89,9 @@ public class AddCustomerController implements Initializable {
             alert.showAndWait();
         }
 
-         */
+
+
+ */
 
     }
 

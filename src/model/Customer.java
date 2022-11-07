@@ -73,7 +73,11 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
+    // toString method for the combo box to return
+    public String toString() {
 
+        return (Integer.toString(customerId));
+    }
 
 
     /** Get all customers method.
@@ -87,12 +91,10 @@ public class Customer {
     /** Add customer method.
      @param newCustomer Method for adding customers. */
 
-    /*
-    public static void addCustomer(Customer newCustomer) {
-        allCustomers.add(newCustomer);
-    }
 
-     */
+    public static void addCustomer(Customer newCustomer) {
+
+    }
 
 
 

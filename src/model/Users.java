@@ -1,12 +1,12 @@
 package model;
 
-public class User {
+public class Users {
     private int userId;
     private String username;
     private String password;
 
     // Constructors
-    public User(int userId, String username, String password) {
+    public Users(int userId, String username, String password) {
         this.userId = userId;
         this.username = username;
         this.password = password;

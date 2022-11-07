@@ -10,17 +10,12 @@ import java.time.LocalDateTime;
 public class Countries {
     private int countryId;
     private String country;
-    private LocalDateTime createDate;
-    private String createdBy;
-    private Timestamp lastUpdate;
-    private String lastUpdatedBy;
 
     // Constructor
-    public Countries(int countryId, String country, LocalDateTime createDate, String createdBy, Timestamp lastUpdate, String lastUpdatedBy) {
+    public Countries(int countryId, String country) {
         this.countryId = countryId;
         this.country =  country;
-        this.createdBy = createdBy;
-        this. lastUpdatedBy = lastUpdatedBy;
+
     }
 
     // Getters and setters
@@ -40,19 +35,10 @@ public class Countries {
         this.country = country;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    // toString method for the combo box to return
+    public String toString() {
+        return country;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
 
-    public String getLastUpdatedBy() {
-        return lastUpdatedBy;
-    }
-
-    public void setLastUpdatedBy(String lastUpdatedBy) {
-        this.lastUpdatedBy = lastUpdatedBy;
-    }
 }
