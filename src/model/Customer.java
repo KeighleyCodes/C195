@@ -16,7 +16,7 @@ public class Customer {
     // Constructor
     public Customer(int customerId, String customerName, String address, String postalCode,  String phone, int divisionId) {
         this.customerId = customerId;
-        this.customerName = customerName;
+        Customer.customerName = customerName;
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
@@ -75,8 +75,7 @@ public class Customer {
 
     // toString method for the combo box to return
     public String toString() {
-
-        return (Integer.toString(customerId));
+        return customerName;
     }
 
 

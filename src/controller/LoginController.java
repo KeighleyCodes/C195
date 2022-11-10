@@ -2,6 +2,7 @@ package controller;
 
 import database.DBConnection;
 import database.DBQuery;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
@@ -60,28 +62,25 @@ public class LoginController implements Initializable {
 
        */
 
+    }
 
-
+    private boolean validLogin() throws IOException {
+        ObservableList<Users> allUsers = DBQuery.getAllUsers();
+        for (Users user : allUsers) {
+            if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
+                Users.currentUser = user;
+                return true;
+            }
+        }
+        return false;
     }
 
 
-    /** Enter method. Enters Main Screen when enter button clicked. */
-    // *** FIX ME - need to have correct login info to proceed ***
+        /** Enter method. Enters Main Screen when enter button clicked. */
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {
-/*
-        String user = "testname";
-        String pass = "1234";
 
-
-        String username = usernameTextField.getText();
-        String password = passwordTextField.getText();
-
-        if(username.equals(user) && password.equals(pass)) {
-
-
- */
-
+        if (validLogin()) {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainScreen.fxml"));
             loader.load();
@@ -93,7 +92,7 @@ public class LoginController implements Initializable {
             stage.show();
 
         }
-/*
+
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -101,10 +100,7 @@ public class LoginController implements Initializable {
             alert.showAndWait();
         }
 
-
     }
-
- */
 
 
     /**

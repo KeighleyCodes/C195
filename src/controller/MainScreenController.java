@@ -105,6 +105,9 @@ public class MainScreenController implements Initializable {
     public TableColumn customerUserIdColumn;
     public ComboBox customerIdSelectorBox;
     public TableColumn divisionIdColumn;
+    public Label reportsByMonthLabel;
+    public Label reportsByContactLabel;
+    public Label reportsByCustomerLabel;
     private Stage stage;
     private Object scene;
 
@@ -163,7 +166,6 @@ public class MainScreenController implements Initializable {
         ObservableList<Contacts> allContacts = DBQuery.getAllContacts();
         // Fills contact combo box
         contactSelectorBox.setItems(allContacts);
-
 
         // Sets Customer observable list
         ObservableList<Customer> allCustomers = DBQuery.getAllCustomers();

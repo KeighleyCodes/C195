@@ -92,13 +92,8 @@ public class Appointments {
     // Observable list
     public static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
 
-    /*
-    //The combobox uses this toString method to display the fruit in the list
-    public String toString() {
-        return fruitName;
-    }
 
-     */
+
 
     /** Deleted appointment method.
      @param selectedAppointment Deletes selected appointment. */

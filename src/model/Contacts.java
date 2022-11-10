@@ -50,6 +50,11 @@ public class Contacts {
         return contactName;
     }
 
+
+
+
+
+
     /** Add contact method.
      @param newContact Method for adding contacts. */
     public static void addContact(Contacts newContact) {

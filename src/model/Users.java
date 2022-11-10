@@ -5,6 +5,8 @@ public class Users {
     private String username;
     private String password;
 
+    public static Users currentUser;
+
     // Constructors
     public Users(int userId, String username, String password) {
         this.userId = userId;

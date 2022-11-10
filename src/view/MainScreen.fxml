@@ -119,12 +119,12 @@
                                           </Label>
                                                         <ComboBox fx:id="contactSelectorBox" layoutX="25.0" layoutY="60.0" prefWidth="150.0" promptText="Select contact" />
                                           <Label layoutX="399.0" layoutY="60.0" text="Total:" />
-                                          <Label fx:id="reportsByMonthLabel" layoutX="459.0" layoutY="60.0" text="Label" />
+                                          <Label fx:id="reportsByContactLabel" layoutX="459.0" layoutY="60.0" text="Label" />
                                        </children></AnchorPane>
                                 </items>
                               </SplitPane>
                                             <ComboBox fx:id="typeSelectorBox" layoutX="258.0" layoutY="77.0" prefWidth="150.0" promptText="Select type" />
-                              <ComboBox fx:id="customerIdSelectorBox" layoutX="78.0" layoutY="329.0" prefWidth="150.0" promptText="Select customer ID" />
+                              <ComboBox fx:id="customerIdSelectorBox" layoutX="78.0" layoutY="329.0" prefWidth="150.0" promptText="Select customer" />
                               <Label layoutX="448.0" layoutY="332.0" text="Total:" />
                               <Label fx:id="reportsByCustomerLabel" layoutX="500.0" layoutY="332.0" text="Label" />
                               <Label layoutX="78.0" layoutY="291.0" text="Total appointments by customer:">
