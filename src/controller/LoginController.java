@@ -1,5 +1,7 @@
 package controller;
 
+import database.DBConnection;
+import database.DBQuery;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,9 +13,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.ZoneId;
+import java.util.*;
 
 import static javafx.fxml.FXMLLoader.load;
 
@@ -42,20 +46,42 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        // Displays local time zone
+        zoneIdLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
+
+        // Translates login page to French
+        ResourceBundle rb = ResourceBundle.getBundle("languages.localization", Locale.getDefault());
+
+      /* if (Locale.getDefault().getLanguage().equals("fr")) {
+
+            System.out.println(rb.getString("Enter") + rb.getString("username") + rb.getString("and")
+                    + rb.getString("password"));
+        }
+
+       */
+
+
+
     }
+
 
     /** Enter method. Enters Main Screen when enter button clicked. */
     // *** FIX ME - need to have correct login info to proceed ***
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {
-
+/*
         String user = "testname";
         String pass = "1234";
+
 
         String username = usernameTextField.getText();
         String password = passwordTextField.getText();
 
         if(username.equals(user) && password.equals(pass)) {
+
+
+ */
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainScreen.fxml"));
             loader.load();
@@ -65,8 +91,9 @@ public class LoginController implements Initializable {
             stage.setScene(new Scene(scene));
             stage.setTitle("Main Screen");
             stage.show();
-        }
 
+        }
+/*
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -74,7 +101,10 @@ public class LoginController implements Initializable {
             alert.showAndWait();
         }
 
+
     }
+
+ */
 
 
     /**

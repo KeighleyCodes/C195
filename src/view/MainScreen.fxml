@@ -46,12 +46,12 @@
                                                                         <TableColumn fx:id="monthlyTitleColumn" prefWidth="68.0" text="Title" />
                                                                         <TableColumn fx:id="monthlyDescriptionColumn" prefWidth="81.0" text="Description" />
                                                                         <TableColumn fx:id="monthlyLocationColumn" prefWidth="71.0" text="Location" />
-                                                                        <TableColumn fx:id="monthlyContactColumn" prefWidth="58.4000244140625" text="Contact" />
-                                                                        <TableColumn fx:id="monthlyTypeColumn" prefWidth="49.4000244140625" text="Type" />
-                                                                        <TableColumn fx:id="monthlyStartColumn" prefWidth="80.80001831054688" text="Start Time" />
-                                                                        <TableColumn fx:id="monthlyEndColumn" prefWidth="66.20001220703125" text="End Time" />
-                                                                        <TableColumn fx:id="monthlyCustomerIdColumn" prefWidth="85.0" text="Customer ID" />
-                                                                        <TableColumn fx:id="monthlyUserIdColumn" text="User ID" />
+                                                                        <TableColumn fx:id="monthlyContactColumn" prefWidth="78.0" text="Contact ID" />
+                                                                        <TableColumn fx:id="monthlyTypeColumn" prefWidth="44.0" text="Type" />
+                                                                        <TableColumn fx:id="monthlyStartColumn" prefWidth="86.0" text="Start Time" />
+                                                                        <TableColumn fx:id="monthlyEndColumn" prefWidth="77.0" text="End Time" />
+                                                                        <TableColumn fx:id="monthlyCustomerIdColumn" prefWidth="84.0" text="Customer ID" />
+                                                                        <TableColumn fx:id="monthlyUserIdColumn" prefWidth="53.0" text="User ID" />
                                                                     </columns>
                                                                 </TableView>
                                                             </children>
@@ -69,12 +69,12 @@
                                                                 <TableColumn fx:id="weeklyTitleColumn" prefWidth="68.0" text="Title" />
                                                                 <TableColumn fx:id="weeklyDescriptionColumn" prefWidth="81.0" text="Description" />
                                                                 <TableColumn fx:id="weeklyLocationColumn" prefWidth="71.0" text="Location" />
-                                                                <TableColumn fx:id="weeklyContactColumn" prefWidth="58.4000244140625" text="Contact" />
-                                                                <TableColumn fx:id="weeklyTypeColumn" prefWidth="49.4000244140625" text="Type" />
-                                                                <TableColumn fx:id="weeklyStartColumn" prefWidth="80.80001831054688" text="Start Time" />
-                                                                <TableColumn fx:id="weeklyEndColumn" prefWidth="66.20001220703125" text="End Time" />
-                                                                <TableColumn fx:id="weeklyCustomerIdColumn" prefWidth="85.0" text="Customer ID" />
-                                                                <TableColumn fx:id="weeklyUserIdColumn" text="User ID" />
+                                                                <TableColumn fx:id="weeklyContactColumn" prefWidth="78.0" text="Contact ID" />
+                                                                <TableColumn fx:id="weeklyTypeColumn" prefWidth="44.0" text="Type" />
+                                                                <TableColumn fx:id="weeklyStartColumn" prefWidth="86.0" text="Start Time" />
+                                                                <TableColumn fx:id="weeklyEndColumn" prefWidth="77.0" text="End Time" />
+                                                                <TableColumn fx:id="weeklyCustomerIdColumn" prefWidth="84.0" text="Customer ID" />
+                                                                <TableColumn fx:id="weeklyUserIdColumn" prefWidth="53.0" text="User ID" />
                                                             </columns>
                                                         </TableView>
                                                     </children></AnchorPane>
@@ -119,6 +119,8 @@
                                                                 <TableColumn fx:id="monthlyReportUserIdColumn" prefWidth="75.0" text="User ID" />
                                                             </columns>
                                                         </TableView>
+                                          <Label layoutX="343.0" layoutY="17.0" text="Total:" />
+                                          <Label fx:id="reportsByMonthLabel" layoutX="380.0" layoutY="17.0" text="Label" />
                                                     </children></AnchorPane>
                                             </content>
                                         </Tab>
@@ -141,6 +143,8 @@
                                                             </columns>
                                                         </TableView>
                                                         <ComboBox fx:id="contactSelectorBox" layoutX="4.0" layoutY="13.0" prefWidth="150.0" promptText="Select contact" />
+                                          <Label layoutX="193.0" layoutY="17.0" text="Total:" />
+                                          <Label fx:id="reportaByContactLabel" layoutX="233.0" layoutY="17.0" text="Label" />
                                                     </children></AnchorPane>
                                             </content>
                                         </Tab>
@@ -163,6 +167,8 @@
                                             </columns>
                                           </TableView>
                                           <ComboBox fx:id="customerIdSelectorBox" layoutX="4.0" layoutY="13.0" prefWidth="150.0" promptText="Select customer ID" />
+                                          <Label layoutX="174.0" layoutY="17.0" text="Total:" />
+                                          <Label fx:id="reportsByCustomerLabel" layoutX="210.0" layoutY="17.0" text="Label" />
                                        </children></AnchorPane>
                                             </content>
                                         </Tab>

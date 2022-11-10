@@ -16,6 +16,7 @@ import model.Divisions;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -49,7 +50,7 @@ public class AddCustomerController implements Initializable {
 
         // Countries works but divisions doesn't
         countryComboBox.setItems(allCountries);
-       // divisionComboBox.setItems(allDivisions);
+        divisionComboBox.setItems(allDivisions);
 
     }
 
@@ -60,7 +61,9 @@ public class AddCustomerController implements Initializable {
      */
 
     @FXML
-    void OnActionSaveCustomer(ActionEvent event) throws IOException {
+    void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
+
+
        /* try {
             String customerName = this.nameTextField.getText();
             String address = this.addressTextField.getText();

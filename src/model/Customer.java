@@ -7,10 +7,10 @@ import javafx.collections.ObservableList;
 /** Customer class creates customer objects. */
 public class Customer {
     private int customerId;
-    private String customerName;
-    private String address;
-    private String postalCode;
-    private String phone;
+    private static String customerName;
+    private static String address;
+    private static String postalCode;
+    private static String phone;
     private int divisionId;
 
     // Constructor
@@ -33,7 +33,7 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getCustomerName() {
+    public static String getCustomerName() {
         return customerName;
     }
 
@@ -41,7 +41,7 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public String getAddress() {
+    public static String getAddress() {
         return address;
     }
 
@@ -49,7 +49,7 @@ public class Customer {
         this.address = address;
     }
 
-    public String getPostalCode() {
+    public static String getPostalCode() {
         return postalCode;
     }
 
@@ -57,7 +57,7 @@ public class Customer {
         this.postalCode = postalCode;
     }
 
-    public String getPhone() {
+    public static String getPhone() {
         return phone;
     }
 

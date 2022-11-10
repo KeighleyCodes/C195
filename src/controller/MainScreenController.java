@@ -150,6 +150,7 @@ public class MainScreenController implements Initializable {
         monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         monthlyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         monthlyLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        monthlyContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         monthlyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         monthlyStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         monthlyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));

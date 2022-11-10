@@ -35,7 +35,7 @@ public class DBQuery {
 
         catch (SQLException throwables) {
             throwables.printStackTrace();
-        };
+        }
 
         return allCustomers;
     }
@@ -53,12 +53,13 @@ public class DBQuery {
                 String title = rs.getString("Title");
                 String description = rs.getString("Description");
                 String location = rs.getString("Location");
+                int contactId = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
                 LocalDateTime startTime = rs.getTimestamp("Start").toLocalDateTime();
                 LocalDateTime endTime = rs.getTimestamp("End").toLocalDateTime();
                 int customerId = rs.getInt("Customer_ID");
                 int userId = rs.getInt("Contact_ID");
-                Appointments appointmentObject = new Appointments(appointmentId, title, description, location,
+                Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
                         type, startTime, endTime, customerId, userId);
                 allAppointments.add(appointmentObject);
             }
@@ -66,7 +67,7 @@ public class DBQuery {
 
         catch (SQLException throwables) {
             throwables.printStackTrace();
-        };
+        }
 
         return allAppointments;
     }
@@ -90,7 +91,7 @@ public class DBQuery {
 
         catch (SQLException throwables) {
             throwables.printStackTrace();
-        };
+        }
 
         return allContacts;
     }
@@ -113,7 +114,7 @@ public class DBQuery {
 
         catch (SQLException throwables) {
             throwables.printStackTrace();
-        };
+        }
 
         return allCountries;
     }
@@ -122,7 +123,7 @@ public class DBQuery {
     public static ObservableList<Divisions> getAllDivisions() {
         ObservableList<Divisions> allDivisions = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM first-level divisions";
+            String sql = "SELECT * FROM first_level_divisions";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -137,7 +138,7 @@ public class DBQuery {
 
         catch (SQLException throwables) {
             throwables.printStackTrace();
-        };
+        }
 
         return allDivisions;
     }
@@ -162,10 +163,50 @@ public class DBQuery {
 
         catch (SQLException throwables) {
             throwables.printStackTrace();
-        };
+        }
 
         return allUsers;
     }
+
+    /*
+    public static boolean checkCredentials(String user, String pass) {
+        try {
+            String sql = "SELECT User_Name, Password FROM users";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("User_Name").equals(pass) && rs.getString("Password").equals(pass)) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        };
+
+        return true;
+    }
+
+     */
+/*
+    public static int insertCustomer (String customerName, String address, String postalCode, String phone) throws SQLException {
+        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone) VALUES (?, ?, ?, ?)";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+        ps.setNString(2, this.nameTextField.getText());
+        ps.setNString(3, Customer.getAddress());
+        ps.setNString(4, Customer.getPostalCode());
+        ps.setNString(5, Customer.getPhone());
+        ps.executeUpdate();
+        return 0;
+    }
+
+ */
+
 
 }
 

@@ -11,6 +11,7 @@ public class Appointments {
     private String title;
     private String description;
     private String location;
+    private int contactId;
     private String type;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
@@ -18,12 +19,13 @@ public class Appointments {
     private int userId;
 
     // Constructor
-    public Appointments(int appointmentId, String title, String description, String location,
+    public Appointments(int appointmentId, String title, String description, String location, int contactId,
                         String type, LocalDateTime startTime, LocalDateTime endTime, int customerId, int userId) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
+        this.contactId = contactId;
         this.type = type;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -134,5 +136,13 @@ public class Appointments {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
+    }
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 }
