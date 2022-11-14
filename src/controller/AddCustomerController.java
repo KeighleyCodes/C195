@@ -1,6 +1,7 @@
 package controller;
 
-import database.DBQuery;
+import database.DBCountries;
+import database.DBDivision;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,14 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Countries;
-import model.Customer;
 import model.Divisions;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -39,10 +37,10 @@ public class AddCustomerController implements Initializable {
     Parent scene;
 
     // Sets Countries observable list
-        ObservableList<Countries> allCountries = DBQuery.getAllCountries();
+        ObservableList<Countries> allCountries = DBCountries.getAllCountries();
 
     // Sets division observable list
-        ObservableList<Divisions> allDivisions = DBQuery.getAllDivisions();
+        ObservableList<Divisions> allDivisions = DBDivision.getAllDivisions();
 
 
     @Override
@@ -91,9 +89,6 @@ public class AddCustomerController implements Initializable {
             alert.setContentText("Please ensure all fields are filled in and contain correct data types");
             alert.showAndWait();
         }
-
-
-
  */
 
     }

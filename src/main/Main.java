@@ -16,9 +16,6 @@ import java.util.ResourceBundle;
 /** Main class - this initializes the application and opens the login screen */
 public class Main extends Application {
 
-
-
-
     /** Loads Login page on initialization.
      @param stage Loads main stage. */
     @Override
@@ -38,6 +35,7 @@ public class Main extends Application {
         DBConnection.openConnection();
 
         Locale.setDefault(new Locale("fr")); // to test that language changed to French
+
 /*
         ResourceBundle rb = ResourceBundle.getBundle("languages/localization/localization", Locale.getDefault());
         if (Locale.getDefault().getLanguage().equals("fr")) {
@@ -47,8 +45,6 @@ public class Main extends Application {
         }
 
  */
-
-
         launch(args);
         DBConnection.closeConnection();
     }

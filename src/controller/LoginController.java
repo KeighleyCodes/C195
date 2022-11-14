@@ -1,7 +1,6 @@
 package controller;
 
-import database.DBConnection;
-import database.DBQuery;
+import database.DBUser;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,9 +14,6 @@ import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -26,6 +22,10 @@ import static javafx.fxml.FXMLLoader.load;
 /** Login controller - initializes the login form UI where the program begins for the user. */
 public class LoginController implements Initializable {
 
+    public Label usernameText;
+    public Label passwordText;
+    public Label localTimeLabel;
+    public Label promptTextLabel;
     Stage stage;
     Parent scene;
 
@@ -44,6 +44,8 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
+    private volatile boolean stop = false;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,21 +53,25 @@ public class LoginController implements Initializable {
         // Displays local time zone
         zoneIdLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
 
+        // Displays local time
+       // localTimeLabel.setText(String.valueOf());
+
         // Translates login page to French
-        ResourceBundle rb = ResourceBundle.getBundle("languages.localization", Locale.getDefault());
+/*
+      ResourceBundle rb = ResourceBundle.getBundle("localization", Locale.getDefault());
+        usernameText.setText(rb.getString("userNamePrompt"));
+        passwordText.setText(rb.getString("passwordPrompt"));
+        promptTextLabel.setText(rb.getString("promptText"));
+        enterButton.setText(rb.getString("enterButton"));
+        exitButton.setText(rb.getString("exitButton"));
 
-      /* if (Locale.getDefault().getLanguage().equals("fr")) {
-
-            System.out.println(rb.getString("Enter") + rb.getString("username") + rb.getString("and")
-                    + rb.getString("password"));
-        }
-
-       */
+ */
 
     }
 
-    private boolean validLogin() throws IOException {
-        ObservableList<Users> allUsers = DBQuery.getAllUsers();
+
+    private boolean loginIsValid() {
+        ObservableList<Users> allUsers = DBUser.getAllUsers();
         for (Users user : allUsers) {
             if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
                 Users.currentUser = user;
@@ -76,11 +82,13 @@ public class LoginController implements Initializable {
     }
 
 
-        /** Enter method. Enters Main Screen when enter button clicked. */
+    /** Enter method. Enters Main Screen when enter button clicked. */
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {
 
-        if (validLogin()) {
+        // Checks is login credentials are valid
+        if (loginIsValid()) {
+
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainScreen.fxml"));
             loader.load();
@@ -103,14 +111,11 @@ public class LoginController implements Initializable {
     }
 
 
-    /**
-     * Exit method. Displays confirmation box and exits program when exit button clicked.
-     */
+    /** Exit method. Displays confirmation box and exits program when exit button clicked. */
     @FXML
     void OnActionExit() {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
-
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {

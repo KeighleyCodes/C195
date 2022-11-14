@@ -1,22 +1,22 @@
 package model;
 
-import database.DBQuery;
-import javafx.collections.FXCollections;
+
+import database.DBCustomer;
 import javafx.collections.ObservableList;
 
 /** Customer class creates customer objects. */
 public class Customer {
     private int customerId;
-    private static String customerName;
-    private static String address;
-    private static String postalCode;
-    private static String phone;
+    private String customerName;
+    private String address;
+    private String postalCode;
+    private String phone;
     private int divisionId;
 
     // Constructor
     public Customer(int customerId, String customerName, String address, String postalCode,  String phone, int divisionId) {
         this.customerId = customerId;
-        Customer.customerName = customerName;
+        this.customerName = customerName;
         this.phone = phone;
         this.address = address;
         this.postalCode = postalCode;
@@ -33,7 +33,7 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public static String getCustomerName() {
+    public String getCustomerName() {
         return customerName;
     }
 
@@ -41,7 +41,7 @@ public class Customer {
         this.customerName = customerName;
     }
 
-    public static String getAddress() {
+    public String getAddress() {
         return address;
     }
 
@@ -49,7 +49,7 @@ public class Customer {
         this.address = address;
     }
 
-    public static String getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
@@ -57,7 +57,7 @@ public class Customer {
         this.postalCode = postalCode;
     }
 
-    public static String getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -79,11 +79,13 @@ public class Customer {
     }
 
 
+
+
     /** Get all customers method.
      @return the customers observable list. */
 
     public static ObservableList<Customer> getAllCustomers() {
-        return DBQuery.getAllCustomers();
+        return DBCustomer.getAllCustomers();
     }
 
 
@@ -97,19 +99,33 @@ public class Customer {
 
 
 
+
+//***** FIX ME ******
+
     /** Deleted customer method.
-     @param selectedCustomer Deletes selected customer. */
+     *
+     * @param customer
+     * @return
+     * @throws SQLException
+     */
 
-    public static boolean deleteCustomer (Customer selectedCustomer) {
+/*
+    public static int deleteCustomer(Customer customer) throws SQLException {
 
-        if (DBQuery.getAllCustomers().contains(selectedCustomer)) {
-            DBQuery.getAllCustomers().remove(selectedCustomer);
-            return true;
-        }
-        else {
-            return false;
-        }
+        PreparedStatement ps = DBCustomer.prepareStatement("DELETE FROM customers WHERE Customer_ID=?");
+
+        ps.setInt(1, customer.getCustomerId());
+
+        ps.executeUpdate();
+
+        return 0;
+
+    }
+
+ */
     }
 
 
-}
+
+
+

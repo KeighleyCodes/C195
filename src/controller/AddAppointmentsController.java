@@ -1,6 +1,6 @@
 package controller;
 
-import database.DBQuery;
+import database.DBContacts;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,7 +38,7 @@ public class AddAppointmentsController implements Initializable {
     Parent scene;
 
     // Sets Contacts observable list
-    ObservableList<Contacts> allContacts = DBQuery.getAllContacts();
+    ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -1,6 +1,9 @@
 package controller;
 
-import database.DBQuery;
+
+import database.DBContacts;
+import database.DBCustomer;
+import database.DBAppointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +17,7 @@ import model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -108,6 +112,9 @@ public class MainScreenController implements Initializable {
     public Label reportsByMonthLabel;
     public Label reportsByContactLabel;
     public Label reportsByCustomerLabel;
+    public Button totalAppointmentReportButton;
+    public Button totalContactButton;
+    public Button totalCustomerButton;
     private Stage stage;
     private Object scene;
 
@@ -129,7 +136,7 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button addCustomerButton;
 
-
+Customer selectedCustomer;
     /**
      * Initialize method, initializes Main Screen.
      */
@@ -137,7 +144,7 @@ public class MainScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Initializes customer table
-        ObservableList<Customer> customerList = DBQuery.getAllCustomers();
+        ObservableList<Customer> customerList = DBCustomer.getAllCustomers();
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
@@ -148,7 +155,7 @@ public class MainScreenController implements Initializable {
 
 
         // Initializes appointment table
-        ObservableList<Appointments> appointmentsList = DBQuery.getAllAppointments();
+        ObservableList<Appointments> appointmentsList = DBAppointments.getAllAppointments();
         monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         monthlyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -163,22 +170,28 @@ public class MainScreenController implements Initializable {
 
 
         // Sets Contacts observable list
-        ObservableList<Contacts> allContacts = DBQuery.getAllContacts();
+        ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
         // Fills contact combo box
         contactSelectorBox.setItems(allContacts);
 
+        // Listener for Contact combo box
+       // contactSelectorBox.getSelectionModel().getSelectedItem();
+
         // Sets Customer observable list
-        ObservableList<Customer> allCustomers = DBQuery.getAllCustomers();
+        ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
         //Fills customer combo box
         customerIdSelectorBox.setItems(allCustomers);
 
         // Sets Appointments observable list
-        ObservableList<Appointments> AppointmentsList = DBQuery.getAllAppointments();
+        ObservableList<Appointments> AppointmentsList = DBAppointments.getAllAppointments();
         // Fills type in combo box
         typeSelectorBox.setItems(AppointmentsList);
 
 
     }
+
+
+
 
 
         /** Add customer method.
@@ -215,18 +228,41 @@ public class MainScreenController implements Initializable {
         /** Delete customer method. Deletes customer data when delete button clicked. */
 
         @FXML
-        void OnActionDeleteCustomer () {
+        void OnActionDeleteCustomer (ActionEvent event) throws SQLException {
+            /*    selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+                if (selectedCustomer == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("You must select a customer to delete.");
+                    alert.showAndWait();
+                } else if (customerTable.getSelectionModel().getSelectedItem() != null) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to delete " + selectedCustomer.getCustomerName() + " from customer records?");
+                    Optional<ButtonType> result = alert.showAndWait();
 
+                    if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                        try {
+                            DBCustomer.deleteCustomer(selectedCustomer);
+                            customerTable.getItems().clear();
+                            customerTable.setItems(DBCustomer.getAllCustomers());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+             */
             System.out.println("Delete button clicked");
-
+/*
             Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                Customer.deleteCustomer(selectedCustomer);
+                DBCustomer.deleteCustomer(selectedCustomer);
             }
+
+ */
         }
 
 
@@ -363,5 +399,13 @@ public class MainScreenController implements Initializable {
             }
         }
 
+    public void onSelectionCustomer(ActionEvent event) {
+        reportsByCustomerLabel.setText(String.valueOf(DBCustomer.totalCustomers()));
     }
+
+    public void OnSelectionContact(ActionEvent event) {
+      //  Contacts selectedContact = (Contacts) contactSelectorBox.getValue();
+        reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts()));
+    }
+}
 

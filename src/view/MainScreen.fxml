@@ -106,8 +106,8 @@
                                              </font>
                                           </Label>
                                                         <ComboBox fx:id="monthSelectorBox" layoutX="30.0" layoutY="59.0" prefWidth="150.0" promptText="Select month" />
-                                          <Label layoutX="399.0" layoutY="59.0" text="Total:" />
-                                          <Label fx:id="reportsByMonthLabel" layoutX="453.0" layoutY="59.0" text="Label" />
+                                          <Label fx:id="reportsByMonthLabel" layoutX="455.0" layoutY="59.0" text="Label" />
+                                          <Label layoutX="413.0" layoutY="59.0" text="Total:" />
                                        </children>
                                     </AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -117,16 +117,15 @@
                                                 <Font size="13.0" />
                                              </font>
                                           </Label>
-                                                        <ComboBox fx:id="contactSelectorBox" layoutX="25.0" layoutY="60.0" prefWidth="150.0" promptText="Select contact" />
-                                          <Label layoutX="399.0" layoutY="60.0" text="Total:" />
+                                                        <ComboBox fx:id="contactSelectorBox" layoutX="25.0" layoutY="60.0" onAction="#OnSelectionContact" prefWidth="150.0" promptText="Select contact" />
                                           <Label fx:id="reportsByContactLabel" layoutX="459.0" layoutY="60.0" text="Label" />
+                                          <Label layoutX="416.0" layoutY="59.0" text="Total:" />
                                        </children></AnchorPane>
                                 </items>
                               </SplitPane>
                                             <ComboBox fx:id="typeSelectorBox" layoutX="258.0" layoutY="77.0" prefWidth="150.0" promptText="Select type" />
-                              <ComboBox fx:id="customerIdSelectorBox" layoutX="78.0" layoutY="329.0" prefWidth="150.0" promptText="Select customer" />
-                              <Label layoutX="448.0" layoutY="332.0" text="Total:" />
-                              <Label fx:id="reportsByCustomerLabel" layoutX="500.0" layoutY="332.0" text="Label" />
+                              <ComboBox fx:id="customerIdSelectorBox" layoutX="78.0" layoutY="329.0" onAction="#onSelectionCustomer" prefWidth="150.0" promptText="Select customer" />
+                              <Label fx:id="reportsByCustomerLabel" layoutX="511.0" layoutY="332.0" text="Label" />
                               <Label layoutX="78.0" layoutY="291.0" text="Total appointments by customer:">
                                  <font>
                                     <Font size="13.0" />
@@ -135,6 +134,7 @@
                               <Separator layoutX="46.0" layoutY="260.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
                               <Separator layoutX="708.0" layoutY="260.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
                               <Separator layoutX="48.0" layoutY="380.0" prefHeight="0.0" prefWidth="662.0" />
+                              <Label layoutX="466.0" layoutY="332.0" text="Total:" />
                                         </children>
                         </AnchorPane>
                                 <Button fx:id="addReportsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" text="Add" />
