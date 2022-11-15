@@ -89,6 +89,7 @@ public class Appointments {
     }
 
 
+
     // Observable list
     public static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
 

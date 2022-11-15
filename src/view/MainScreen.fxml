@@ -84,7 +84,7 @@
                                     </tabs>
                                 </TabPane>
                                 <Button fx:id="logoutAppointmentsButton" layoutX="694.0" layoutY="393.0" mnemonicParsing="false" onAction="#onActionLogoutAppointments" text="Logout" />
-                                <Button fx:id="deleteAppointmentsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" text="Delete" />
+                                <Button fx:id="deleteAppointmentsButton" layoutX="625.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnDeleteAppointment" text="Delete" />
                                 <Button fx:id="updateAppointmentsButton" layoutX="553.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionUpdateAppointment" text="Update" />
                                 <Button fx:id="addAppointmentsButton" layoutX="496.0" layoutY="393.0" mnemonicParsing="false" onAction="#OnActionAddAppointment" text="Add" />
                             </children></AnchorPane>
@@ -105,7 +105,7 @@
                                                 <Font size="13.0" />
                                              </font>
                                           </Label>
-                                                        <ComboBox fx:id="monthSelectorBox" layoutX="30.0" layoutY="59.0" prefWidth="150.0" promptText="Select month" />
+                                                        <ComboBox fx:id="monthSelectorBox" layoutX="30.0" layoutY="59.0" onAction="#OnSelectionMonth" prefWidth="150.0" promptText="Select month" />
                                           <Label fx:id="reportsByMonthLabel" layoutX="455.0" layoutY="59.0" text="Label" />
                                           <Label layoutX="413.0" layoutY="59.0" text="Total:" />
                                        </children>

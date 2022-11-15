@@ -45,5 +45,41 @@ public class DBAppointments {
         return allAppointments;
     }
 
+/*
+    // Counts total by contact
+    public static int totalAppointments() {
+        try {
+            String sql = "SELECT COUNT(Start) FROM appointments WHERE  = ?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
+    }
+
+ */
+
+    // Deletes appointment
+    public static int cancelAppointment(Appointments appointments) {
+        try {
+            String sql =  "DELETE FROM appointments WHERE Appointment_ID = ?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, appointments.getAppointmentId());
+
+            ps.executeUpdate();
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
+
 }
 

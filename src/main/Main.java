@@ -33,18 +33,19 @@ public class Main extends Application {
      Javadocs are in a directory in project zip file. */
     public static void main(String[] args) {
         DBConnection.openConnection();
-
+ /*
         Locale.setDefault(new Locale("fr")); // to test that language changed to French
 
-/*
-        ResourceBundle rb = ResourceBundle.getBundle("languages/localization/localization", Locale.getDefault());
+
+        ResourceBundle rb = ResourceBundle.getBundle("languages/localization", Locale.getDefault());
         if (Locale.getDefault().getLanguage().equals("fr")) {
 
             System.out.println(rb.getString("Enter") + rb.getString("username") + rb.getString("and")
                     + rb.getString("password"));
         }
 
- */
+  */
+
         launch(args);
         DBConnection.closeConnection();
     }

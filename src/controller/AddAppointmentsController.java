@@ -51,6 +51,7 @@ public class AddAppointmentsController implements Initializable {
 
     @FXML
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
+
         this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
         this.stage.setScene(new Scene(this.scene));
@@ -71,5 +72,11 @@ public class AddAppointmentsController implements Initializable {
             this.stage.setTitle("Main Screen");
             this.stage.show();
         }
+    }
+
+    public void OnSelectStartTime(ActionEvent event) {
+    }
+
+    public void OnSelectEndTime(ActionEvent event) {
     }
 }

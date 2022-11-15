@@ -118,6 +118,8 @@ public class MainScreenController implements Initializable {
     private Stage stage;
     private Object scene;
 
+    Appointments selectedAppointment;
+
     @FXML
     private TableView<Customer> customerTable;
 
@@ -174,18 +176,20 @@ Customer selectedCustomer;
         // Fills contact combo box
         contactSelectorBox.setItems(allContacts);
 
-        // Listener for Contact combo box
-       // contactSelectorBox.getSelectionModel().getSelectedItem();
-
         // Sets Customer observable list
         ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
         //Fills customer combo box
         customerIdSelectorBox.setItems(allCustomers);
 
-        // Sets Appointments observable list
-        ObservableList<Appointments> AppointmentsList = DBAppointments.getAllAppointments();
+        // Sets months observable list
+       // ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
         // Fills type in combo box
-        typeSelectorBox.setItems(AppointmentsList);
+     //  monthSelectorBox.setItems(allAppointments);
+
+        // Sets Appointments observable list
+        ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
+        // Fills type in combo box
+        typeSelectorBox.setItems(allAppointments);
 
 
     }
@@ -406,6 +410,21 @@ Customer selectedCustomer;
     public void OnSelectionContact(ActionEvent event) {
       //  Contacts selectedContact = (Contacts) contactSelectorBox.getValue();
         reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts()));
+    }
+
+    public void OnSelectionMonth(ActionEvent event) {
+
+    }
+
+    public void OnDeleteAppointment(ActionEvent event) {
+            Appointments selectedAppointment = monthlyViewTable.getSelectionModel().getSelectedItem();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to delete " +
+                    selectedAppointment.getTitle() + " from database?");
+             Optional<ButtonType> result = alert.showAndWait();
+             DBAppointments.cancelAppointment(selectedAppointment);
+
+             DBAppointments.getAllAppointments();
+
     }
 }
 
