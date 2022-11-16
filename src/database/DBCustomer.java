@@ -1,9 +1,9 @@
 package database;
 
-import controller.MainScreenController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
+import model.Divisions;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -69,6 +69,7 @@ public class DBCustomer {
     }
 
 
+
 public static int deleteCustomer(Customer customer) throws SQLException {
     String sql = "SELECT * FROM customers";
     PreparedStatement ps = DBConnection.getConnection().prepareStatement("DELETE FROM customers WHERE Customer_ID=?");
@@ -76,6 +77,31 @@ public static int deleteCustomer(Customer customer) throws SQLException {
         ps.executeUpdate();
 
         return 0;
+
+    }
+    // ****** FIX ME!! ******
+    public static void insertCustomer(String customerName, String address, String phone, String postalCode,
+                                       int divisionId) throws SQLException {
+       // String divisions = "";
+        // Divisions divisionString = DBDivision.getDivisionId();
+        try {
+            Customer.customerList().clear();
+            String sql =  "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?,?,?,?,?,?)";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+
+            ps.setString(2, customerName);
+            ps.setString(3, address);
+            ps.setString(4, phone);
+            ps.setString(5, postalCode);
+            ps.setInt(6, divisionId);
+
+            ps.executeUpdate();
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
     }
 

@@ -33,5 +33,20 @@ public class DBDivision {
         return allDivisions;
     }
 
+    public static int getDivisionId(String divisionName) {
+
+        try {
+            String sql = "SELECT * FROM first_level_divisions WHERE Division = ?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setString(2, divisionName);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return 0;
+    }
+
 }
 

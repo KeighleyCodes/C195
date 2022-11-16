@@ -2,13 +2,13 @@ package model;
 
 public class Divisions {
     private int divisionId;
-    private String division;
+    private String divisionName;
     private int countryId;
 
     // Constructor
     public Divisions(int divisionId, String division, int countryId) {
         this.divisionId = divisionId;
-        this.division = division;
+        this.divisionName = division;
         this.countryId = countryId;
     }
 
@@ -21,12 +21,12 @@ public class Divisions {
         this.divisionId = divisionId;
     }
 
-    public String getDivision() {
-        return division;
+    public String getDivisionName() {
+        return divisionName;
     }
 
-    public void setDivision(String division) {
-        this.division = division;
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
     }
 
     public int getCountryId() {
@@ -39,6 +39,6 @@ public class Divisions {
 
     // toString method for the combo box to return
     public String toString() {
-        return division;
+        return divisionName;
     }
 }

@@ -34,12 +34,14 @@ public class DBContacts {
     }
 
 
+
     // Counts total by contact
     public static int totalContacts() {
         try {
             String sql = "SELECT COUNT(Contact_Name) FROM Contacts WHERE Contact_Name = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
+          //  ps.setString(2, contactName);
             ResultSet rs = ps.executeQuery();
         }
 

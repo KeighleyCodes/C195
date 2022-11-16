@@ -233,7 +233,7 @@ Customer selectedCustomer;
 
         @FXML
         void OnActionDeleteCustomer (ActionEvent event) throws SQLException {
-            /*    selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+               selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
                 if (selectedCustomer == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -253,24 +253,7 @@ Customer selectedCustomer;
                         }
                     }
                 }
-
-             */
-            System.out.println("Delete button clicked");
-/*
-            Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this customer?");
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                DBCustomer.deleteCustomer(selectedCustomer);
-            }
-
- */
         }
-
-
-
 
         /**
          * Logout customer method.
@@ -408,7 +391,7 @@ Customer selectedCustomer;
     }
 
     public void OnSelectionContact(ActionEvent event) {
-      //  Contacts selectedContact = (Contacts) contactSelectorBox.getValue();
+      // Contacts selectedContact = (Contacts) contactSelectorBox.getValue();
         reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts()));
     }
 

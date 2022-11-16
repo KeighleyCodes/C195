@@ -28,7 +28,7 @@
             <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionSaveCustomer" text="Save" />
             <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
             <ComboBox fx:id="countryComboBox" layoutX="346.0" layoutY="180.0" prefWidth="150.0" promptText="Select country" />
-            <ComboBox fx:id="divisionComboBox" layoutX="346.0" layoutY="225.0" prefWidth="150.0" promptText="Select division" />
+            <ComboBox fx:id="divisionComboBox" layoutX="346.0" layoutY="225.0" prefWidth="150.0" promptText="Select Division" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

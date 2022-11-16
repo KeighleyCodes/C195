@@ -1,6 +1,7 @@
 package controller;
 
 import database.DBCountries;
+import database.DBCustomer;
 import database.DBDivision;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Countries;
+import model.Customer;
 import model.Divisions;
 
 import java.io.IOException;
@@ -36,6 +38,14 @@ public class AddCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
+    private int customerId;
+    private String customerName;
+    private String address;
+    private String postalCode;
+    private String phone;
+    private int divisionId;
+
+
     // Sets Countries observable list
         ObservableList<Countries> allCountries = DBCountries.getAllCountries();
 
@@ -53,13 +63,23 @@ public class AddCustomerController implements Initializable {
     }
 
 
-
+    // ******* FIX ME! *******
     /** Save customer method.
      @param event Saves modified part info and returns to Main Screen.
      */
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
+
+        if(idTextField.getText().equals("auto-generated")) {
+            customerName = nameTextField.getText();
+            address = addressTextField.getText();
+            phone = phoneTextField.getText();
+            postalCode = postalCodeTextField.getText();
+            divisionId = divisionComboBox.getVisibleRowCount();
+            DBCustomer.insertCustomer(customerName, address, phone, postalCode, divisionId);
+
+        }
 
 
        /* try {
@@ -79,8 +99,6 @@ public class AddCustomerController implements Initializable {
             this.stage.setScene(new Scene(this.scene));
             this.stage.setTitle("Main Screen");
             this.stage.show();
-
-
 /*
         }
         catch (NumberFormatException var10) {

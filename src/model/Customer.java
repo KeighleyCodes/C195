@@ -84,7 +84,7 @@ public class Customer {
     /** Get all customers method.
      @return the customers observable list. */
 
-    public static ObservableList<Customer> getAllCustomers() {
+    public static ObservableList<Customer> customerList() {
         return DBCustomer.getAllCustomers();
     }
 
