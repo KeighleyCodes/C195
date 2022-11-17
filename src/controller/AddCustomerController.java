@@ -1,5 +1,6 @@
 package controller;
 
+import database.DBAppointments;
 import database.DBCountries;
 import database.DBCustomer;
 import database.DBDivision;
@@ -35,9 +36,6 @@ public class AddCustomerController implements Initializable {
     public Button saveButton;
     public Button cancelButton;
 
-    Stage stage;
-    Parent scene;
-
     private int customerId;
     private String customerName;
     private String address;
@@ -45,6 +43,10 @@ public class AddCustomerController implements Initializable {
     private String phone;
     private int divisionId;
 
+    Stage stage;
+    Parent scene;
+
+    int uniqueId = 2;
 
     // Sets Countries observable list
         ObservableList<Countries> allCountries = DBCountries.getAllCountries();
@@ -71,34 +73,23 @@ public class AddCustomerController implements Initializable {
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
 
-        if(idTextField.getText().equals("auto-generated")) {
+            customerId = uniqueId +=1;
             customerName = nameTextField.getText();
             address = addressTextField.getText();
             phone = phoneTextField.getText();
             postalCode = postalCodeTextField.getText();
             divisionId = divisionComboBox.getVisibleRowCount();
-            DBCustomer.insertCustomer(customerName, address, phone, postalCode, divisionId);
-
-        }
-
-
-       /* try {
-            String customerName = this.nameTextField.getText();
-            String address = this.addressTextField.getText();
-            String postalCode = this.postalCodeTextField.getText();
-            String phone = this.phoneTextField.getText();
-
-            Customer customer = new Customer(customerName, address, postalCode, phone,);
-            Customer.addCustomer(customer);
-
-        */
+            DBCustomer.insertCustomer(customerId, customerName, address, phone, postalCode, divisionId);
+            //.getItems().clear();
+            // .setItems(DBCustomer.getAllCustomers());
 
 
-            this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            this.scene = (Parent)FXMLLoader.load((URL)Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
             this.stage.setScene(new Scene(this.scene));
             this.stage.setTitle("Main Screen");
             this.stage.show();
+        }
 /*
         }
         catch (NumberFormatException var10) {
@@ -107,9 +98,11 @@ public class AddCustomerController implements Initializable {
             alert.setContentText("Please ensure all fields are filled in and contain correct data types");
             alert.showAndWait();
         }
- */
+
 
     }
+
+ */
 
 
     /** Close window method.

@@ -10,8 +10,8 @@
          <children>
             <Label fx:id="usernameText" layoutX="39.0" layoutY="70.0" text="Username:" />
             <Label fx:id="passwordText" layoutX="41.0" layoutY="116.0" text="Password:" />
-            <PasswordField fx:id="passwordTextField" layoutX="125.0" layoutY="112.0" />
-            <TextField fx:id="usernameTextField" layoutX="125.0" layoutY="66.0" />
+            <PasswordField fx:id="passwordTextField" layoutX="164.0" layoutY="112.0" />
+            <TextField fx:id="usernameTextField" layoutX="164.0" layoutY="66.0" />
             <Label fx:id="promptTextLabel" layoutX="39.0" layoutY="21.0" text="Enter login information">
                <font>
                   <Font name="System Bold" size="14.0" />

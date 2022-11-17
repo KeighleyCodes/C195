@@ -94,7 +94,7 @@ public class MainScreenController implements Initializable {
     public TableColumn contactEndColumn;
     public TableColumn contactCustomerColumn;
     public TableColumn contactUserIdColumn;
-    public ComboBox contactSelectorBox;
+    public ComboBox<Contacts> contactSelectorBox;
     public Tab customerReportTab;
     public TableView appointmentsByCustomerTable;
     public TableColumn customerAppointmentIdColumn;
@@ -107,7 +107,7 @@ public class MainScreenController implements Initializable {
     public TableColumn customerEndDateColumn;
     public TableColumn customerCustomerIdColumn;
     public TableColumn customerUserIdColumn;
-    public ComboBox customerIdSelectorBox;
+    public ComboBox<Customer> customerIdSelectorBox;
     public TableColumn divisionIdColumn;
     public Label reportsByMonthLabel;
     public Label reportsByContactLabel;
@@ -115,6 +115,18 @@ public class MainScreenController implements Initializable {
     public Button totalAppointmentReportButton;
     public Button totalContactButton;
     public Button totalCustomerButton;
+    public Tab allAppointmentsTab;
+    public TableView allAppointmentsTableview;
+    public TableColumn allAppointmentsIdColumn;
+    public TableColumn allAppointmentsTitleColumn;
+    public TableColumn allAppointmentsDescriptionColumn;
+    public TableColumn allAppointmentsLocationColumn;
+    public TableColumn allAppointmentsContactIdColumn;
+    public TableColumn allAppointmentsTypeColumn;
+    public TableColumn allAppointmentsStartColumn;
+    public TableColumn allAppointmentsEndColumn;
+    public TableColumn allAppointmentsCustomerColumn;
+    public TableColumn allAppointmentsUserIdColumn;
     private Stage stage;
     private Object scene;
 
@@ -138,7 +150,11 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button addCustomerButton;
 
-Customer selectedCustomer;
+    Customer selectedCustomer;
+
+    private String contactName;
+    private String customerName;
+
     /**
      * Initialize method, initializes Main Screen.
      */
@@ -168,7 +184,7 @@ Customer selectedCustomer;
         monthlyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        monthlyViewTable.setItems(appointmentsList);
+        allAppointmentsTableview.setItems(appointmentsList);
 
 
         // Sets Contacts observable list
@@ -183,6 +199,7 @@ Customer selectedCustomer;
 
         // Sets months observable list
        // ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
+
         // Fills type in combo box
      //  monthSelectorBox.setItems(allAppointments);
 
@@ -193,9 +210,6 @@ Customer selectedCustomer;
 
 
     }
-
-
-
 
 
         /** Add customer method.
@@ -310,39 +324,36 @@ Customer selectedCustomer;
         }
 
         /** Delete appointment method in monthly view. Deletes appointment when delete button clicked. */
-        /*
+
         @FXML
-        void OnActionDeleteAppointment () {
+        void OnActionDeleteAppointment(ActionEvent event) {
 
             Appointments selectedAppointment = monthlyViewTable.getSelectionModel().getSelectedItem();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?");
+            if (selectedAppointment == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("You must select an appointment to delete.");
+                alert.showAndWait();
+            } else if (monthlyViewTable.getSelectionModel().getSelectedItem() != null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to delete this appointment?");
+                Optional<ButtonType> result = alert.showAndWait();
 
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.isPresent() && result.get() == ButtonType.OK) {
-                Appointments.deleteAppointment(selectedAppointment);
+                if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                    try {
+                        DBAppointments.cancelAppointment(selectedAppointment);
+                        monthlyViewTable.getItems().clear();
+                        monthlyViewTable.setItems(DBAppointments.getAllAppointments());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
 
-         */
 
         // **** FIX ME ****
         /** Delete appointment method in weekly view. Deletes appointment when delete button clicked. */
-    /*
-    @FXML
-    void OnActionDeleteAppointment() {
 
-        Appointments selectedAppointment = weeklyViewTable.getSelectionModel().getSelectedItem();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this appointment?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if(result.isPresent() && result.get() == ButtonType.OK) {
-            Appointments.deleteAppointment(selectedAppointment);
-        }
-    }
-
-     */
 
         /**
          * Logout appointment method.
@@ -387,12 +398,12 @@ Customer selectedCustomer;
         }
 
     public void onSelectionCustomer(ActionEvent event) {
-        reportsByCustomerLabel.setText(String.valueOf(DBCustomer.totalCustomers()));
+        reportsByCustomerLabel.setText(String.valueOf(DBCustomer.totalCustomers(customerIdSelectorBox.getValue().getCustomerName())));
     }
 
     public void OnSelectionContact(ActionEvent event) {
-      // Contacts selectedContact = (Contacts) contactSelectorBox.getValue();
-        reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts()));
+       // Contacts selectedContact = (Contacts) contactSelectorBox.getValue();
+        reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts(contactSelectorBox.getValue().getContactName())));
     }
 
     public void OnSelectionMonth(ActionEvent event) {

@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import main.Main;
 import model.Users;
 
 import java.io.IOException;
@@ -57,15 +58,15 @@ public class LoginController implements Initializable {
        // localTimeLabel.setText(String.valueOf());
 
         // Translates login page to French
-/*
-      ResourceBundle rb = ResourceBundle.getBundle("localization", Locale.getDefault());
-        usernameText.setText(rb.getString("userNamePrompt"));
-        passwordText.setText(rb.getString("passwordPrompt"));
-        promptTextLabel.setText(rb.getString("promptText"));
-        enterButton.setText(rb.getString("enterButton"));
-        exitButton.setText(rb.getString("exitButton"));
+        usernameText.setText(Main.rb.getString("userNamePrompt"));
+        passwordText.setText(Main.rb.getString("passwordPrompt"));
+        promptTextLabel.setText(Main.rb.getString("promptText"));
+        enterButton.setText(Main.rb.getString("enterButton"));
+        exitButton.setText(Main.rb.getString("exitButton"));
 
- */
+
+
+        // use this on event handler for error messages
 
     }
 
@@ -102,9 +103,12 @@ public class LoginController implements Initializable {
         }
 
         else {
+            enterButton.setText(Main.rb.getString("enterButton"));
+            enterButton.setText(Main.rb.getString("enterButton"));
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Please provide valid username and / or password");
+            alert.setTitle(Main.rb.getString("error"));
+            alert.setContentText(Main.rb.getString("errorMessage"));
             alert.showAndWait();
         }
 
@@ -115,7 +119,8 @@ public class LoginController implements Initializable {
     @FXML
     void OnActionExit() {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, Main.rb.getString("confirmationMessage"));
+        alert.setTitle(Main.rb.getString("confirmation"));
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {

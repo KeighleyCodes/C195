@@ -14,7 +14,7 @@ public class Customer {
     private int divisionId;
 
     // Constructor
-    public Customer(int customerId, String customerName, String address, String postalCode,  String phone, int divisionId) {
+    public Customer(int customerId, String customerName, String address, String postalCode, String phone, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.phone = phone;
@@ -79,51 +79,18 @@ public class Customer {
     }
 
 
-
-
-    /** Get all customers method.
-     @return the customers observable list. */
+    /**
+     * Get all customers method.
+     *
+     * @return the customers observable list.
+     */
 
     public static ObservableList<Customer> customerList() {
         return DBCustomer.getAllCustomers();
     }
 
+}
 
-    /** Add customer method.
-     @param newCustomer Method for adding customers. */
-
-
-    public static void addCustomer(Customer newCustomer) {
-
-    }
-
-
-
-
-//***** FIX ME ******
-
-    /** Deleted customer method.
-     *
-     * @param customer
-     * @return
-     * @throws SQLException
-     */
-
-/*
-    public static int deleteCustomer(Customer customer) throws SQLException {
-
-        PreparedStatement ps = DBCustomer.prepareStatement("DELETE FROM customers WHERE Customer_ID=?");
-
-        ps.setInt(1, customer.getCustomerId());
-
-        ps.executeUpdate();
-
-        return 0;
-
-    }
-
- */
-    }
 
 
 

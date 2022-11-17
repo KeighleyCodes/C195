@@ -1,6 +1,9 @@
 package model;
 
+import database.DBAppointments;
+import database.DBCustomer;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
@@ -91,22 +94,8 @@ public class Appointments {
 
 
     // Observable list
-    public static ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
-
-
-
-
-    /** Deleted appointment method.
-     @param selectedAppointment Deletes selected appointment. */
-    public static boolean deleteAppointment (Appointments selectedAppointment) {
-
-        if (allAppointments.contains(selectedAppointment)) {
-            allAppointments.remove(selectedAppointment);
-            return true;
-        }
-        else {
-            return false;
-        }
+    public static ObservableList<Appointments> allAppointments() {
+       return DBAppointments.getAllAppointments();
     }
 
 

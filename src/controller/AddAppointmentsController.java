@@ -1,6 +1,7 @@
 package controller;
 
 import database.DBContacts;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import model.Contacts;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,11 +31,12 @@ public class AddAppointmentsController implements Initializable {
     public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
-    public ComboBox startTimeComboBox;
+    public ComboBox <LocalTime>startTimeComboBox;
     public DatePicker startDatePicker;
     public DatePicker endDatePicker;
     public ComboBox endTimeComboBox;
 
+    private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     Stage stage;
     Parent scene;
 
@@ -44,6 +47,12 @@ public class AddAppointmentsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // Fills contact combo box
         contactComboBox.setItems(allContacts);
+
+        for(int i = 1; i < 24; i++) {
+            startTimes.add(LocalTime.of(i,0));
+        }
+        startTimes.add(LocalTime.of(0,0));
+        startTimeComboBox.setItems(startTimes);
 
     }
 
@@ -79,4 +88,7 @@ public class AddAppointmentsController implements Initializable {
 
     public void OnSelectEndTime(ActionEvent event) {
     }
+
+    // initialize method - loop through observable list of times (run 23x for each case - start and end) midnight
+    // - 2300 hrs
 }

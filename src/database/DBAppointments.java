@@ -7,6 +7,7 @@ import model.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 
@@ -45,8 +46,43 @@ public class DBAppointments {
         return allAppointments;
     }
 
+
+    public static void insertAppointment(int appointmentId, String title, String description, String location,
+            int contactId, String type, LocalDateTime startTime, LocalDateTime endTime, int customerId, int userId)
+            throws SQLException {
+
+        try {
+            Appointments.allAppointments().clear();
+            String sql =  "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, " +
+                    "Start, End, Customer_ID, User_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, appointmentId);
+            ps.setString(2, title);
+            ps.setString(3, description);
+            ps.setString(4, location);
+            ps.setInt(12, contactId);
+            ps.setString(5, type);
+            ps.setTimestamp(6, Timestamp.valueOf(startTime)); // Need date, start time and end time ?
+            ps.setTimestamp(7, Timestamp.valueOf(endTime)); //
+            ps.setInt(13, customerId);
+            ps.setInt(14, userId);
+
+            ps.executeUpdate();
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+
+
+
 /*
-    // Counts total by contact
+    // Counts total by appointment
     public static int totalAppointments() {
         try {
             String sql = "SELECT COUNT(Start) FROM appointments WHERE  = ?";

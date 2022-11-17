@@ -39,27 +39,18 @@ public class DBCustomer {
     }
 
 
-/*
-    public static int insertCustomer (String customerName, String address, String postalCode, String phone) throws SQLException {
-        String sql = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone) VALUES (?, ?, ?, ?)";
-        PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-        ps.setNString(2, this.nameTextField.getText());
-        ps.setNString(3, Customer.getAddress());
-        ps.setNString(4, Customer.getPostalCode());
-        ps.setNString(5, Customer.getPhone());
-        ps.executeUpdate();
-        return 0;
-    }
-
- */
 
     // Counts total by customer
-    public static int totalCustomers() {
+    public static int totalCustomers(String contactName) {
         try {
             String sql = "SELECT COUNT(Customer_Name) FROM Customers WHERE Customer_Name = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
+            ps.setString(1, contactName);
             ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return rs.getInt("COUNT(Customer_Name)");
+            }
         }
 
         catch (SQLException throwables) {
@@ -80,16 +71,17 @@ public static int deleteCustomer(Customer customer) throws SQLException {
 
     }
     // ****** FIX ME!! ******
-    public static void insertCustomer(String customerName, String address, String phone, String postalCode,
+    public static void insertCustomer(int customerId, String customerName, String address, String phone, String postalCode,
                                        int divisionId) throws SQLException {
-       // String divisions = "";
+
+        // Need to change division ID to division name
         // Divisions divisionString = DBDivision.getDivisionId();
         try {
             Customer.customerList().clear();
-            String sql =  "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?,?,?,?,?,?)";
+            String sql =  "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?,?,?,?,?,?)";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-
+            ps.setInt(1, customerId);
             ps.setString(2, customerName);
             ps.setString(3, address);
             ps.setString(4, phone);
@@ -104,17 +96,5 @@ public static int deleteCustomer(Customer customer) throws SQLException {
         }
 
     }
-
-
-
-/*
-
-    public static String deleteCustomer(Customer customerId) {
-        String sql = "DELETE CUSTOMER FROM CUSTOMERS WHERE Customer_ID = ?";
-
-    }
-
- */
-
 
 }

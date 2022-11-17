@@ -35,6 +35,31 @@
                             <children>
                                 <TabPane layoutX="3.0" layoutY="6.0" prefHeight="377.0" prefWidth="758.0" tabClosingPolicy="UNAVAILABLE">
                                     <tabs>
+                                        <Tab fx:id="allAppointmentsTab" text="All Appointments">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                    <children>
+                                                        <AnchorPane layoutX="7.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="749.0">
+                                                            <children>
+                                                                <TableView fx:id="allAppointmentsTableview" layoutX="-2.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="753.0">
+                                                                    <columns>
+                                                                        <TableColumn fx:id="allAppointmentsIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
+                                                                        <TableColumn fx:id="allAppointmentsTitleColumn" prefWidth="68.0" text="Title" />
+                                                                        <TableColumn fx:id="allAppointmentsDescriptionColumn" prefWidth="81.0" text="Description" />
+                                                                        <TableColumn fx:id="allAppointmentsLocationColumn" prefWidth="71.0" text="Location" />
+                                                                        <TableColumn fx:id="allAppointmentsContactIdColumn" prefWidth="78.0" text="Contact ID" />
+                                                                        <TableColumn fx:id="allAppointmentsTypeColumn" prefWidth="44.0" text="Type" />
+                                                                        <TableColumn fx:id="allAppointmentsStartColumn" prefWidth="86.0" text="Start Time" />
+                                                                        <TableColumn fx:id="allAppointmentsEndColumn" prefWidth="77.0" text="End Time" />
+                                                                        <TableColumn fx:id="allAppointmentsCustomerColumn" prefWidth="84.0" text="Customer ID" />
+                                                                        <TableColumn fx:id="allAppointmentsUserIdColumn" prefWidth="53.0" text="User ID" />
+                                                                    </columns>
+                                                                </TableView>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </children></AnchorPane>
+                                            </content>
+                                        </Tab>
                                         <Tab fx:id="monthlyViewTab" text="Monthly View">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

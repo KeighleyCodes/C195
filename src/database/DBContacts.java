@@ -36,13 +36,16 @@ public class DBContacts {
 
 
     // Counts total by contact
-    public static int totalContacts() {
+    public static int totalContacts(String contactName) {
         try {
-            String sql = "SELECT COUNT(Contact_Name) FROM Contacts WHERE Contact_Name = ?";
+            String sql = "SELECT COUNT(Contact_Name) FROM Contacts WHERE Contact_Name LIKE ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-          //  ps.setString(2, contactName);
+            ps.setString(1, contactName);
             ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return rs.getInt("COUNT(Contact_Name)");
+            }
         }
 
         catch (SQLException throwables) {
