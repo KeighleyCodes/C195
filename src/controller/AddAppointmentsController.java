@@ -31,12 +31,14 @@ public class AddAppointmentsController implements Initializable {
     public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
-    public ComboBox <LocalTime>startTimeComboBox;
+    public ComboBox <LocalTime> startTimeComboBox;
     public DatePicker startDatePicker;
     public DatePicker endDatePicker;
-    public ComboBox endTimeComboBox;
+    public ComboBox <LocalTime> endTimeComboBox;
 
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
+    private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
+
     Stage stage;
     Parent scene;
 
@@ -48,11 +50,17 @@ public class AddAppointmentsController implements Initializable {
         // Fills contact combo box
         contactComboBox.setItems(allContacts);
 
+        // ** FIX THIS - add method so I don't need two for loops ***
         for(int i = 1; i < 24; i++) {
             startTimes.add(LocalTime.of(i,0));
         }
-        startTimes.add(LocalTime.of(0,0));
         startTimeComboBox.setItems(startTimes);
+
+        for(int i = 1; i < 24; i++) {
+            endTimes.add(LocalTime.of(i,0));
+        }
+        endTimes.add(LocalTime.of(0,1));
+        endTimeComboBox.setItems(endTimes);
 
     }
 

@@ -81,6 +81,7 @@ public class DBAppointments {
 
 
 
+
 /*
     // Counts total by appointment
     public static int totalAppointments() {

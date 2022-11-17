@@ -201,9 +201,10 @@ public class MainScreenController implements Initializable {
        // ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
 
         // Fills type in combo box
-     //  monthSelectorBox.setItems(allAppointments);
+        // monthSelectorBox.setItems(allAppointments);
 
         // Sets Appointments observable list
+
         ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
         // Fills type in combo box
         typeSelectorBox.setItems(allAppointments);
