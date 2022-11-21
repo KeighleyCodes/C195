@@ -3,6 +3,7 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Countries;
+import model.Divisions;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +32,21 @@ public class DBCountries {
         }
 
         return allCountries;
+    }
+
+    public static Countries selectedCountryName(String country) {
+
+        try {
+            String sql = "SELECT Country FROM countries WHERE Country_ID = ?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setString(1, String.valueOf(country));
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return null;
     }
 
 }

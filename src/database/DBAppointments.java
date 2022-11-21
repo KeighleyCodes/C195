@@ -80,7 +80,7 @@ public class DBAppointments {
     // ----- FOR REPORTS TAB ------------------------------------------------
 
 
-/*
+
     // Counts total by appointment
     public static int totalAppointments() {
         try {
@@ -96,7 +96,6 @@ public class DBAppointments {
         return 0;
     }
 
- */
 
 
 

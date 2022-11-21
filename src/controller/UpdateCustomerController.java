@@ -23,6 +23,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static database.DBCountries.selectedCountryName;
+import static database.DBDivision.divisionNameFromId;
 
 
 public class UpdateCustomerController implements Initializable {
@@ -32,17 +34,14 @@ public class UpdateCustomerController implements Initializable {
     public TextField nameTextField;
     public TextArea addressTextField;
     public TextField phoneTextField;
-    public ComboBox countryComboBox;
+    public ComboBox <Countries> countryComboBox;
     public ComboBox <Divisions> divisionComboBox;
     public Button saveButton;
     public Button cancelButton;
 
     private int customerId;
-    private String customerName;
-    private String address;
-    private String postalCode;
-    private String phone;
-    private int divisionId;
+    private String divisionName;
+    private String country;
 
     private static Customer customer;
 
@@ -66,8 +65,6 @@ public class UpdateCustomerController implements Initializable {
         countryComboBox.setItems(allCountries);
         divisionComboBox.setItems(allDivisions);
 
-        //sendCustomer();
-
     }
 
 
@@ -83,7 +80,7 @@ public class UpdateCustomerController implements Initializable {
             this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
             this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
             this.stage.setScene(new Scene(this.scene));
-            this.stage.setTitle("Main Inventory");
+            this.stage.setTitle("Main Screen");
             this.stage.show();
         }
     }
@@ -96,31 +93,35 @@ public class UpdateCustomerController implements Initializable {
 
     public void OnActionSaveUpdate(ActionEvent event) throws IOException, SQLException {
 
-        customerName = nameTextField.getText();
-        address = addressTextField.getText();
-        phone = phoneTextField.getText();
-        postalCode = postalCodeTextField.getText();
-        divisionId = divisionComboBox.getVisibleRowCount();
-        DBCustomer.insertCustomer(customerId, customerName, address, postalCode, phone, divisionId);
+        String customerName = nameTextField.getText();
+        String address = addressTextField.getText();
+        String phone = phoneTextField.getText();
+        String postalCode = postalCodeTextField.getText();
+        int divisionId = divisionComboBox.getValue().getDivisionId(); // FIX ME
+        String country = countryComboBox.getValue().getCountry();
+        DBCustomer.updateCustomer(customerId, customerName, address, postalCode, phone, divisionId, country);
 
         this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
         this.stage.setScene(new Scene(this.scene));
-        this.stage.setTitle("CHANGE ME");
+        this.stage.setTitle("Main screen");
         this.stage.show();
+
         }
 
    public void sendCustomer(Customer customer) {
+
         idTextField.setText(String.valueOf(customer.getCustomerId()));
         nameTextField.setText(String.valueOf(customer.getCustomerName()));
         phoneTextField.setText(String.valueOf(customer.getPhone()));
         addressTextField.setText(String.valueOf(customer.getAddress()));
         postalCodeTextField.setText(String.valueOf(customer.getPostalCode()));
-      //  divisionComboBox.setValue(customer.getDivisionId());
+       // divisionComboBox.setValue(getSelectionModel().select(divisionNameFromId(divisionName)));
+        divisionComboBox.setValue(divisionNameFromId(divisionName)); // FIX ME
+        countryComboBox.setValue(selectedCountryName(country)); // FIX ME
 
         // query database, pass division ID and ask to return division
     }
-
 
 }
 

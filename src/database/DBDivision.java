@@ -35,19 +35,19 @@ public class DBDivision {
 
 
 
-    public static int divisionNameFromId(String divisionName) {
+    public static Divisions divisionNameFromId(String divisionName) {
 
         try {
-            String sql = "SELECT * FROM first_level_divisions WHERE Division = ?";
+            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ps.setString(2, divisionName);
+            ps.setString(1, String.valueOf(divisionName));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return 0;
+        return null;
     }
 
 }

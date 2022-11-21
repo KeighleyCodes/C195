@@ -46,7 +46,7 @@ public class AddCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
-    int uniqueId = 200;
+    int uniqueId = 300;
 
     // Sets Countries observable list
         ObservableList<Countries> allCountries = DBCountries.getAllCountries();
@@ -72,7 +72,7 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
-
+   // try {
             customerId = uniqueId +=1;
             customerName = nameTextField.getText();
             address = addressTextField.getText();
@@ -80,18 +80,15 @@ public class AddCustomerController implements Initializable {
             postalCode = postalCodeTextField.getText();
             divisionId = divisionComboBox.getVisibleRowCount();
             DBCustomer.insertCustomer(customerId, customerName, address, postalCode, phone, divisionId);
-            //.getItems().clear();
-            // MainScreenController.allAppointmentsTableview.setItems(DBCustomer.getAllCustomers());
-
 
             this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
             this.stage.setScene(new Scene(this.scene));
             this.stage.setTitle("Main Screen");
             this.stage.show();
+            /*
         }
-/*
-        }
+
         catch (NumberFormatException var10) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -99,10 +96,11 @@ public class AddCustomerController implements Initializable {
             alert.showAndWait();
         }
 
+     */
+
 
     }
 
- */
 
 
     /** Close window method.

@@ -101,14 +101,14 @@ public static int deleteCustomer(Customer customer) throws SQLException {
 
 
     public static void updateCustomer(int customerId, String customerName, String address, String phone, String postalCode,
-                                      int divisionId) throws SQLException {
+                                      int divisionId, String country) throws SQLException {
 
         // Need to change division ID to division name?
         // Divisions divisionString = DBDivision.getDivisionId();
         try {
            // Customer.customerList().clear();
             String sql =  "UPDATE customers SET (Customer_ID = ?, Customer_Name = ?, Address = ?, " +
-                    "Postal_Code = ?, Phone = ?, Division_ID = ?)";
+                    "Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?)";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ps.setInt(1, customerId);
@@ -117,6 +117,7 @@ public static int deleteCustomer(Customer customer) throws SQLException {
             ps.setString(4, postalCode);
             ps.setString(5, phone);
             ps.setInt(6, divisionId);
+            ps.setString(7, country);
 
             ps.executeUpdate();
         }

@@ -45,8 +45,6 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
-    private volatile boolean stop = false;
-
 
 
     @Override
@@ -55,14 +53,12 @@ public class LoginController implements Initializable {
         // Displays local time zone
         zoneIdLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
 
+        // Displays local time
+        // localTimeLabel.setText(String.valueOf());
+
         System.out.println(Locale.getDefault());
         Locale fr = new Locale("fr");
         if(Locale.getDefault().equals(fr)) {
-
-
-
-            // Displays local time
-            // localTimeLabel.setText(String.valueOf());
 
             // Translates login page to French
             usernameText.setText(Main.rb.getString("userNamePrompt"));
@@ -73,9 +69,6 @@ public class LoginController implements Initializable {
 
             System.out.println("Testing");
         }
-
-
-        // use this on event handler for error messages
 
     }
 
