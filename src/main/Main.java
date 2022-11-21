@@ -23,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
-        stage.setTitle(rb.getString("login"));
+     //   stage.setTitle(rb.getString("login"));
         stage.setScene(new Scene(root, 400.0, 200.0));
         stage.show();
     }
@@ -36,8 +36,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnection.openConnection();
 
-        Locale.setDefault(new Locale("fr")); // to test that language changed to French
-        rb = ResourceBundle.getBundle("languages/localization", Locale.getDefault());
+       // Locale.setDefault(new Locale("fr")); // to test that language changed to French
+        rb = ResourceBundle.getBundle("languages/localization");
 
         launch(args);
         DBConnection.closeConnection();

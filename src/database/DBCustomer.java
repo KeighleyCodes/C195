@@ -39,6 +39,8 @@ public class DBCustomer {
     }
 
 
+    // ----- FOR REPORTS TAB ------------------------------------------------
+
 
     // Counts total by customer
     public static int totalCustomers(String contactName) {
@@ -74,7 +76,7 @@ public static int deleteCustomer(Customer customer) throws SQLException {
     public static void insertCustomer(int customerId, String customerName, String address, String phone, String postalCode,
                                        int divisionId) throws SQLException {
 
-        // Need to change division ID to division name
+        // Need to change division ID to division name?
         // Divisions divisionString = DBDivision.getDivisionId();
         try {
             Customer.customerList().clear();
@@ -84,8 +86,36 @@ public static int deleteCustomer(Customer customer) throws SQLException {
             ps.setInt(1, customerId);
             ps.setString(2, customerName);
             ps.setString(3, address);
-            ps.setString(4, phone);
-            ps.setString(5, postalCode);
+            ps.setString(4, postalCode);
+            ps.setString(5, phone);
+            ps.setInt(6, divisionId);
+
+            ps.executeUpdate();
+        }
+
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
+    public static void updateCustomer(int customerId, String customerName, String address, String phone, String postalCode,
+                                      int divisionId) throws SQLException {
+
+        // Need to change division ID to division name?
+        // Divisions divisionString = DBDivision.getDivisionId();
+        try {
+           // Customer.customerList().clear();
+            String sql =  "UPDATE customers SET (Customer_ID = ?, Customer_Name = ?, Address = ?, " +
+                    "Postal_Code = ?, Phone = ?, Division_ID = ?)";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, customerId);
+            ps.setString(2, customerName);
+            ps.setString(3, address);
+            ps.setString(4, postalCode);
+            ps.setString(5, phone);
             ps.setInt(6, divisionId);
 
             ps.executeUpdate();

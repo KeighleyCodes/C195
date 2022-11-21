@@ -48,22 +48,31 @@ public class LoginController implements Initializable {
     private volatile boolean stop = false;
 
 
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle rb) {
 
         // Displays local time zone
         zoneIdLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
 
-        // Displays local time
-       // localTimeLabel.setText(String.valueOf());
+        System.out.println(Locale.getDefault());
+        Locale fr = new Locale("fr");
+        if(Locale.getDefault().equals(fr)) {
 
-        // Translates login page to French
-        usernameText.setText(Main.rb.getString("userNamePrompt"));
-        passwordText.setText(Main.rb.getString("passwordPrompt"));
-        promptTextLabel.setText(Main.rb.getString("promptText"));
-        enterButton.setText(Main.rb.getString("enterButton"));
-        exitButton.setText(Main.rb.getString("exitButton"));
 
+
+            // Displays local time
+            // localTimeLabel.setText(String.valueOf());
+
+            // Translates login page to French
+            usernameText.setText(Main.rb.getString("userNamePrompt"));
+            passwordText.setText(Main.rb.getString("passwordPrompt"));
+            promptTextLabel.setText(Main.rb.getString("promptText"));
+            enterButton.setText(Main.rb.getString("enterButton"));
+            exitButton.setText(Main.rb.getString("exitButton"));
+
+            System.out.println("Testing");
+        }
 
 
         // use this on event handler for error messages

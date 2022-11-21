@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBCountries {
+
     // Pulls country list into observable list
     public static ObservableList<Countries> getAllCountries() {
         ObservableList<Countries> allCountries = FXCollections.observableArrayList();

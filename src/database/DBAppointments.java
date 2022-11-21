@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 public class DBAppointments {
 
-
     // Pulls appointment list into observable list
     public static ObservableList<Appointments> getAllAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
@@ -78,8 +77,7 @@ public class DBAppointments {
     }
 
 
-
-
+    // ----- FOR REPORTS TAB ------------------------------------------------
 
 
 /*
@@ -99,6 +97,8 @@ public class DBAppointments {
     }
 
  */
+
+
 
     // Deletes appointment
     public static int cancelAppointment(Appointments appointments) {

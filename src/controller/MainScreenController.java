@@ -7,6 +7,7 @@ import database.DBAppointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static javafx.fxml.FXMLLoader.load;
+import static javafx.fxml.FXMLLoader.*;
 
 public class MainScreenController implements Initializable {
 
@@ -174,16 +175,16 @@ public class MainScreenController implements Initializable {
 
         // Initializes appointment table
         ObservableList<Appointments> appointmentsList = DBAppointments.getAllAppointments();
-        monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-        monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        monthlyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
-        monthlyLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
-        monthlyContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
-        monthlyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        monthlyStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
-        monthlyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
-        monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-        monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+        allAppointmentsIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        allAppointmentsTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        allAppointmentsDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        allAppointmentsLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        allAppointmentsContactIdColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        allAppointmentsTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        allAppointmentsStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        allAppointmentsEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        allAppointmentsCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        allAppointmentsUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         allAppointmentsTableview.setItems(appointmentsList);
 
 
@@ -233,16 +234,45 @@ public class MainScreenController implements Initializable {
          * @param event Opens Update Customer screen when update button clicked.
          */
 
+        // ********** FIX ME ***********
         @FXML
         void OnActionUpdateCustomer (ActionEvent event) throws IOException {
 
+
+           // stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/view/UpdateCustomer.fxml"));
+                loader.load();
+
+                UpdateCustomerController UCController = loader.getController();
+                UCController.sendCustomer(customerTable.getSelectionModel().getSelectedItem());
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                Parent scene = loader.getRoot();
+                stage.setScene(new Scene(scene));
+                stage.setTitle("Update Customer");
+                stage.show();
+            } catch (NullPointerException n) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please select a customer record to modify");
+                alert.show();
+            }
+/*
             System.out.println("Update button clicked");
+
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             scene = load(Objects.requireNonNull(getClass().getResource("/view/UpdateCustomer.fxml")));
+
             stage.setScene(new Scene((Parent) scene));
             stage.setTitle("Update Customer");
             stage.show();
+
+ */
+
         }
+
 
         /** Delete customer method. Deletes customer data when delete button clicked. */
 

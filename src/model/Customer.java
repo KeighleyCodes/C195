@@ -13,6 +13,7 @@ public class Customer {
     private String phone;
     private int divisionId;
 
+
     // Constructor
     public Customer(int customerId, String customerName, String address, String postalCode, String phone, int divisionId) {
         this.customerId = customerId;

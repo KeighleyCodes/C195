@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBContacts {
+
     // Pulls contact list into observable list
     public static ObservableList<Contacts> getAllContacts() {
         ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
@@ -33,7 +34,7 @@ public class DBContacts {
         return allContacts;
     }
 
-
+    // ----- FOR REPORTS TAB ------------------------------------------------
 
     // Counts total by contact
     public static int totalContacts(String contactName) {

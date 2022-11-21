@@ -46,7 +46,7 @@ public class AddCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
-    int uniqueId = 2;
+    int uniqueId = 200;
 
     // Sets Countries observable list
         ObservableList<Countries> allCountries = DBCountries.getAllCountries();
@@ -58,7 +58,7 @@ public class AddCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Countries works but divisions doesn't
+        // NEED TO FILTER DIVISIONS BASED ON COUNTRIES
         countryComboBox.setItems(allCountries);
         divisionComboBox.setItems(allDivisions);
 
@@ -79,9 +79,9 @@ public class AddCustomerController implements Initializable {
             phone = phoneTextField.getText();
             postalCode = postalCodeTextField.getText();
             divisionId = divisionComboBox.getVisibleRowCount();
-            DBCustomer.insertCustomer(customerId, customerName, address, phone, postalCode, divisionId);
+            DBCustomer.insertCustomer(customerId, customerName, address, postalCode, phone, divisionId);
             //.getItems().clear();
-            // .setItems(DBCustomer.getAllCustomers());
+            // MainScreenController.allAppointmentsTableview.setItems(DBCustomer.getAllCustomers());
 
 
             this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

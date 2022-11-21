@@ -33,7 +33,9 @@ public class DBDivision {
         return allDivisions;
     }
 
-    public static int getDivisionId(String divisionName) {
+
+
+    public static int divisionNameFromId(String divisionName) {
 
         try {
             String sql = "SELECT * FROM first_level_divisions WHERE Division = ?";
