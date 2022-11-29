@@ -32,11 +32,11 @@ public class AddCustomerController implements Initializable {
     public TextArea addressTextField;
     public TextField phoneTextField;
     public ComboBox countryComboBox;
-    public ComboBox divisionComboBox;
+    public ComboBox<Divisions> divisionComboBox;
     public Button saveButton;
     public Button cancelButton;
 
-    private int customerId;
+
     private String customerName;
     private String address;
     private String postalCode;
@@ -46,7 +46,6 @@ public class AddCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
-    int uniqueId = 300;
 
     // Sets Countries observable list
         ObservableList<Countries> allCountries = DBCountries.getAllCountries();
@@ -72,32 +71,18 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
-   // try {
-            customerId = uniqueId +=1;
-            customerName = nameTextField.getText();
-            address = addressTextField.getText();
-            phone = phoneTextField.getText();
-            postalCode = postalCodeTextField.getText();
-            divisionId = divisionComboBox.getVisibleRowCount();
-            DBCustomer.insertCustomer(customerId, customerName, address, postalCode, phone, divisionId);
+        customerName = nameTextField.getText();
+        address = addressTextField.getText();
+        postalCode = postalCodeTextField.getText();
+        phone = phoneTextField.getText();
+        divisionId = divisionComboBox.getValue().getDivisionId();
+        DBCustomer.insertCustomer(customerName, address, postalCode, phone, divisionId);
 
-            this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-            this.stage.setScene(new Scene(this.scene));
-            this.stage.setTitle("Main Screen");
-            this.stage.show();
-            /*
-        }
-
-        catch (NumberFormatException var10) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Please ensure all fields are filled in and contain correct data types");
-            alert.showAndWait();
-        }
-
-     */
-
+        this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+        this.stage.setScene(new Scene(this.scene));
+        this.stage.setTitle("Main Screen");
+        this.stage.show();
 
     }
 

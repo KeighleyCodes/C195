@@ -1,6 +1,7 @@
 package controller;
 
 import database.DBUser;
+import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,13 +13,13 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.Main;
 import model.Users;
-
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static javafx.fxml.FXMLLoader.load;
 
 /** Login controller - initializes the login form UI where the program begins for the user. */
 public class LoginController implements Initializable {
@@ -53,11 +54,18 @@ public class LoginController implements Initializable {
         // Displays local time zone
         zoneIdLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
 
-        // Displays local time
-        // localTimeLabel.setText(String.valueOf());
+        // Displays local date and time
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                localTimeLabel.setText(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            }
+        };
+        timer.start();
 
-        System.out.println(Locale.getDefault());
+        // Checks if locale is French
         Locale fr = new Locale("fr");
+
         if(Locale.getDefault().equals(fr)) {
 
             // Translates login page to French
@@ -67,12 +75,11 @@ public class LoginController implements Initializable {
             enterButton.setText(Main.rb.getString("enterButton"));
             exitButton.setText(Main.rb.getString("exitButton"));
 
-            System.out.println("Testing");
         }
 
     }
 
-
+    // Boolean to check if login credentials are valid
     private boolean loginIsValid() {
         ObservableList<Users> allUsers = DBUser.getAllUsers();
         for (Users user : allUsers) {

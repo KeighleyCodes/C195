@@ -48,8 +48,6 @@ public class UpdateCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
-    // FOR TESTING - DELETE LATER
-    int uniqueId = 5;
 
     // Sets Countries observable list
     ObservableList<Countries> allCountries = DBCountries.getAllCountries();
@@ -97,9 +95,9 @@ public class UpdateCustomerController implements Initializable {
         String address = addressTextField.getText();
         String phone = phoneTextField.getText();
         String postalCode = postalCodeTextField.getText();
-        int divisionId = divisionComboBox.getValue().getDivisionId(); // FIX ME
+        int divisionId = divisionComboBox.getValue().getDivisionId();
         String country = countryComboBox.getValue().getCountry();
-        DBCustomer.updateCustomer(customerId, customerName, address, postalCode, phone, divisionId, country);
+        DBCustomer.updateCustomer(customerName, address, postalCode, phone, divisionId, customerId);
 
         this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
@@ -111,16 +109,18 @@ public class UpdateCustomerController implements Initializable {
 
    public void sendCustomer(Customer customer) {
 
+        customerId = customer.getCustomerId();
         idTextField.setText(String.valueOf(customer.getCustomerId()));
         nameTextField.setText(String.valueOf(customer.getCustomerName()));
         phoneTextField.setText(String.valueOf(customer.getPhone()));
         addressTextField.setText(String.valueOf(customer.getAddress()));
         postalCodeTextField.setText(String.valueOf(customer.getPostalCode()));
-       // divisionComboBox.setValue(getSelectionModel().select(divisionNameFromId(divisionName)));
-        divisionComboBox.setValue(divisionNameFromId(divisionName)); // FIX ME
-        countryComboBox.setValue(selectedCountryName(country)); // FIX ME
+        divisionComboBox.setValue(divisionNameFromId(customer.getDivisionId())); // FIX ME
+        int cid = DBDivision.divisionFromCountry(customer.getDivisionId());
+        countryComboBox.setValue(selectedCountryName(cid)); // FIX ME
 
         // query database, pass division ID and ask to return division
+       // Localdatetime has month, get current month (.now) extract month
     }
 
 }

@@ -62,7 +62,6 @@ public class DBCustomer {
     }
 
 
-
 public static int deleteCustomer(Customer customer) throws SQLException {
     String sql = "SELECT * FROM customers";
     PreparedStatement ps = DBConnection.getConnection().prepareStatement("DELETE FROM customers WHERE Customer_ID=?");
@@ -72,23 +71,23 @@ public static int deleteCustomer(Customer customer) throws SQLException {
         return 0;
 
     }
-    // ****** FIX ME!! ******
-    public static void insertCustomer(int customerId, String customerName, String address, String phone, String postalCode,
+
+    public static void insertCustomer(String customerName, String address, String postalCode, String phone,
                                        int divisionId) throws SQLException {
 
         // Need to change division ID to division name?
-        // Divisions divisionString = DBDivision.getDivisionId();
+
         try {
             Customer.customerList().clear();
-            String sql =  "INSERT INTO customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) VALUES (?,?,?,?,?,?)";
+            String sql =  "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Division_ID) " +
+                    "VALUES (?,?,?,?,?)";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ps.setInt(1, customerId);
-            ps.setString(2, customerName);
-            ps.setString(3, address);
-            ps.setString(4, postalCode);
-            ps.setString(5, phone);
-            ps.setInt(6, divisionId);
+            ps.setString(1, customerName);
+            ps.setString(2, address);
+            ps.setString(3, postalCode);
+            ps.setString(4, phone);
+            ps.setInt(5, divisionId);
 
             ps.executeUpdate();
         }
@@ -100,24 +99,23 @@ public static int deleteCustomer(Customer customer) throws SQLException {
     }
 
 
-    public static void updateCustomer(int customerId, String customerName, String address, String phone, String postalCode,
-                                      int divisionId, String country) throws SQLException {
+    public static void updateCustomer(String customerName, String address, String phone, String postalCode,
+                                      int divisionId, int customerId) throws SQLException {
 
         // Need to change division ID to division name?
         // Divisions divisionString = DBDivision.getDivisionId();
         try {
-           // Customer.customerList().clear();
-            String sql =  "UPDATE customers SET (Customer_ID = ?, Customer_Name = ?, Address = ?, " +
-                    "Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?)";
+           Customer.customerList().clear();
+            String sql =  "UPDATE customers SET Customer_Name = ?, Address = ?, " +
+                    "Postal_Code = ?, Phone = ?, Division_ID = ? WHERE Customer_ID = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ps.setInt(1, customerId);
-            ps.setString(2, customerName);
-            ps.setString(3, address);
-            ps.setString(4, postalCode);
-            ps.setString(5, phone);
-            ps.setInt(6, divisionId);
-            ps.setString(7, country);
+            ps.setString(1, customerName);
+            ps.setString(2, address);
+            ps.setString(3, postalCode);
+            ps.setString(4, phone);
+            ps.setInt(5, divisionId);
+            ps.setInt(6, customerId);
 
             ps.executeUpdate();
         }

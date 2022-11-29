@@ -204,8 +204,6 @@ public class MainScreenController implements Initializable {
         // Fills type in combo box
         // monthSelectorBox.setItems(allAppointments);
 
-        // Sets Appointments observable list
-
         ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
         // Fills type in combo box
         typeSelectorBox.setItems(allAppointments);
@@ -233,13 +231,8 @@ public class MainScreenController implements Initializable {
          * Update customer method.
          * @param event Opens Update Customer screen when update button clicked.
          */
-
-        // ********** FIX ME ***********
         @FXML
         void OnActionUpdateCustomer (ActionEvent event) throws IOException {
-
-
-           // stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 
             try {
                 FXMLLoader loader = new FXMLLoader();
@@ -253,23 +246,13 @@ public class MainScreenController implements Initializable {
                 stage.setScene(new Scene(scene));
                 stage.setTitle("Update Customer");
                 stage.show();
+
             } catch (NullPointerException n) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("Please select a customer record to modify");
                 alert.show();
             }
-/*
-            System.out.println("Update button clicked");
-
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/UpdateCustomer.fxml")));
-
-            stage.setScene(new Scene((Parent) scene));
-            stage.setTitle("Update Customer");
-            stage.show();
-
- */
 
         }
 
@@ -315,7 +298,7 @@ public class MainScreenController implements Initializable {
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
                 stage.setScene(new Scene((Parent) scene));
-                stage.setTitle("Add Customer");
+                stage.setTitle("Main Screen");
                 stage.show();
             }
         }
@@ -348,7 +331,7 @@ public class MainScreenController implements Initializable {
         void OnActionUpdateAppointment (ActionEvent event) throws IOException {
 
             stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/AddAppointments.fxml")));
+            scene = load(Objects.requireNonNull(getClass().getResource("/view/UpdateAppointments.fxml")));
             stage.setScene(new Scene((Parent) scene));
             stage.setTitle("Update Appointment");
             stage.show();
@@ -401,11 +384,10 @@ public class MainScreenController implements Initializable {
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
                 stage.setScene(new Scene((Parent) scene));
-                stage.setTitle("Add Customer");
+                stage.setTitle("Login");
                 stage.show();
             }
         }
-
 
 
         /**
@@ -423,7 +405,7 @@ public class MainScreenController implements Initializable {
                 stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
                 scene = load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
                 stage.setScene(new Scene((Parent) scene));
-                stage.setTitle("Add Customer");
+                stage.setTitle("Login");
                 stage.show();
             }
         }

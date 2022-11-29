@@ -34,19 +34,31 @@ public class DBCountries {
         return allCountries;
     }
 
-    public static Countries selectedCountryName(String country) {
+    public static Countries selectedCountryName(int countryId) {
 
+        Countries countryObject = null;
         try {
+            String sql = "SELECT * FROM countries WHERE Country_ID = " + countryId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String country = rs.getString("Country");
+                countryObject = new Countries(countryId, country);
+            }
+            /*
             String sql = "SELECT Country FROM countries WHERE Country_ID = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ps.setString(1, String.valueOf(country));
 
+             */
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return null;
+        return countryObject;
     }
 
 }

@@ -21,12 +21,10 @@ public class DBDivision {
                 int divisionId = rs.getInt("Division_ID");
                 String division = rs.getString("Division");
                 int countryId = rs.getInt("Country_ID");
-                Divisions divisionsObject = new Divisions(divisionId, division,countryId);
+                Divisions divisionsObject = new Divisions(divisionId, division, countryId);
                 allDivisions.add(divisionsObject);
             }
-        }
-
-        catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
@@ -34,21 +32,48 @@ public class DBDivision {
     }
 
 
+    public static Divisions divisionNameFromId(int divisionId) {
 
-    public static Divisions divisionNameFromId(String divisionName) {
+        Divisions divisionsObject = null;
 
         try {
-            String sql = "SELECT Division FROM first_level_divisions WHERE Division_ID = ?";
+            String sql = "SELECT * FROM first_level_divisions WHERE Division_ID = " + divisionId;
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ps.setString(1, String.valueOf(divisionName));
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String division = rs.getString("Division");
+                int countryId = rs.getInt("Country_ID");
+                divisionsObject = new Divisions(divisionId, division, countryId);
+                System.out.println(divisionsObject.getDivisionName());
+            }
+
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return null;
+        return divisionsObject;
     }
 
-}
+    public static int divisionFromCountry(int divisionId) {
 
+        int countryId = 0;
+
+        try {
+            String sql = "SELECT * FROM first_level_divisions WHERE Division_ID = " + divisionId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                 countryId = rs.getInt("Country_ID");
+
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return countryId;
+    }
+}

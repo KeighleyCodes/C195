@@ -1,5 +1,6 @@
 package controller;
 
+import database.DBAppointments;
 import database.DBContacts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +16,8 @@ import model.Contacts;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Optional;
@@ -25,16 +28,19 @@ public class AddAppointmentsController implements Initializable {
     public TextField titleTextField;
     public TextField descriptionTextField;
     public TextField locationTextField;
+    public TextField typeTextField;
     public TextField userIdTextField;
     public TextField appointmentIdTextField;
     public DatePicker datePicker;
     public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
-    public ComboBox <LocalTime> startTimeComboBox;
+    public ComboBox <CharSequence> startTimeComboBox;
     public DatePicker startDatePicker;
     public DatePicker endDatePicker;
-    public ComboBox <LocalTime> endTimeComboBox;
+    public ComboBox <CharSequence> endTimeComboBox;
+    public ComboBox customerIdComboBox;
+    public ComboBox userIdComboBox;
 
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
@@ -50,24 +56,44 @@ public class AddAppointmentsController implements Initializable {
         // Fills contact combo box
         contactComboBox.setItems(allContacts);
 
-        // ** FIX THIS - add method so I don't need two for loops ***
-        for(int i = 1; i < 24; i++) {
-            startTimes.add(LocalTime.of(i,0));
-        }
-        startTimeComboBox.setItems(startTimes);
+        //  customerIdComboBox.setItems();  *********** CREATE CUSTOMER ID OBSERVABLE LIST
 
-        for(int i = 1; i < 24; i++) {
-            endTimes.add(LocalTime.of(i,0));
-        }
-        endTimes.add(LocalTime.of(0,1));
-        endTimeComboBox.setItems(endTimes);
+        // userIdComboBox.setItems(); ************** CREATE USER ID OBSERVABLE LIST
+
+        // Fills time combo boxes
+        fillTimeComboBoxes();
 
     }
 
+    public void fillTimeComboBoxes() {
+        ObservableList<CharSequence> times = FXCollections.observableArrayList();
+        LocalTime startTimes = LocalTime.of(8, 0);
+        LocalTime endTimes = LocalTime.of(22, 0);
 
+        times.add(startTimes.toString());
+
+        while (startTimes.isBefore(endTimes)) {
+            startTimes = startTimes.plusMinutes(15);
+            times.add(startTimes.toString());
+        }
+
+        startTimeComboBox.setItems(times);
+        endTimeComboBox.setItems(times);
+    }
 
     @FXML
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
+
+       // System.out.println(startDatePicker.getValue());
+      //  System.out.println(datePicker.getValue());
+        int contactId = contactComboBox.getSelectionModel().getSelectedIndex();
+        String title = titleTextField.getText();
+        String description = descriptionTextField.getText();
+        String location = locationTextField.getText();
+        String type = typeTextField.getText();
+        LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(startTimeComboBox.getValue()));
+        LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(endTimeComboBox.getValue()));
+        DBAppointments.insertAppointment(contactId, title, description, location, type, startTime, endTime);
 
         this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
@@ -97,6 +123,4 @@ public class AddAppointmentsController implements Initializable {
     public void OnSelectEndTime(ActionEvent event) {
     }
 
-    // initialize method - loop through observable list of times (run 23x for each case - start and end) midnight
-    // - 2300 hrs
 }
