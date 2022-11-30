@@ -1,9 +1,6 @@
 package model;
 
 import database.DBAppointments;
-import database.DBCustomer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDateTime;
@@ -107,7 +104,7 @@ public class Appointments {
         this.type = type;
     }
 
-    public LocalDateTime getStartTime() {
+    public CharSequence getStartTime() {
         return startTime;
     }
 
@@ -115,7 +112,7 @@ public class Appointments {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public CharSequence getEndTime() {
         return endTime;
     }
 
@@ -130,4 +127,5 @@ public class Appointments {
     public void setContactId(int contactId) {
         this.contactId = contactId;
     }
+
 }

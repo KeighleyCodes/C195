@@ -43,24 +43,26 @@ public class DBAppointments {
     }
 
 
-    public static void updateAppointment(int appointmentId, String title, String description, String location,
+    public static void updateAppointment(String title, String description, String location,
                                          int contactId, String type, LocalDateTime startTime, LocalDateTime endTime,
-                                         int customerId, int userId) throws SQLException {
+                                         int customerId, int userId, int appointmentId) throws SQLException {
 
         try {
             Appointments.allAppointments().clear();
-            String sql =  "UPDATE appointments SET Contact_ID=?, Title=?, Description=?, Location=?, Type=?, " +
-                    "Start=?, End=?, WHERE Appointment_ID =?";
+            String sql =  "UPDATE appointments SET  Title=?, Description=?, Location=?, Contact_ID=?, Type=?, " +
+                    "Start=?, End=?, Customer_ID=?, User_ID=? WHERE Appointment_ID =?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ps.setInt(1, contactId);
-            ps.setString(2, title);
-            ps.setString(3, description);
-            ps.setString(4, location);
+            ps.setString(1, title);
+            ps.setString(2, description);
+            ps.setString(3, location);
+            ps.setInt(4, contactId);
             ps.setString(5, type);
             ps.setTimestamp(6, Timestamp.valueOf(startTime)); // Need date, start time and end time ?
             ps.setTimestamp(7, Timestamp.valueOf(endTime)); //
-            ps.setInt(8, appointmentId);
+            ps.setInt(8, customerId);
+            ps.setInt(9, userId);
+            ps.setInt(10, appointmentId);
 
             ps.executeUpdate();
         }
@@ -108,12 +110,12 @@ public class DBAppointments {
         return 0;
     }
 
-    public static void insertAppointment(int contactId, String title, String description, String location, String type, LocalDateTime start, LocalDateTime end
-    customerID, userId) {
+    public static void insertAppointment(int contactId, String title, String description, String location, String type, LocalDateTime start,
+                                         LocalDateTime end, int customerId, int userId) {
         try {
             Appointments.allAppointments().clear();
             String sql =  "INSERT INTO appointments (Contact_ID, Title, Description, Location, Type, " +
-                    "Start, End, Customer_ID, User_ID) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                    "Start, End, Customer_ID, User_ID) VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ps.setInt(1, contactId);

@@ -115,9 +115,9 @@ public class UpdateCustomerController implements Initializable {
         phoneTextField.setText(String.valueOf(customer.getPhone()));
         addressTextField.setText(String.valueOf(customer.getAddress()));
         postalCodeTextField.setText(String.valueOf(customer.getPostalCode()));
-        divisionComboBox.setValue(divisionNameFromId(customer.getDivisionId())); // FIX ME
+        divisionComboBox.setValue(divisionNameFromId(customer.getDivisionId()));
         int cid = DBDivision.divisionFromCountry(customer.getDivisionId());
-        countryComboBox.setValue(selectedCountryName(cid)); // FIX ME
+        countryComboBox.setValue(selectedCountryName(cid));
 
         // query database, pass division ID and ask to return division
        // Localdatetime has month, get current month (.now) extract month

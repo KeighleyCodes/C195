@@ -99,7 +99,7 @@ public static int deleteCustomer(Customer customer) throws SQLException {
     }
 
 
-    public static void updateCustomer(String customerName, String address, String phone, String postalCode,
+    public static void updateCustomer(String customerName, String address, String postalCode, String phone,
                                       int divisionId, int customerId) throws SQLException {
 
         // Need to change division ID to division name?

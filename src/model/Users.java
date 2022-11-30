@@ -38,4 +38,9 @@ public class Users {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    // toString method for the combo box to return
+    public String toString() {
+        return username;
+    }
 }

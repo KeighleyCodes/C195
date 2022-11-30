@@ -2,6 +2,8 @@ package controller;
 
 import database.DBAppointments;
 import database.DBContacts;
+import database.DBCustomer;
+import database.DBUser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Contacts;
+import model.Customer;
+import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
@@ -24,7 +28,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AddAppointmentsController implements Initializable {
-    public ComboBox contactComboBox;
+    public ComboBox<Contacts> contactComboBox;
     public TextField titleTextField;
     public TextField descriptionTextField;
     public TextField locationTextField;
@@ -32,18 +36,18 @@ public class AddAppointmentsController implements Initializable {
     public TextField userIdTextField;
     public TextField appointmentIdTextField;
     public DatePicker datePicker;
-    public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
     public ComboBox <CharSequence> startTimeComboBox;
-    public DatePicker startDatePicker;
-    public DatePicker endDatePicker;
     public ComboBox <CharSequence> endTimeComboBox;
-    public ComboBox customerIdComboBox;
-    public ComboBox userIdComboBox;
+    public ComboBox<Customer> customerIdComboBox;
+    public ComboBox<Users> userIdComboBox;
 
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
+
+    private ObservableList<Users> allUsers = DBUser.getAllUsers();
+    private ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
 
     Stage stage;
     Parent scene;
@@ -53,14 +57,13 @@ public class AddAppointmentsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Fills contact combo box
+        // Fills combo boxes
         contactComboBox.setItems(allContacts);
 
-        //  customerIdComboBox.setItems();  *********** CREATE CUSTOMER ID OBSERVABLE LIST
+        customerIdComboBox.setItems(allCustomers);
 
-        // userIdComboBox.setItems(); ************** CREATE USER ID OBSERVABLE LIST
+        userIdComboBox.setItems(allUsers);
 
-        // Fills time combo boxes
         fillTimeComboBoxes();
 
     }
@@ -84,16 +87,17 @@ public class AddAppointmentsController implements Initializable {
     @FXML
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
 
-       // System.out.println(startDatePicker.getValue());
-      //  System.out.println(datePicker.getValue());
-        int contactId = contactComboBox.getSelectionModel().getSelectedIndex();
+        int contactId = contactComboBox.getValue().getContactId();
         String title = titleTextField.getText();
         String description = descriptionTextField.getText();
         String location = locationTextField.getText();
         String type = typeTextField.getText();
         LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(startTimeComboBox.getValue()));
         LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(endTimeComboBox.getValue()));
-        DBAppointments.insertAppointment(contactId, title, description, location, type, startTime, endTime);
+        int customerId = customerIdComboBox.getValue().getCustomerId();
+        int userId = userIdComboBox.getValue().getUserId();
+        System.out.println(userId);
+        DBAppointments.insertAppointment(contactId, title, description, location, type, startTime, endTime, customerId, userId);
 
         this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
