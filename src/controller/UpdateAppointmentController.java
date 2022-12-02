@@ -27,8 +27,13 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static database.DBContacts.contactNameFromId;
+import static database.DBCustomer.customerNameFromID;
+import static database.DBUser.userNameFromID;
+//import static database.DBCustomer.selectedCustomerName;
+
 public class UpdateAppointmentController implements Initializable {
-    public ComboBox contactComboBox;
+    public ComboBox<Contacts> contactComboBox;
     public TextField titleTextField;
     public TextField descriptionTextField;
     public TextField locationTextField;
@@ -40,8 +45,8 @@ public class UpdateAppointmentController implements Initializable {
     public Button saveButton;
     public TextField typeTextField;
     public DatePicker datePicker;
-    public ComboBox<CharSequence> startTimeComboBox;
-    public ComboBox<CharSequence> endTimeComboBox;
+    public ComboBox<LocalTime> startTimeComboBox;
+    public ComboBox<LocalTime> endTimeComboBox;
     public ComboBox<Customer> customerIdComboBox;
     public ComboBox<Users> userIdComboBox;
 
@@ -75,15 +80,15 @@ public class UpdateAppointmentController implements Initializable {
     }
 
     public void fillTimeComboBoxes() {
-        ObservableList<CharSequence> times = FXCollections.observableArrayList();
+        ObservableList<LocalTime> times = FXCollections.observableArrayList();
         LocalTime startTimes = LocalTime.of(8, 0);
         LocalTime endTimes = LocalTime.of(22, 0);
 
-        times.add(startTimes.toString());
+        times.add(startTimes);
 
         while (startTimes.isBefore(endTimes)) {
             startTimes = startTimes.plusMinutes(15);
-            times.add(startTimes.toString());
+            times.add(startTimes);
         }
 
         startTimeComboBox.setItems(times);
@@ -109,33 +114,30 @@ public class UpdateAppointmentController implements Initializable {
         String description = descriptionTextField.getText();
         String location = locationTextField.getText();
         String type = typeTextField.getText();
-        LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(startTimeComboBox.getValue()));
-        LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(endTimeComboBox.getValue()));
+        LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
+        LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
         int customerId = customerIdComboBox.getValue().getCustomerId();
         int userId = userIdComboBox.getValue().getUserId();
         DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
     }
 
 
-    public void sendAppointment() {
+    public void sendAppointment(Appointments appointments) {
+
         appointmentId = appointments.getAppointmentId();
-        contactComboBox.setValue(appointments.getContactId());
+        contactComboBox.setValue(contactNameFromId(appointments.getContactId())); // NULL?
         titleTextField.setText(appointments.getTitle());
         descriptionTextField.setText(appointments.getDescription());
         locationTextField.setText(appointments.getLocation());
         typeTextField.setText(appointments.getType());
+        datePicker.setValue(appointments.getAppointmentDay());
         startTimeComboBox.setValue(appointments.getStartTime());
         endTimeComboBox.setValue(appointments.getEndTime());
-        customerIdComboBox.setValue(appointments.getCustomerId());
-        // send to DB, return customer object
+        customerIdComboBox.setValue(customerNameFromID(appointments.getCustomerId()));
+        userIdComboBox.setValue(userNameFromID(appointments.getCustomerId()));
 
     }
 
 
-
-    public void OnSelectStartTime(ActionEvent event) {
-    }
-
-    public void OnSelectEndTime(ActionEvent event) {
-    }
 }
+ // SQL month (select all from appts where month start = ?)  - make observable list

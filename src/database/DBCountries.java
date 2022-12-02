@@ -34,6 +34,8 @@ public class DBCountries {
         return allCountries;
     }
 
+
+    // Creates country object name from ID
     public static Countries selectedCountryName(int countryId) {
 
         Countries countryObject = null;
@@ -46,17 +48,10 @@ public class DBCountries {
                 String country = rs.getString("Country");
                 countryObject = new Countries(countryId, country);
             }
-            /*
-            String sql = "SELECT Country FROM countries WHERE Country_ID = ?";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
-            ps.setString(1, String.valueOf(country));
-
-             */
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        }
+            }
 
         return countryObject;
     }

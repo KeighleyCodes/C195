@@ -34,6 +34,32 @@ public class DBContacts {
         return allContacts;
     }
 
+    // Creates Contact object from ID
+    public static Contacts contactNameFromId(int contactId) {
+
+        Contacts contactObject = null;
+        try {
+            String sql = "SELECT * FROM contacts WHERE Contact_ID = " + contactId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String contactName = rs.getString("Contact_Name");
+                contactObject = new Contacts(contactId, contactName);
+                System.out.println(contactObject.getContactName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return contactObject;
+    }
+
+
+
+
+
     // ----- FOR REPORTS TAB ------------------------------------------------
 
     // Counts total by contact

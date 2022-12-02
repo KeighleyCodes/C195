@@ -5,7 +5,9 @@ import javafx.collections.ObservableList;
 import model.*;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 public class DBAppointments {
@@ -25,17 +27,16 @@ public class DBAppointments {
                 String location = rs.getString("Location");
                 int contactId = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
-                LocalDateTime startTime = rs.getTimestamp("Start").toLocalDateTime();
-                LocalDateTime endTime = rs.getTimestamp("End").toLocalDateTime();
+                LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
+                LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
+                LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
                 int customerId = rs.getInt("Customer_ID");
                 int userId = rs.getInt("Contact_ID");
                 Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
-                        type, startTime, endTime, customerId, userId);
+                        type, appointmentDay, startTime, endTime, customerId, userId);
                 allAppointments.add(appointmentObject);
             }
-        }
-
-        catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
@@ -49,7 +50,7 @@ public class DBAppointments {
 
         try {
             Appointments.allAppointments().clear();
-            String sql =  "UPDATE appointments SET  Title=?, Description=?, Location=?, Contact_ID=?, Type=?, " +
+            String sql = "UPDATE appointments SET  Title=?, Description=?, Location=?, Contact_ID=?, Type=?, " +
                     "Start=?, End=?, Customer_ID=?, User_ID=? WHERE Appointment_ID =?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
@@ -65,9 +66,7 @@ public class DBAppointments {
             ps.setInt(10, appointmentId);
 
             ps.executeUpdate();
-        }
-
-        catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
@@ -77,15 +76,13 @@ public class DBAppointments {
     // Deletes appointment
     public static int cancelAppointment(Appointments appointments) {
         try {
-            String sql =  "DELETE FROM appointments WHERE Appointment_ID = ?";
+            String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ps.setInt(1, appointments.getAppointmentId());
 
             ps.executeUpdate();
-        }
-
-        catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
@@ -102,9 +99,7 @@ public class DBAppointments {
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
-        }
-
-        catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return 0;
@@ -114,7 +109,7 @@ public class DBAppointments {
                                          LocalDateTime end, int customerId, int userId) {
         try {
             Appointments.allAppointments().clear();
-            String sql =  "INSERT INTO appointments (Contact_ID, Title, Description, Location, Type, " +
+            String sql = "INSERT INTO appointments (Contact_ID, Title, Description, Location, Type, " +
                     "Start, End, Customer_ID, User_ID) VALUES (?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
@@ -128,9 +123,7 @@ public class DBAppointments {
             ps.setInt(8, customerId);
             ps.setInt(9, userId);
             ps.executeUpdate();
-        }
-
-        catch (SQLException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 

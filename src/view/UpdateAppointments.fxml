@@ -27,9 +27,9 @@
       <DatePicker fx:id="datePicker" layoutX="390.0" layoutY="163.0" />
       <Button fx:id="cancelButton" layoutX="512.0" layoutY="350.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
       <Button fx:id="saveButton" layoutX="450.0" layoutY="350.0" mnemonicParsing="false" onAction="#OnActionSaveAppointment" text="Save" />
-      <ComboBox fx:id="startTimeComboBox" layoutX="389.0" layoutY="211.0" onAction="#OnSelectStartTime" prefWidth="150.0" promptText="Select start time" />
+      <ComboBox fx:id="startTimeComboBox" layoutX="389.0" layoutY="211.0" prefWidth="150.0" promptText="Select start time" />
       <Label layoutX="322.0" layoutY="265.0" text="End Time:" />
-      <ComboBox fx:id="endTimeComboBox" layoutX="389.0" layoutY="261.0" onAction="#OnSelectEndTime" prefWidth="150.0" promptText="Select end time" />
+      <ComboBox fx:id="endTimeComboBox" layoutX="389.0" layoutY="261.0" prefWidth="150.0" promptText="Select end time" />
       <Label layoutX="31.0" layoutY="265.0" text="Contact:" />
       <ComboBox fx:id="customerIdComboBox" layoutX="389.0" layoutY="60.0" prefWidth="150.0" promptText="Select Customer" />
       <ComboBox fx:id="userIdComboBox" layoutX="389.0" layoutY="109.0" prefWidth="150.0" promptText="Select User" />

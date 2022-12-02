@@ -19,6 +19,8 @@ import model.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -117,7 +119,7 @@ public class MainScreenController implements Initializable {
     public Button totalContactButton;
     public Button totalCustomerButton;
     public Tab allAppointmentsTab;
-    public TableView allAppointmentsTableview;
+    public TableView<Appointments> allAppointmentsTable;
     public TableColumn allAppointmentsIdColumn;
     public TableColumn allAppointmentsTitleColumn;
     public TableColumn allAppointmentsDescriptionColumn;
@@ -185,7 +187,10 @@ public class MainScreenController implements Initializable {
         allAppointmentsEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         allAppointmentsCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         allAppointmentsUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        allAppointmentsTableview.setItems(appointmentsList);
+        allAppointmentsTable.setItems(appointmentsList);
+
+        // lambda for filtering weeks / months existing observable list
+        // https://www.baeldung.com/java-stream-filter-lambda
 
 
         // Sets Contacts observable list
@@ -202,7 +207,9 @@ public class MainScreenController implements Initializable {
        // ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
 
         // Fills type in combo box
-        // monthSelectorBox.setItems(allAppointments);
+      //  monthSelectorBox.setItems();
+        // manually fill combo box with months, query to grab month / type and pass to DB query & return count
+        // action event once type selected, check that month selected
 
         ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
         // Fills type in combo box
@@ -329,12 +336,25 @@ public class MainScreenController implements Initializable {
 
         @FXML
         void OnActionUpdateAppointment (ActionEvent event) throws IOException {
+            try {
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("/view/UpdateAppointments.fxml"));
+                loader.load();
 
-            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            scene = load(Objects.requireNonNull(getClass().getResource("/view/UpdateAppointments.fxml")));
-            stage.setScene(new Scene((Parent) scene));
-            stage.setTitle("Update Appointment");
-            stage.show();
+                UpdateAppointmentController UAController = loader.getController();
+                UAController.sendAppointment(allAppointmentsTable.getSelectionModel().getSelectedItem());
+                stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                Parent scene = loader.getRoot();
+                stage.setScene(new Scene(scene));
+                stage.setTitle("Update Appointment");
+                stage.show();
+
+            } catch (NullPointerException n) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Please select an appointment to modify");
+                alert.show();
+            }
         }
 
         /** Delete appointment method in monthly view. Deletes appointment when delete button clicked. */
@@ -363,10 +383,6 @@ public class MainScreenController implements Initializable {
                 }
             }
         }
-
-
-        // **** FIX ME ****
-        /** Delete appointment method in weekly view. Deletes appointment when delete button clicked. */
 
 
         /**
@@ -415,7 +431,6 @@ public class MainScreenController implements Initializable {
     }
 
     public void OnSelectionContact(ActionEvent event) {
-       // Contacts selectedContact = (Contacts) contactSelectorBox.getValue();
         reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts(contactSelectorBox.getValue().getContactName())));
     }
 

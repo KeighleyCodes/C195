@@ -38,8 +38,8 @@ public class AddAppointmentsController implements Initializable {
     public DatePicker datePicker;
     public Button cancelButton;
     public Button saveButton;
-    public ComboBox <CharSequence> startTimeComboBox;
-    public ComboBox <CharSequence> endTimeComboBox;
+    public ComboBox <LocalTime> startTimeComboBox;
+    public ComboBox <LocalTime> endTimeComboBox;
     public ComboBox<Customer> customerIdComboBox;
     public ComboBox<Users> userIdComboBox;
 
@@ -69,15 +69,15 @@ public class AddAppointmentsController implements Initializable {
     }
 
     public void fillTimeComboBoxes() {
-        ObservableList<CharSequence> times = FXCollections.observableArrayList();
+        ObservableList<LocalTime> times = FXCollections.observableArrayList();
         LocalTime startTimes = LocalTime.of(8, 0);
         LocalTime endTimes = LocalTime.of(22, 0);
 
-        times.add(startTimes.toString());
+        times.add(startTimes);
 
         while (startTimes.isBefore(endTimes)) {
             startTimes = startTimes.plusMinutes(15);
-            times.add(startTimes.toString());
+            times.add(startTimes);
         }
 
         startTimeComboBox.setItems(times);
@@ -92,8 +92,8 @@ public class AddAppointmentsController implements Initializable {
         String description = descriptionTextField.getText();
         String location = locationTextField.getText();
         String type = typeTextField.getText();
-        LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(startTimeComboBox.getValue()));
-        LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), LocalTime.parse(endTimeComboBox.getValue()));
+        LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
+        LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
         int customerId = customerIdComboBox.getValue().getCustomerId();
         int userId = userIdComboBox.getValue().getUserId();
         System.out.println(userId);
@@ -119,12 +119,6 @@ public class AddAppointmentsController implements Initializable {
             this.stage.setTitle("Main Screen");
             this.stage.show();
         }
-    }
-
-    public void OnSelectStartTime(ActionEvent event) {
-    }
-
-    public void OnSelectEndTime(ActionEvent event) {
     }
 
 }

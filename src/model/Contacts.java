@@ -17,6 +17,11 @@ public class Contacts {
         this.email = email;
     }
 
+    public Contacts(int contactId, String contactName) {
+        this.contactId = contactId;
+        this.contactName = contactName;
+    }
+
     // Getters and setters
     public int getContactId() {
         return contactId;

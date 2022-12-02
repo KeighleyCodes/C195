@@ -3,7 +3,6 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
-import model.Divisions;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -125,5 +124,28 @@ public static int deleteCustomer(Customer customer) throws SQLException {
         }
 
     }
+
+    // Creates Customer object from ID
+    public static Customer customerNameFromID(int customerId) {
+
+        Customer customerObject = null;
+        try {
+            String sql = "SELECT * FROM customers WHERE Customer_ID = " + customerId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String customerName = rs.getString("Customer_Name");
+                customerObject = new Customer(customerId, customerName);
+                System.out.println(customerObject.getCustomerName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return customerObject;
+    }
+
 
 }

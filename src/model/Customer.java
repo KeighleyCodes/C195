@@ -24,6 +24,12 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
+    public Customer(String customerId, String customerName) {
+    }
+
+    public Customer(int customerId, String customerName) {
+    }
+
 
     // Getters and setters
     public int getCustomerId() {

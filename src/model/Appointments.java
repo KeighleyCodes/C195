@@ -3,7 +3,9 @@ package model;
 import database.DBAppointments;
 import javafx.collections.ObservableList;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /** Contacts class - provides contact objects. */
 public class Appointments {
@@ -13,20 +15,22 @@ public class Appointments {
     private String location;
     private int contactId;
     private String type;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDate appointmentDay;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private int customerId;
     private int userId;
 
     // Constructor
     public Appointments(int appointmentId, String title, String description, String location, int contactId,
-                        String type, LocalDateTime startTime, LocalDateTime endTime, int customerId, int userId) {
+                        String type, LocalDate appointmentDay, LocalTime startTime, LocalTime endTime, int customerId, int userId) {
         this.appointmentId = appointmentId;
         this.title = title;
         this.description = description;
         this.location = location;
         this.contactId = contactId;
         this.type = type;
+        this.appointmentDay = appointmentDay;
         this.startTime = startTime;
         this.endTime = endTime;
         this.customerId = customerId;
@@ -104,19 +108,19 @@ public class Appointments {
         this.type = type;
     }
 
-    public CharSequence getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public CharSequence getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -128,4 +132,11 @@ public class Appointments {
         this.contactId = contactId;
     }
 
+    public LocalDate getAppointmentDay() {
+        return appointmentDay;
+    }
+
+    public void setAppointmentDay(LocalDate appointmentDay) {
+        this.appointmentDay = appointmentDay;
+    }
 }

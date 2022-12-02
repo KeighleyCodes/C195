@@ -41,7 +41,7 @@
                                                     <children>
                                                         <AnchorPane layoutX="7.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="339.0" prefWidth="749.0">
                                                             <children>
-                                                                <TableView fx:id="allAppointmentsTableview" layoutX="-2.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="753.0">
+                                                                <TableView fx:id="allAppointmentsTable" layoutX="-2.0" layoutY="-2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="753.0">
                                                                     <columns>
                                                                         <TableColumn fx:id="allAppointmentsIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
                                                                         <TableColumn fx:id="allAppointmentsTitleColumn" prefWidth="68.0" text="Title" />

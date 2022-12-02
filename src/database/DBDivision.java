@@ -45,7 +45,7 @@ public class DBDivision {
                 String division = rs.getString("Division");
                 int countryId = rs.getInt("Country_ID");
                 divisionsObject = new Divisions(divisionId, division, countryId);
-                System.out.println(divisionsObject.getDivisionName());
+
             }
 
 

@@ -2,6 +2,7 @@ package database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Customer;
 import model.Users;
 
 import java.sql.PreparedStatement;
@@ -33,4 +34,27 @@ public class DBUser {
 
         return allUsers;
     }
+
+    // Creates User object from ID
+    public static Users userNameFromID(int userId) {
+
+        Users userObject = null;
+        try {
+            String sql = "SELECT * FROM users WHERE User_ID = " + userId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String userName = rs.getString("User_Name");
+                userObject = new Users(userId, userName);
+                System.out.println(userObject.getUsername());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return userObject;
+    }
+
 }
