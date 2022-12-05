@@ -46,7 +46,7 @@ public class DBContacts {
             while (rs.next()) {
                 String contactName = rs.getString("Contact_Name");
                 contactObject = new Contacts(contactId, contactName);
-                System.out.println(contactObject.getContactName());
+               // System.out.println(contactObject.getContactName());
             }
 
         } catch (SQLException throwables) {

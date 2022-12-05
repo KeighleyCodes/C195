@@ -96,7 +96,6 @@ public class AddAppointmentsController implements Initializable {
         LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
         int customerId = customerIdComboBox.getValue().getCustomerId();
         int userId = userIdComboBox.getValue().getUserId();
-        System.out.println(userId);
         DBAppointments.insertAppointment(contactId, title, description, location, type, startTime, endTime, customerId, userId);
 
         this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();

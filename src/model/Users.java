@@ -15,6 +15,8 @@ public class Users {
     }
 
     public Users(int userId, String userName) {
+        this.userId = userId;
+        this.username = userName;
     }
 
     // Getters and setters

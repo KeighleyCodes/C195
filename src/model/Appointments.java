@@ -87,19 +87,6 @@ public class Appointments {
         this.userId = userId;
     }
 
-    // toString method for the combo box to return
-    public String toString() {
-        return type;
-    }
-
-
-
-    // Observable list
-    public static ObservableList<Appointments> allAppointments() {
-       return DBAppointments.getAllAppointments();
-    }
-
-
     public String getType() {
         return type;
     }
@@ -138,5 +125,15 @@ public class Appointments {
 
     public void setAppointmentDay(LocalDate appointmentDay) {
         this.appointmentDay = appointmentDay;
+    }
+
+    // toString method for the combo box to return
+    public String toString() {
+        return type;
+    }
+
+    // Observable list
+    public static ObservableList<Appointments> allAppointments() {
+        return DBAppointments.getAllAppointments();
     }
 }

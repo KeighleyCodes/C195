@@ -137,7 +137,6 @@ public static int deleteCustomer(Customer customer) throws SQLException {
             while (rs.next()) {
                 String customerName = rs.getString("Customer_Name");
                 customerObject = new Customer(customerId, customerName);
-                System.out.println(customerObject.getCustomerName());
             }
 
         } catch (SQLException throwables) {

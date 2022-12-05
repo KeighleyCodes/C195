@@ -4,6 +4,7 @@ package controller;
 import database.DBContacts;
 import database.DBCustomer;
 import database.DBAppointments;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,9 +22,11 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import static javafx.fxml.FXMLLoader.*;
 
@@ -189,8 +192,36 @@ public class MainScreenController implements Initializable {
         allAppointmentsUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         allAppointmentsTable.setItems(appointmentsList);
 
+
+        monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        monthlyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        monthlyLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        monthlyContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        monthlyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        monthlyStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        monthlyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
         // lambda for filtering weeks / months existing observable list
         // https://www.baeldung.com/java-stream-filter-lambda
+
+        ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
+        appointmentsList.forEach(appointments -> {
+            System.out.println(appointments.getType());
+            if(appointments.getType().equals("type")) {
+                monthlyAppointments.add(appointments);
+            }
+
+            // extract month from local date time now() and
+            // appointment.getStart() grabs that month
+
+        });
+
+
+
+        monthlyViewTable.setItems((ObservableList<Appointments>) monthlyAppointments);
 
 
         // Sets Contacts observable list

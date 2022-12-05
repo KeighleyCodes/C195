@@ -43,6 +43,29 @@ public class DBAppointments {
         return allAppointments;
     }
 
+    public static void insertAppointment(int contactId, String title, String description, String location, String type, LocalDateTime start,
+                                         LocalDateTime end, int customerId, int userId) {
+        try {
+            Appointments.allAppointments().clear();
+            String sql = "INSERT INTO appointments (Contact_ID, Title, Description, Location, Type, " +
+                    "Start, End, Customer_ID, User_ID) VALUES (?,?,?,?,?,?,?,?,?)";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, contactId);
+            ps.setString(2, title);
+            ps.setString(3, description);
+            ps.setString(4, location);
+            ps.setString(5, type);
+            ps.setTimestamp(6, Timestamp.valueOf(start));
+            ps.setTimestamp(7, Timestamp.valueOf(end));
+            ps.setInt(8, customerId);
+            ps.setInt(9, userId);
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
 
     public static void updateAppointment(String title, String description, String location,
                                          int contactId, String type, LocalDateTime startTime, LocalDateTime endTime,
@@ -59,8 +82,8 @@ public class DBAppointments {
             ps.setString(3, location);
             ps.setInt(4, contactId);
             ps.setString(5, type);
-            ps.setTimestamp(6, Timestamp.valueOf(startTime)); // Need date, start time and end time ?
-            ps.setTimestamp(7, Timestamp.valueOf(endTime)); //
+            ps.setTimestamp(6, Timestamp.valueOf(startTime));
+            ps.setTimestamp(7, Timestamp.valueOf(endTime));
             ps.setInt(8, customerId);
             ps.setInt(9, userId);
             ps.setInt(10, appointmentId);
@@ -105,28 +128,4 @@ public class DBAppointments {
         return 0;
     }
 
-    public static void insertAppointment(int contactId, String title, String description, String location, String type, LocalDateTime start,
-                                         LocalDateTime end, int customerId, int userId) {
-        try {
-            Appointments.allAppointments().clear();
-            String sql = "INSERT INTO appointments (Contact_ID, Title, Description, Location, Type, " +
-                    "Start, End, Customer_ID, User_ID) VALUES (?,?,?,?,?,?,?,?,?)";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
-            ps.setInt(1, contactId);
-            ps.setString(2, title);
-            ps.setString(3, description);
-            ps.setString(4, location);
-            ps.setString(5, type);
-            ps.setTimestamp(6, Timestamp.valueOf(start)); // Need date, start time and end time ?
-            ps.setTimestamp(7, Timestamp.valueOf(end));
-            ps.setInt(8, customerId);
-            ps.setInt(9, userId);
-            ps.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-    }
 }
-

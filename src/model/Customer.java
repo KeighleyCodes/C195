@@ -24,10 +24,9 @@ public class Customer {
         this.divisionId = divisionId;
     }
 
-    public Customer(String customerId, String customerName) {
-    }
-
     public Customer(int customerId, String customerName) {
+        this.customerId = customerId;
+        this.customerName = customerName;
     }
 
 

@@ -107,9 +107,9 @@ public class UpdateAppointmentController implements Initializable {
         }
     }
 
-    public void OnActionSaveAppointment(ActionEvent event) throws SQLException {
+    public void OnActionSaveAppointment(ActionEvent event) throws SQLException, IOException {
 
-        int contactId = contactComboBox.getSelectionModel().getSelectedIndex();
+        int contactId = contactComboBox.getValue().getContactId();
         String title = titleTextField.getText();
         String description = descriptionTextField.getText();
         String location = locationTextField.getText();
@@ -118,14 +118,21 @@ public class UpdateAppointmentController implements Initializable {
         LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
         int customerId = customerIdComboBox.getValue().getCustomerId();
         int userId = userIdComboBox.getValue().getUserId();
+        System.out.println(userId);
         DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
+
+        this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+        this.stage.setScene(new Scene(this.scene));
+        this.stage.setTitle("Main Screen");
+        this.stage.show();
     }
 
 
     public void sendAppointment(Appointments appointments) {
 
         appointmentId = appointments.getAppointmentId();
-        contactComboBox.setValue(contactNameFromId(appointments.getContactId())); // NULL?
+        contactComboBox.setValue(contactNameFromId(appointments.getContactId()));
         titleTextField.setText(appointments.getTitle());
         descriptionTextField.setText(appointments.getDescription());
         locationTextField.setText(appointments.getLocation());
@@ -140,4 +147,4 @@ public class UpdateAppointmentController implements Initializable {
 
 
 }
- // SQL month (select all from appts where month start = ?)  - make observable list
+// SQL month (select all from appts where month start = ?)  - make observable list
