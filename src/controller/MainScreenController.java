@@ -21,12 +21,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import static javafx.fxml.FXMLLoader.*;
 
@@ -77,8 +74,8 @@ public class MainScreenController implements Initializable {
     public Button logoutReportsButton;
     public Tab appointmentsByMonthTab;
     public Tab reportsTab;
-    public ComboBox monthSelectorBox;
-    public ComboBox typeSelectorBox;
+    public ComboBox<String> monthSelectorBox;
+    public ComboBox<String>typeSelectorBox;
     public TableColumn monthlyReportAppointmentIdColumn;
     public TableColumn monthlyReportTitleColumn;
     public TableColumn monthlyReportDescriptionColumn;
@@ -133,6 +130,7 @@ public class MainScreenController implements Initializable {
     public TableColumn allAppointmentsEndColumn;
     public TableColumn allAppointmentsCustomerColumn;
     public TableColumn allAppointmentsUserIdColumn;
+    public Label reportsMonthAndTypeLabel;
     private Stage stage;
     private Object scene;
 
@@ -192,7 +190,7 @@ public class MainScreenController implements Initializable {
         allAppointmentsUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         allAppointmentsTable.setItems(appointmentsList);
 
-
+        // Initializes monthly appointment table
         monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         monthlyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -204,14 +202,37 @@ public class MainScreenController implements Initializable {
         monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        // lambda for filtering weeks / months existing observable list
-        // https://www.baeldung.com/java-stream-filter-lambda
 
+        // Initializes weekly appointment table
+        weeklyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        weeklyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        weeklyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
+        weeklyLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        weeklyContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+        weeklyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        weeklyStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        weeklyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
+        weeklyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        weeklyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
+
+        // Lambda expression to filter appointments by month
+        LocalDateTime currentDay = LocalDateTime.now();
         ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
         appointmentsList.forEach(appointments -> {
-            System.out.println(appointments.getType());
-            if(appointments.getType().equals("type")) {
+            if(appointments.getAppointmentDay().getMonth().equals(currentDay.getMonth())) {
                 monthlyAppointments.add(appointments);
+            }
+        });
+        monthlyViewTable.setItems(monthlyAppointments);
+
+
+    // todays date  plus 6
+        // Lambda expression to filter appointments by week
+        ObservableList<Appointments> weeklyAppointments = FXCollections.observableArrayList();
+        appointmentsList.forEach(appointments -> {
+            if(appointments.getType().equals("type")) {
+                weeklyAppointments.add(appointments);
             }
 
             // extract month from local date time now() and
@@ -219,9 +240,9 @@ public class MainScreenController implements Initializable {
 
         });
 
+        weeklyViewTable.setItems(monthlyAppointments);
 
 
-        monthlyViewTable.setItems((ObservableList<Appointments>) monthlyAppointments);
 
 
         // Sets Contacts observable list
@@ -234,17 +255,12 @@ public class MainScreenController implements Initializable {
         //Fills customer combo box
         customerIdSelectorBox.setItems(allCustomers);
 
-        // Sets months observable list
-       // ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
-
-        // Fills type in combo box
-      //  monthSelectorBox.setItems();
-        // manually fill combo box with months, query to grab month / type and pass to DB query & return count
-        // action event once type selected, check that month selected
-
         ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
         // Fills type in combo box
         typeSelectorBox.setItems(allAppointments);
+
+
+       /// monthSelectorBox.setItems(DBAppointments.appointmentsByMonthandType());
 
 
     }
@@ -465,8 +481,18 @@ public class MainScreenController implements Initializable {
         reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts(contactSelectorBox.getValue().getContactName())));
     }
 
-    public void OnSelectionMonth(ActionEvent event) {
+   public void OnSelectionMonth(ActionEvent event) {
 
+    }
+
+    public void onTypeSelection(ActionEvent event) {
+        // if statement to ensure month selected
+        if(monthSelectorBox.getValue().equals(null)) {
+            // alert
+        }
+        else{
+          reportsMonthAndTypeLabel.setText(String.valueOf(DBAppointments.appointmentsByMonthAndType(monthSelectorBox.getValue(), typeSelectorBox.getValue())));
+        }
     }
 
     public void OnDeleteAppointment(ActionEvent event) {
@@ -479,5 +505,6 @@ public class MainScreenController implements Initializable {
              DBAppointments.getAllAppointments();
 
     }
+
 }
 

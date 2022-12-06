@@ -127,6 +127,7 @@ public class Appointments {
         this.appointmentDay = appointmentDay;
     }
 
+
     // toString method for the combo box to return
     public String toString() {
         return type;

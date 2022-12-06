@@ -14,6 +14,7 @@ public class DBAppointments {
 
     // Pulls appointment list into observable list
     public static ObservableList<Appointments> getAllAppointments() {
+
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * FROM appointments";
@@ -42,6 +43,44 @@ public class DBAppointments {
 
         return allAppointments;
     }
+
+  /*  public static ObservableList<Appointments> getMonthlyAppointments(LocalDateTime start) {
+        ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
+
+        LocalDateTime currentDay = LocalDateTime.now();
+        LocalDateTime currentMonth = currentDay.plusDays(30);
+        try {
+            String sql = "SELECT * FROM appointments";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+            ps.setDate(1, java.sql.Date.valueOf(currentDay.toLocalDate()));
+            ps.setDate(2, java.sql.Date.valueOf(currentMonth.toLocalDate()));
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactId = rs.getInt("Contact_ID");
+                String type = rs.getString("Type");
+                LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
+                LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
+                LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
+                int customerId = rs.getInt("Customer_ID");
+                int userId = rs.getInt("Contact_ID");
+                Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
+                        type, appointmentDay, startTime, endTime, customerId, userId);
+                monthlyAppointments.add(appointmentObject);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return monthlyAppointments;
+    }
+
+   */
+
 
     public static void insertAppointment(int contactId, String title, String description, String location, String type, LocalDateTime start,
                                          LocalDateTime end, int customerId, int userId) {
@@ -113,6 +152,7 @@ public class DBAppointments {
     }
 
 
+
     // ----- FOR REPORTS TAB ------------------------------------------------
 
     // Counts total by appointment
@@ -122,10 +162,86 @@ public class DBAppointments {
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
+
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         return 0;
     }
 
+    // ****************** FIX ME **********************
+    public static int appointmentsByMonthAndType(String month, String type) {
+        int count = 0;
+        try {
+            String sql = "SELECT COUNT(Appointment_ID) AS count FROM appointments WHERE MONTHNAME(Start) = ? AND Type = ?";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setString(1, month);
+            ps.setString(2,type);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                count = rs.getInt("count");
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return count;
+    }
+
+    public static ObservableList<Appointments> monthlyAppointments() {
+        ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
+        try {
+             String sql = "SELECT * FROM appointments WHERE monthname(Start) = monthname(now())";
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactId = rs.getInt("Contact_ID");
+                String type = rs.getString("Type");
+                LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
+                LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
+                LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
+                int customerId = rs.getInt("Customer_ID");
+                int userId = rs.getInt("Contact_ID");
+                Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
+                        type, appointmentDay, startTime, endTime, customerId, userId);
+                allAppointments.add(appointmentObject);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return allAppointments;
+    }
+
+
+/*
+    public static Contacts get(int contactId) {
+
+        Contacts contactObject = null;
+        try {
+            String sql = "SELECT * FROM contacts WHERE Contact_ID = " + contactId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                String contactName = rs.getString("Contact_Name");
+                contactObject = new Contacts(contactId, contactName);
+                // System.out.println(contactObject.getContactName());
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return contactObject;
+    }
+
+ */
 }
