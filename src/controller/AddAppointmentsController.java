@@ -99,7 +99,7 @@ public class AddAppointmentsController implements Initializable {
         String title = titleTextField.getText();
         String description = descriptionTextField.getText();
         String location = locationTextField.getText();
-        String type = typeTextField.getText();
+        String type = typeComboBox.getValue().toString();
         LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
         LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
         int customerId = customerIdComboBox.getValue().getCustomerId();

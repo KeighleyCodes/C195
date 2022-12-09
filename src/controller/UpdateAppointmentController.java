@@ -120,7 +120,7 @@ public class UpdateAppointmentController implements Initializable {
         String title = titleTextField.getText();
         String description = descriptionTextField.getText();
         String location = locationTextField.getText();
-        String type = typeTextField.getText();
+        String type = typeCombobox.getValue().toString();
         LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
         LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
         int customerId = customerIdComboBox.getValue().getCustomerId();
@@ -143,7 +143,7 @@ public class UpdateAppointmentController implements Initializable {
         titleTextField.setText(appointments.getTitle());
         descriptionTextField.setText(appointments.getDescription());
         locationTextField.setText(appointments.getLocation());
-        typeTextField.setText(appointments.getType());
+        typeCombobox.setValue(appointments.toString());
         datePicker.setValue(appointments.getAppointmentDay());
         startTimeComboBox.setValue(appointments.getStartTime());
         endTimeComboBox.setValue(appointments.getEndTime());
