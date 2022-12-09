@@ -34,6 +34,7 @@ public class DBContacts {
         return allContacts;
     }
 
+
     // Creates Contact object from ID
     public static Contacts contactNameFromId(int contactId) {
 
@@ -62,23 +63,6 @@ public class DBContacts {
 
     // ----- FOR REPORTS TAB ------------------------------------------------
 
-    // Counts total by contact
-    public static int totalContacts(String contactName) {
-        try {
-            String sql = "SELECT COUNT(Contact_Name) FROM Contacts WHERE Contact_Name LIKE ?";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ps.setString(1, contactName);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-                return rs.getInt("COUNT(Contact_Name)");
-            }
-        }
-
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return 0;
-    }
 
 }

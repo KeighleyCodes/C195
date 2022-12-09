@@ -41,24 +41,7 @@ public class DBCustomer {
     // ----- FOR REPORTS TAB ------------------------------------------------
 
 
-    // Counts total by customer
-    public static int totalCustomers(String contactName) {
-        try {
-            String sql = "SELECT COUNT(Customer_Name) FROM Customers WHERE Customer_Name = ?";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ps.setString(1, contactName);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-                return rs.getInt("COUNT(Customer_Name)");
-            }
-        }
-
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return 0;
-    }
 
 
 public static int deleteCustomer(Customer customer) throws SQLException {

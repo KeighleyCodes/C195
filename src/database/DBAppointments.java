@@ -29,6 +29,7 @@ public class DBAppointments {
                 int contactId = rs.getInt("Contact_ID");
                 String type = rs.getString("Type");
                 LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
+                // MAKE COLUMN FOR DAY!!
                 LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
                 LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
                 int customerId = rs.getInt("Customer_ID");
@@ -44,16 +45,13 @@ public class DBAppointments {
         return allAppointments;
     }
 
-  /*  public static ObservableList<Appointments> getMonthlyAppointments(LocalDateTime start) {
-        ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
-
-        LocalDateTime currentDay = LocalDateTime.now();
-        LocalDateTime currentMonth = currentDay.plusDays(30);
+    // Sets observable list of appointments by current month and year
+    public static ObservableList<Appointments> monthlyAppointments() {
+        ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM appointments";
+            String sql = "SELECT * FROM appointments WHERE monthname(Start) = monthname(now()) " +
+                    "AND YEAR(Start) = YEAR(NOW())";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-            ps.setDate(1, java.sql.Date.valueOf(currentDay.toLocalDate()));
-            ps.setDate(2, java.sql.Date.valueOf(currentMonth.toLocalDate()));
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -70,16 +68,48 @@ public class DBAppointments {
                 int userId = rs.getInt("Contact_ID");
                 Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
                         type, appointmentDay, startTime, endTime, customerId, userId);
-                monthlyAppointments.add(appointmentObject);
+                allAppointments.add(appointmentObject);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
-        return monthlyAppointments;
+        return allAppointments;
     }
 
-   */
+
+    // Sets observable list of appointments by current week and year
+    public static ObservableList<Appointments> weeklyAppointments() {
+        ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * from Appointments where Start BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 6 day);";
+
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactId = rs.getInt("Contact_ID");
+                String type = rs.getString("Type");
+                LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
+                LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
+                LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
+                int customerId = rs.getInt("Customer_ID");
+                int userId = rs.getInt("Contact_ID");
+                Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
+                        type, appointmentDay, startTime, endTime, customerId, userId);
+                allAppointments.add(appointmentObject);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return allAppointments;
+    }
+
 
 
     public static void insertAppointment(int contactId, String title, String description, String location, String type, LocalDateTime start,
@@ -190,58 +220,41 @@ public class DBAppointments {
         return count;
     }
 
-    public static ObservableList<Appointments> monthlyAppointments() {
-        ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
+    // Counts total by contact
+    public static int totalContacts(int contactId) {
         try {
-             String sql = "SELECT * FROM appointments WHERE monthname(Start) = monthname(now())";
+            String sql = "SELECT COUNT(Appointment_ID) FROM Appointments WHERE Contact_ID = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
+            ps.setInt(1, contactId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int appointmentId = rs.getInt("Appointment_ID");
-                String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
-                int contactId = rs.getInt("Contact_ID");
-                String type = rs.getString("Type");
-                LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
-                LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
-                LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
-                int customerId = rs.getInt("Customer_ID");
-                int userId = rs.getInt("Contact_ID");
-                Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
-                        type, appointmentDay, startTime, endTime, customerId, userId);
-                allAppointments.add(appointmentObject);
+            if(rs.next()) {
+                return rs.getInt("COUNT(Appointment_ID)");
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
-        return allAppointments;
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
     }
 
-
-/*
-    public static Contacts get(int contactId) {
-
-        Contacts contactObject = null;
+    // Counts total by customer
+    public static int totalCustomers(int customerId) {
         try {
-            String sql = "SELECT * FROM contacts WHERE Contact_ID = " + contactId;
+            String sql = "SELECT COUNT(Appointment_ID) FROM Appointments WHERE Customer_ID = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
+            ps.setInt(1, customerId);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                String contactName = rs.getString("Contact_Name");
-                contactObject = new Contacts(contactId, contactName);
-                // System.out.println(contactObject.getContactName());
+            if(rs.next()) {
+                return rs.getInt("COUNT(Appointment_ID)");
             }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         }
 
-        return contactObject;
+        catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return 0;
     }
-
- */
 }

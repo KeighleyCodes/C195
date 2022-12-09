@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -29,18 +30,37 @@ import static javafx.fxml.FXMLLoader.*;
 
 public class MainScreenController implements Initializable {
 
+    // CUSTOMERS
+    @FXML
+    private TableView<Customer> customerTable;
     public Tab customerTab;
     public TableColumn customerIdColumn;
     public TableColumn customerNameColumn;
     public TableColumn customerPhoneColumn;
     public TableColumn customerAddressColumn;
-    public TableColumn customerStateColumn;
-    public TableColumn customerCountryColumn;
     public TableColumn customerPostalCodeColumn;
     public TableColumn customerDivisionIdColumn;
     public Button updateCustomerButton;
     public Button deleteCustomerButton;
     public Button logoutCustomerButton;
+
+    // ALL APPOINTMENTS
+    public Tab allAppointmentsTab;
+    public TableView<Appointments> allAppointmentsTable;
+    public TableColumn allAppointmentsIdColumn;
+    public TableColumn allAppointmentsTitleColumn;
+    public TableColumn allAppointmentsDescriptionColumn;
+    public TableColumn allAppointmentsLocationColumn;
+    public TableColumn allAppointmentsContactIdColumn;
+    public TableColumn allAppointmentsTypeColumn;
+    public TableColumn allAppointmentsStartColumn;
+    public TableColumn allAppointmentsEndColumn;
+    public TableColumn allAppointmentsCustomerColumn;
+    public TableColumn allAppointmentsUserIdColumn;
+
+    // MONTHLY APPOINTMENTS
+    @FXML
+    private TableView<Appointments> monthlyViewTable;
     public Tab appointmentsTab;
     public Tab monthlyViewTab;
     public TableColumn monthlyAppointmentIdColumn;
@@ -53,6 +73,10 @@ public class MainScreenController implements Initializable {
     public TableColumn monthlyEndColumn;
     public TableColumn monthlyCustomerIdColumn;
     public TableColumn monthlyUserIdColumn;
+
+    // WEEKLY APPOINTMENTS
+    @FXML
+    private TableView<Appointments> weeklyViewTable;
     public Tab weeklyViewTab;
     public TableColumn weeklyAppointmentIdColumn;
     public TableColumn weeklyTitleColumn;
@@ -68,102 +92,30 @@ public class MainScreenController implements Initializable {
     public Button deleteAppointmentsButton;
     public Button updateAppointmentsButton;
     public Button addAppointmentsButton;
-    public Button addReportsButton;
-    public Button updateReportsButton;
-    public Button deleteReportsButton;
     public Button logoutReportsButton;
-    public Tab appointmentsByMonthTab;
+
+    // REPORTS
     public Tab reportsTab;
     public ComboBox<String> monthSelectorBox;
     public ComboBox<String>typeSelectorBox;
-    public TableColumn monthlyReportAppointmentIdColumn;
-    public TableColumn monthlyReportTitleColumn;
-    public TableColumn monthlyReportDescriptionColumn;
-    public TableColumn monthlyReportLocationColumn;
-    public TableColumn monthlyReportContactColumn;
-    public TableColumn monthlyReportTypeColumn;
-    public TableColumn monthlyReportStartColumn;
-    public TableColumn monthlyReportEndColumn;
-    public TableColumn monthlyReportCustomerIdColumn;
-    public TableColumn monthlyReportUserIdColumn;
-    public Tab appointmentsByContactTab;
-    public TableColumn contactAppointmentIdColumn;
-    public TableColumn contactTitleColumn;
-    public TableColumn contactDescriptionColumn;
-    public TableColumn contactLocationColumn;
-    public TableColumn contactContactColumn;
-    public TableColumn contactTypeColumn;
-    public TableColumn contactStartColumn;
-    public TableColumn contactEndColumn;
-    public TableColumn contactCustomerColumn;
-    public TableColumn contactUserIdColumn;
     public ComboBox<Contacts> contactSelectorBox;
-    public Tab customerReportTab;
-    public TableView appointmentsByCustomerTable;
-    public TableColumn customerAppointmentIdColumn;
-    public TableColumn customerTitleColumn;
-    public TableColumn customerDescriptionColumn;
-    public TableColumn customerLocationColumn;
-    public TableColumn customerContactColumn;
-    public TableColumn customerTypeColumn;
-    public TableColumn customerStartDateColumn;
-    public TableColumn customerEndDateColumn;
-    public TableColumn customerCustomerIdColumn;
-    public TableColumn customerUserIdColumn;
     public ComboBox<Customer> customerIdSelectorBox;
-    public TableColumn divisionIdColumn;
     public Label reportsByMonthLabel;
     public Label reportsByContactLabel;
     public Label reportsByCustomerLabel;
-    public Button totalAppointmentReportButton;
-    public Button totalContactButton;
-    public Button totalCustomerButton;
-    public Tab allAppointmentsTab;
-    public TableView<Appointments> allAppointmentsTable;
-    public TableColumn allAppointmentsIdColumn;
-    public TableColumn allAppointmentsTitleColumn;
-    public TableColumn allAppointmentsDescriptionColumn;
-    public TableColumn allAppointmentsLocationColumn;
-    public TableColumn allAppointmentsContactIdColumn;
-    public TableColumn allAppointmentsTypeColumn;
-    public TableColumn allAppointmentsStartColumn;
-    public TableColumn allAppointmentsEndColumn;
-    public TableColumn allAppointmentsCustomerColumn;
-    public TableColumn allAppointmentsUserIdColumn;
     public Label reportsMonthAndTypeLabel;
+
     private Stage stage;
     private Object scene;
 
-    Appointments selectedAppointment;
-
-    @FXML
-    private TableView<Customer> customerTable;
-
-    @FXML
-    private TableView<Appointments> weeklyViewTable;
-
-    @FXML
-    private TableView<Appointments> monthlyViewTable;
-
-    @FXML
-    private TableView<Reports> monthReportTable;
-
-    @FXML
-    private TableView<Reports> contactReportTable;
-
-    @FXML
-    private Button addCustomerButton;
-
-    Customer selectedCustomer;
-
-    private String contactName;
-    private String customerName;
 
     /**
      * Initialize method, initializes Main Screen.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // ---------------------------- TABLE VIEWS ---------------------------------------
 
         // Initializes customer table
         ObservableList<Customer> customerList = DBCustomer.getAllCustomers();
@@ -190,6 +142,7 @@ public class MainScreenController implements Initializable {
         allAppointmentsUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
         allAppointmentsTable.setItems(appointmentsList);
 
+
         // Initializes monthly appointment table
         monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -201,6 +154,16 @@ public class MainScreenController implements Initializable {
         monthlyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
+        // Lambda expression to filter appointments by month
+        LocalDateTime currentDay = LocalDateTime.now();
+        ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
+        appointmentsList.forEach(appointments -> {
+            if(appointments.getAppointmentDay().getMonth().equals(currentDay.getMonth())) {
+                monthlyAppointments.add(appointments);
+            }
+        });
+        monthlyViewTable.setItems(monthlyAppointments);
 
 
         // Initializes weekly appointment table
@@ -215,56 +178,48 @@ public class MainScreenController implements Initializable {
         weeklyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         weeklyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-
-        // Lambda expression to filter appointments by month
-        LocalDateTime currentDay = LocalDateTime.now();
-        ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
-        appointmentsList.forEach(appointments -> {
-            if(appointments.getAppointmentDay().getMonth().equals(currentDay.getMonth())) {
-                monthlyAppointments.add(appointments);
-            }
-        });
-        monthlyViewTable.setItems(monthlyAppointments);
-
-
-    // todays date  plus 6
         // Lambda expression to filter appointments by week
+        /*
         ObservableList<Appointments> weeklyAppointments = FXCollections.observableArrayList();
         appointmentsList.forEach(appointments -> {
-            if(appointments.getType().equals("type")) {
+            if(appointments.getAppointmentDay().plusDays(6).equals(currentDay.plusDays(6))) {
                 weeklyAppointments.add(appointments);
             }
-
-            // extract month from local date time now() and
-            // appointment.getStart() grabs that month
-
         });
 
-        weeklyViewTable.setItems(monthlyAppointments);
+         */
+        weeklyViewTable.setItems(DBAppointments.weeklyAppointments());
 
 
 
+        // --------------------------- COMBO BOXES --------------------------------------
 
-        // Sets Contacts observable list
-        ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
         // Fills contact combo box
+        ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
         contactSelectorBox.setItems(allContacts);
 
-        // Sets Customer observable list
-        ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
         //Fills customer combo box
+        ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
         customerIdSelectorBox.setItems(allCustomers);
 
-        ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
+        //  ************** FIX ME ***********
+        // Make array list, change to comboboxes?
+        ObservableList<String> typesList = FXCollections.observableArrayList(
+               "Mentoring", "Coffee Chat", "De-Briefing", "Sprint Meeting", "Planning Session"
+        );
         // Fills type in combo box
-        typeSelectorBox.setItems(allAppointments);
+        typeSelectorBox.setItems(typesList);
 
-
-       /// monthSelectorBox.setItems(DBAppointments.appointmentsByMonthandType());
-
+        // Populates combo box with months
+        ObservableList<String> monthsList = FXCollections.observableArrayList(
+                "January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"
+        );
+        monthSelectorBox.setItems(monthsList);
 
     }
 
+    // -------------------------------- CUSTOMERS ----------------------------------------
 
         /** Add customer method.
          * @param event Opens Add Customer screen when add button clicked.
@@ -315,7 +270,7 @@ public class MainScreenController implements Initializable {
 
         @FXML
         void OnActionDeleteCustomer (ActionEvent event) throws SQLException {
-               selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+              Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
                 if (selectedCustomer == null) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -357,6 +312,7 @@ public class MainScreenController implements Initializable {
             }
         }
 
+    // -------------------------------- APPOINTMENTS ----------------------------------------
 
         /**
          * Add appointment method.
@@ -404,26 +360,31 @@ public class MainScreenController implements Initializable {
             }
         }
 
-        /** Delete appointment method in monthly view. Deletes appointment when delete button clicked. */
+        /** Delete appointment method in all appointment view. Deletes appointment when delete button clicked. */
 
         @FXML
         void OnActionDeleteAppointment(ActionEvent event) {
 
-            Appointments selectedAppointment = monthlyViewTable.getSelectionModel().getSelectedItem();
+            Appointments selectedAppointment = allAppointmentsTable.getSelectionModel().getSelectedItem();
             if (selectedAppointment == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("You must select an appointment to delete.");
                 alert.showAndWait();
-            } else if (monthlyViewTable.getSelectionModel().getSelectedItem() != null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to delete this appointment?");
+            } else if (allAppointmentsTable.getSelectionModel().getSelectedItem() != null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  "Would you like to delete " +
+                        selectedAppointment.getTitle() + " from database?");
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && (result.get() == ButtonType.OK)) {
                     try {
                         DBAppointments.cancelAppointment(selectedAppointment);
+                        allAppointmentsTable.getItems().clear();
+                        allAppointmentsTable.setItems(DBAppointments.getAllAppointments());
                         monthlyViewTable.getItems().clear();
                         monthlyViewTable.setItems(DBAppointments.getAllAppointments());
+                        weeklyViewTable.getItems().clear();
+                        weeklyViewTable.setItems(DBAppointments.getAllAppointments());
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -452,6 +413,7 @@ public class MainScreenController implements Initializable {
             }
         }
 
+    // -------------------------------- REPORTS ----------------------------------------
 
         /**
          * Logout report method.
@@ -474,36 +436,26 @@ public class MainScreenController implements Initializable {
         }
 
     public void onSelectionCustomer(ActionEvent event) {
-        reportsByCustomerLabel.setText(String.valueOf(DBCustomer.totalCustomers(customerIdSelectorBox.getValue().getCustomerName())));
+        reportsByCustomerLabel.setText(String.valueOf(DBAppointments.totalCustomers(customerIdSelectorBox.getValue().getCustomerId())));
     }
 
     public void OnSelectionContact(ActionEvent event) {
-        reportsByContactLabel.setText(String.valueOf(DBContacts.totalContacts(contactSelectorBox.getValue().getContactName())));
+        reportsByContactLabel.setText(String.valueOf(DBAppointments.totalContacts(contactSelectorBox.getValue().getContactId())));
     }
 
-   public void OnSelectionMonth(ActionEvent event) {
-
-    }
 
     public void onTypeSelection(ActionEvent event) {
-        // if statement to ensure month selected
-        if(monthSelectorBox.getValue().equals(null)) {
-            // alert
+        if(monthSelectorBox.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must select a month");
+            alert.showAndWait();
+            typeSelectorBox.setValue(null);
+            // clear combo boxes
         }
         else{
           reportsMonthAndTypeLabel.setText(String.valueOf(DBAppointments.appointmentsByMonthAndType(monthSelectorBox.getValue(), typeSelectorBox.getValue())));
         }
-    }
-
-    public void OnDeleteAppointment(ActionEvent event) {
-            Appointments selectedAppointment = monthlyViewTable.getSelectionModel().getSelectedItem();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to delete " +
-                    selectedAppointment.getTitle() + " from database?");
-             Optional<ButtonType> result = alert.showAndWait();
-             DBAppointments.cancelAppointment(selectedAppointment);
-
-             DBAppointments.getAllAppointments();
-
     }
 
 }

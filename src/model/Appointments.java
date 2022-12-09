@@ -137,4 +137,5 @@ public class Appointments {
     public static ObservableList<Appointments> allAppointments() {
         return DBAppointments.getAllAppointments();
     }
+
 }

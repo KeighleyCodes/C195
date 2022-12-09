@@ -47,7 +47,6 @@ public class DBUser {
             while (rs.next()) {
                 String userName = rs.getString("User_Name");
                 userObject = new Users(userId, userName);
-                System.out.println(userObject.getUsername());
             }
 
         } catch (SQLException throwables) {
