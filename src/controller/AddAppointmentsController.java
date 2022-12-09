@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Contacts;
 import model.Customer;
 import model.Users;
@@ -42,6 +43,7 @@ public class AddAppointmentsController implements Initializable {
     public ComboBox <LocalTime> endTimeComboBox;
     public ComboBox<Customer> customerIdComboBox;
     public ComboBox<Users> userIdComboBox;
+    public ComboBox typeComboBox;
 
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
@@ -65,6 +67,12 @@ public class AddAppointmentsController implements Initializable {
         userIdComboBox.setItems(allUsers);
 
         fillTimeComboBoxes();
+
+        // Populates combo box with types
+        ObservableList<String> typesList = FXCollections.observableArrayList(
+                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
+        );
+        typeComboBox.setItems(typesList);
 
     }
 

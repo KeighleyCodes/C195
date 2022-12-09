@@ -49,6 +49,7 @@ public class UpdateAppointmentController implements Initializable {
     public ComboBox<LocalTime> endTimeComboBox;
     public ComboBox<Customer> customerIdComboBox;
     public ComboBox<Users> userIdComboBox;
+    public ComboBox typeCombobox;
 
     private int appointmentId;
 
@@ -76,6 +77,12 @@ public class UpdateAppointmentController implements Initializable {
         userIdComboBox.setItems(allUsers);
 
         fillTimeComboBoxes();
+
+        // Populates combo box with types
+        ObservableList<String> typesList = FXCollections.observableArrayList(
+                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
+        );
+        typeCombobox.setItems(typesList);
 
     }
 

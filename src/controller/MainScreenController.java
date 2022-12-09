@@ -30,6 +30,7 @@ import static javafx.fxml.FXMLLoader.*;
 
 public class MainScreenController implements Initializable {
 
+
     // CUSTOMERS
     @FXML
     private TableView<Customer> customerTable;
@@ -53,6 +54,8 @@ public class MainScreenController implements Initializable {
     public TableColumn allAppointmentsLocationColumn;
     public TableColumn allAppointmentsContactIdColumn;
     public TableColumn allAppointmentsTypeColumn;
+    public TableColumn allAppointmentsDateColumn;
+    public TableColumn monthlyDateColumn;
     public TableColumn allAppointmentsStartColumn;
     public TableColumn allAppointmentsEndColumn;
     public TableColumn allAppointmentsCustomerColumn;
@@ -69,6 +72,7 @@ public class MainScreenController implements Initializable {
     public TableColumn monthlyLocationColumn;
     public TableColumn monthlyContactColumn;
     public TableColumn monthlyTypeColumn;
+    public TableColumn weeklyDateColumn;
     public TableColumn monthlyStartColumn;
     public TableColumn monthlyEndColumn;
     public TableColumn monthlyCustomerIdColumn;
@@ -100,6 +104,9 @@ public class MainScreenController implements Initializable {
     public ComboBox<String>typeSelectorBox;
     public ComboBox<Contacts> contactSelectorBox;
     public ComboBox<Customer> customerIdSelectorBox;
+    public Button totalContactReportButton;
+    public Button totalCustomerReportButton;
+    public Button totalMonthAndTypeReport;
     public Label reportsByMonthLabel;
     public Label reportsByContactLabel;
     public Label reportsByCustomerLabel;
@@ -136,6 +143,7 @@ public class MainScreenController implements Initializable {
         allAppointmentsLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         allAppointmentsContactIdColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         allAppointmentsTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        allAppointmentsDateColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDay"));
         allAppointmentsStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         allAppointmentsEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         allAppointmentsCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -150,6 +158,7 @@ public class MainScreenController implements Initializable {
         monthlyLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         monthlyContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         monthlyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        monthlyDateColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDay"));
         monthlyStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         monthlyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -173,21 +182,11 @@ public class MainScreenController implements Initializable {
         weeklyLocationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         weeklyContactColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
         weeklyTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        weeklyDateColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentDay"));
         weeklyStartColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
         weeklyEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         weeklyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         weeklyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-
-        // Lambda expression to filter appointments by week
-        /*
-        ObservableList<Appointments> weeklyAppointments = FXCollections.observableArrayList();
-        appointmentsList.forEach(appointments -> {
-            if(appointments.getAppointmentDay().plusDays(6).equals(currentDay.plusDays(6))) {
-                weeklyAppointments.add(appointments);
-            }
-        });
-
-         */
         weeklyViewTable.setItems(DBAppointments.weeklyAppointments());
 
 
@@ -202,12 +201,10 @@ public class MainScreenController implements Initializable {
         ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
         customerIdSelectorBox.setItems(allCustomers);
 
-        //  ************** FIX ME ***********
-        // Make array list, change to comboboxes?
+        // Populates combo box with types
         ObservableList<String> typesList = FXCollections.observableArrayList(
-               "Mentoring", "Coffee Chat", "De-Briefing", "Sprint Meeting", "Planning Session"
+                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
         );
-        // Fills type in combo box
         typeSelectorBox.setItems(typesList);
 
         // Populates combo box with months
@@ -435,28 +432,43 @@ public class MainScreenController implements Initializable {
             }
         }
 
-    public void onSelectionCustomer(ActionEvent event) {
-        reportsByCustomerLabel.setText(String.valueOf(DBAppointments.totalCustomers(customerIdSelectorBox.getValue().getCustomerId())));
-    }
 
-    public void OnSelectionContact(ActionEvent event) {
-        reportsByContactLabel.setText(String.valueOf(DBAppointments.totalContacts(contactSelectorBox.getValue().getContactId())));
-    }
+        // *************** FIX ME! ********************
 
-
-    public void onTypeSelection(ActionEvent event) {
-        if(monthSelectorBox.getValue() == null) {
+    public void OnActionMonthAndTypeSelection(ActionEvent event) {
+       if(monthSelectorBox.getValue() == null || typeSelectorBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText("You must select a month");
+            alert.setContentText("You must select a month and type");
             alert.showAndWait();
-            typeSelectorBox.setValue(null);
-            // clear combo boxes
         }
         else{
-          reportsMonthAndTypeLabel.setText(String.valueOf(DBAppointments.appointmentsByMonthAndType(monthSelectorBox.getValue(), typeSelectorBox.getValue())));
+            reportsMonthAndTypeLabel.setText(String.valueOf(DBAppointments.appointmentsByMonthAndType(monthSelectorBox.getValue(), typeSelectorBox.getValue())));
         }
     }
 
+    public void OnActionContactSelection(ActionEvent event) {
+            if(contactSelectorBox.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("You must select a contact");
+                alert.showAndWait();
+            }
+            else {
+                reportsByContactLabel.setText(String.valueOf(DBAppointments.totalContacts(contactSelectorBox.getValue().getContactId())));
+            }
+    }
+
+    public void OnActionCustomerSelection(ActionEvent event) {
+        if(customerIdSelectorBox.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must select a contact");
+            alert.showAndWait();
+        }
+        else {
+            reportsByCustomerLabel.setText(String.valueOf(DBAppointments.totalCustomers(customerIdSelectorBox.getValue().getCustomerId())));
+        }
+    }
 }
 

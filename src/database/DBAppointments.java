@@ -185,21 +185,7 @@ public class DBAppointments {
 
     // ----- FOR REPORTS TAB ------------------------------------------------
 
-    // Counts total by appointment
-    public static int totalAppointments() {
-        try {
-            String sql = "SELECT COUNT(Start) FROM appointments WHERE  = ?";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
-            ResultSet rs = ps.executeQuery();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return 0;
-    }
-
-    // ****************** FIX ME **********************
     public static int appointmentsByMonthAndType(String month, String type) {
         int count = 0;
         try {

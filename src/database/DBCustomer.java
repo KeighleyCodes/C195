@@ -38,22 +38,6 @@ public class DBCustomer {
     }
 
 
-    // ----- FOR REPORTS TAB ------------------------------------------------
-
-
-
-
-
-public static int deleteCustomer(Customer customer) throws SQLException {
-    String sql = "SELECT * FROM customers";
-    PreparedStatement ps = DBConnection.getConnection().prepareStatement("DELETE FROM customers WHERE Customer_ID=?");
-        ps.setInt(1, customer.getCustomerId());
-        ps.executeUpdate();
-
-        return 0;
-
-    }
-
     public static void insertCustomer(String customerName, String address, String postalCode, String phone,
                                        int divisionId) throws SQLException {
 
@@ -105,6 +89,16 @@ public static int deleteCustomer(Customer customer) throws SQLException {
         catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+    }
+
+    public static int deleteCustomer(Customer customer) throws SQLException {
+        String sql = "SELECT * FROM customers";
+        PreparedStatement ps = DBConnection.getConnection().prepareStatement("DELETE FROM customers WHERE Customer_ID=?");
+        ps.setInt(1, customer.getCustomerId());
+        ps.executeUpdate();
+
+        return 0;
 
     }
 

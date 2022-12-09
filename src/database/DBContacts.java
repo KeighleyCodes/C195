@@ -57,12 +57,4 @@ public class DBContacts {
         return contactObject;
     }
 
-
-
-
-
-    // ----- FOR REPORTS TAB ------------------------------------------------
-
-
-
 }

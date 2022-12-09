@@ -1,6 +1,7 @@
 package model;
 
 import database.DBAppointments;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
@@ -127,13 +128,12 @@ public class Appointments {
         this.appointmentDay = appointmentDay;
     }
 
-
     // toString method for the combo box to return
     public String toString() {
         return type;
     }
 
-    // Observable list
+    // Observable list for all appointments
     public static ObservableList<Appointments> allAppointments() {
         return DBAppointments.getAllAppointments();
     }
