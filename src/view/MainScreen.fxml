@@ -156,8 +156,6 @@
                               <Separator layoutX="46.0" layoutY="260.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
                               <Separator layoutX="794.0" layoutY="257.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
                               <Separator layoutX="48.0" layoutY="379.0" prefHeight="4.0" prefWidth="748.0" />
-                              <Label fx:id="totalReportsContactLabel" layoutX="538.0" layoutY="312.0" text="0" />
-                              <Button fx:id="totalContactReportButton" layoutX="462.0" layoutY="308.0" mnemonicParsing="false" text="Total:" />
                                             <ComboBox fx:id="contactSelectorBox" layoutX="88.0" layoutY="320.0" onAction="#onSelectionContact" prefWidth="150.0" promptText="Select contact" />
                               <Label layoutX="88.0" layoutY="284.0" text="Schedule by contact">
                                  <font>

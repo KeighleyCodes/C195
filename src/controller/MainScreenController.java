@@ -29,8 +29,8 @@ import static javafx.fxml.FXMLLoader.*;
 /** Main Screen Controller
     Opens Main Screen of application, consisting of tabs for Customers, Appointments and Reports. Customer and
     Appointment tab have tableviews and the ability to add, update and delete respective data in connected
-    database. Reports tab produces two totals and one tableview pulled from database.
- */
+    database. Reports tab produces two totals and one tableview pulled from database. */
+
 public class MainScreenController implements Initializable {
 
     // CUSTOMERS
@@ -106,7 +106,6 @@ public class MainScreenController implements Initializable {
     public ComboBox<String>typeSelectorBox;
     public ComboBox<Contacts> contactSelectorBox;
     public ComboBox<Customer> customerIdSelectorBox;
-    public Button totalContactReportButton;
     public Button totalCustomerReportButton;
     public Button totalMonthAndTypeReport;
     public Label reportsByMonthLabel;
@@ -118,7 +117,8 @@ public class MainScreenController implements Initializable {
 
 
     /** Initialize method
-     * @param url Initializes Main Screen. */
+       @param url Initializes Main Screen. */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -166,8 +166,7 @@ public class MainScreenController implements Initializable {
         monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
 
-        /**
-         * Lambda expression compares the local month of current user to that of all the appointments
+        /** Lambda expression compares the local month of current user to that of all the appointments
             in the database. If they are equal, the appointment record is added to an observable list
             and then used to populate the monthly tableview. */
 
@@ -223,7 +222,8 @@ public class MainScreenController implements Initializable {
     // -------------------------------- CUSTOMERS ----------------------------------------
 
         /** Add customer method.
-         * @param event Opens Add Customer screen when add button clicked. */
+           @param event Opens Add Customer screen when add button clicked. */
+
         @FXML
         void OnActionAddCustomer (ActionEvent event) throws IOException {
 
@@ -236,7 +236,8 @@ public class MainScreenController implements Initializable {
         }
 
         /** Update customer method.
-         * @param event Opens Update Customer screen when update button clicked. */
+           @param event Opens Update Customer screen when update button clicked. */
+
         @FXML
         void OnActionUpdateCustomer (ActionEvent event) throws IOException {
 
@@ -259,11 +260,10 @@ public class MainScreenController implements Initializable {
                 alert.setContentText("Please select a customer record to modify");
                 alert.show();
             }
-
         }
 
-    /** Delete customer method
-     * @param event Deletes customer data when delete button clicked. */
+    /** Delete customer method.
+       @param event Deletes customer data when delete button clicked. */
 
         @FXML
         void OnActionDeleteCustomer (ActionEvent event) throws SQLException {
@@ -290,7 +290,8 @@ public class MainScreenController implements Initializable {
         }
 
         /** Logout customer method.
-         * @param event Returns to log in screen when log out button clicked. */
+           @param event Returns to log in screen when log out button clicked. */
+
         @FXML
         void OnActionLogoutCustomer (ActionEvent event) throws IOException {
 
@@ -309,8 +310,7 @@ public class MainScreenController implements Initializable {
     // -------------------------------- APPOINTMENTS ----------------------------------------
 
         /** Add appointment method.
-         * @param event Opens Add Appointment screen when add button clicked.
-         */
+           @param event Opens Add Appointment screen when add button clicked. */
 
         @FXML
         void  OnActionAddAppointment (ActionEvent event) throws IOException {
@@ -324,8 +324,7 @@ public class MainScreenController implements Initializable {
 
 
         /** Update appointment method.
-         * @param event Opens Update Appointment screen when update button clicked.
-         */
+           @param event Opens Update Appointment screen when update button clicked. */
 
         @FXML
         void OnActionUpdateAppointment (ActionEvent event) throws IOException {
@@ -351,8 +350,8 @@ public class MainScreenController implements Initializable {
         }
 
 
-    /** Delete appointment method
-     * @param event Deletes appointment data when delete button clicked. */
+    /** Delete appointment method.
+       @param event Deletes appointment data when delete button clicked. */
 
         @FXML
         void OnActionDeleteAppointment(ActionEvent event) {
@@ -390,8 +389,7 @@ public class MainScreenController implements Initializable {
 
 
         /** Logout appointment method.
-         * @param event Goes back to log in screen when log out button clicked.
-         */
+           @param event Goes back to log in screen when log out button clicked. */
 
         @FXML
         void onActionLogoutAppointments(ActionEvent event) throws IOException {
@@ -411,8 +409,7 @@ public class MainScreenController implements Initializable {
     // -------------------------------- REPORTS ----------------------------------------
 
         /** Logout report method.
-         * @param event Goes back to log in screen when log out button clicked.
-         */
+           @param event Goes back to log in screen when log out button clicked. */
 
         @FXML
         void OnActionLogoutReports (ActionEvent event) throws IOException {
@@ -431,9 +428,8 @@ public class MainScreenController implements Initializable {
 
 
 
-    /** Month and type report method
-     * @param event Totals the amount of appointments by month and type.
-     */
+    /** Month and type report method.
+       @param event Totals the amount of appointments by month and type. */
 
     public void OnActionMonthAndTypeSelection(ActionEvent event) {
          if(monthSelectorBox.getValue() == null || typeSelectorBox.getValue() == null) {
@@ -448,10 +444,8 @@ public class MainScreenController implements Initializable {
     }
 
 
-
-    /** Customer report method
-     * @param event Totals the amount of appointments by customer.
-     */
+    /** Customer report method.
+       @param event Totals the amount of appointments by customer. */
 
     public void OnActionCustomerSelection(ActionEvent event) {
         if(customerIdSelectorBox.getValue() == null) {
@@ -465,10 +459,9 @@ public class MainScreenController implements Initializable {
         }
     }
 
-    /** Contact report method
-     * @param event Opens new window containing table view populated with appointment
-     *              info filtered by selected contact in combo box.
-     */
+    /** Contact report method.
+       @param event Opens new window containing table view populated with appointment
+                    info filtered by selected contact in combo box. */
     public void onSelectionContact(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
@@ -485,7 +478,6 @@ public class MainScreenController implements Initializable {
         stage.show();
 
     }
-
 
 }
 
