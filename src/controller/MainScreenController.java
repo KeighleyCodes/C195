@@ -1,6 +1,5 @@
 package controller;
 
-
 import database.DBContacts;
 import database.DBCustomer;
 import database.DBAppointments;
@@ -21,15 +20,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static javafx.fxml.FXMLLoader.*;
 
+/** Main Screen Controller
+    Opens Main Screen of application, consisting of tabs for Customers, Appointments and Reports. Customer and
+    Appointment tab have tableviews and the ability to add, update and delete respective data in connected
+    database. Reports tab produces two totals and one tableview pulled from database.
+ */
 public class MainScreenController implements Initializable {
-
 
     // CUSTOMERS
     @FXML
@@ -110,19 +112,18 @@ public class MainScreenController implements Initializable {
     public Label reportsByMonthLabel;
     public Label reportsByContactLabel;
     public Label reportsByCustomerLabel;
-    public Label reportsMonthAndTypeLabel;
 
     private Stage stage;
     private Object scene;
 
 
     /** Initialize method
-     * @param url Initializes Main Screen.
-     */
+     * @param url Initializes Main Screen. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // ---------------------------- TABLE VIEWS ---------------------------------------
+
 
         // CUSTOMER TABLE
         ObservableList<Customer> customerList = DBCustomer.getAllCustomers();
@@ -164,6 +165,12 @@ public class MainScreenController implements Initializable {
         monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
+
+        /**
+         * Lambda expression compares the local month of current user to that of all the appointments
+            in the database. If they are equal, the appointment record is added to an observable list
+            and then used to populate the monthly tableview. */
+
         // LAMBDA EXPRESSION TO FILTER APPOINTMENTS BY MONTH
         LocalDateTime currentDay = LocalDateTime.now();
         ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
@@ -193,6 +200,8 @@ public class MainScreenController implements Initializable {
 
         // --------------------------- COMBO BOXES --------------------------------------
 
+        // Fills combo boxes throughout the various tabs
+
         ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
         contactSelectorBox.setItems(allContacts);
 
@@ -200,24 +209,21 @@ public class MainScreenController implements Initializable {
         customerIdSelectorBox.setItems(allCustomers);
 
         ObservableList<String> typesList = FXCollections.observableArrayList(
-                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
-        );
-        typeSelectorBox.setItems(typesList);
+                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other");
+                typeSelectorBox.setItems(typesList);
 
         ObservableList<String> monthsList = FXCollections.observableArrayList(
                 "January", "February", "March", "April", "May", "June", "July",
-                "August", "September", "October", "November", "December"
-        );
-        monthSelectorBox.setItems(monthsList);
+                "August", "September", "October", "November", "December");
+                monthSelectorBox.setItems(monthsList);
 
     }
+
 
     // -------------------------------- CUSTOMERS ----------------------------------------
 
         /** Add customer method.
-         * @param event Opens Add Customer screen when add button clicked.
-         */
-
+         * @param event Opens Add Customer screen when add button clicked. */
         @FXML
         void OnActionAddCustomer (ActionEvent event) throws IOException {
 
@@ -230,8 +236,7 @@ public class MainScreenController implements Initializable {
         }
 
         /** Update customer method.
-         * @param event Opens Update Customer screen when update button clicked.
-         */
+         * @param event Opens Update Customer screen when update button clicked. */
         @FXML
         void OnActionUpdateCustomer (ActionEvent event) throws IOException {
 
@@ -285,9 +290,7 @@ public class MainScreenController implements Initializable {
         }
 
         /** Logout customer method.
-         * @param event Returns to log in screen when log out button clicked.
-         */
-
+         * @param event Returns to log in screen when log out button clicked. */
         @FXML
         void OnActionLogoutCustomer (ActionEvent event) throws IOException {
 
@@ -427,7 +430,6 @@ public class MainScreenController implements Initializable {
         }
 
 
-        // *************** FIX ME! ********************
 
     /** Month and type report method
      * @param event Totals the amount of appointments by month and type.
@@ -445,24 +447,8 @@ public class MainScreenController implements Initializable {
         }
     }
 
-    /** Contact report method
-     * @param event Totals the amount of appointments by contact.
-     */
-/*
-    public void OnActionContactSelection(ActionEvent event) {
-            if(contactSelectorBox.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("You must select a contact");
-                alert.showAndWait();
-            }
-            else {
-                reportsByContactLabel.setText(String.valueOf(DBAppointments.totalContacts(contactSelectorBox.getValue().getContactId())));
-            }
-    }
 
 
- */
     /** Customer report method
      * @param event Totals the amount of appointments by customer.
      */
@@ -479,6 +465,10 @@ public class MainScreenController implements Initializable {
         }
     }
 
+    /** Contact report method
+     * @param event Opens new window containing table view populated with appointment
+     *              info filtered by selected contact in combo box.
+     */
     public void onSelectionContact(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();
@@ -488,12 +478,12 @@ public class MainScreenController implements Initializable {
         ContactReportsController CRController = loader.getController();
         CRController.sendContactAppointment(contactSelectorBox.getValue());
 
-
         stage = (Stage) ((ComboBox) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.setTitle("Appointments by contact");
         stage.show();
+
     }
 
 

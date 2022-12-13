@@ -19,11 +19,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static database.DBContacts.contactNameFromId;
-import static database.DBCustomer.customerNameFromID;
-import static database.DBUser.userNameFromID;
+import static javafx.fxml.FXMLLoader.load;
 
-
+/** Contacts Report Controller. Displays a tableview of appointments filtered by selected contact
+        from combo box on Main Screen Reports Tab. */
 
 public class ContactReportsController implements Initializable {
 
@@ -41,10 +40,14 @@ public class ContactReportsController implements Initializable {
     public TableColumn contactReportUserIdColumn;
     public Label contactNameLabel;
     public Button logoutButton;
+    public Button cancelButton;
 
     Stage stage;
     Parent scene;
 
+    /** Initialize method.
+     * @param url
+     * @param resourceBundle Sets table view with filtered observable list of appointments from database. */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -61,10 +64,20 @@ public class ContactReportsController implements Initializable {
         contactReportCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         contactReportUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-
     }
 
-    public void onActionLogout(ActionEvent event) throws IOException {
+    /** Send Contact Appointment method.
+     * @param contacts Sends appointments filtered by contact to table view. */
+
+    public void sendContactAppointment(Contacts contacts) {
+        contactReportTable.setItems(DBAppointments.appointmentsByContact(contacts.getContactId()));
+        contactNameLabel.setText(contacts.getContactName());
+    }
+
+    /** Cancel method.
+     @param event Closes window and returns to Main Screen. */
+
+    public void onActionCancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -76,8 +89,19 @@ public class ContactReportsController implements Initializable {
         }
     }
 
-    public void sendContactAppointment(Contacts contacts) {
-        contactReportTable.setItems(DBAppointments.appointmentsByContact(contacts.getContactId()));
-        contactNameLabel.setText(contacts.getContactName());
+    /** Logout method.
+     * @param event Returns to log in screen when log out button clicked. */
+
+    public void onActionLogout(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+            stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            scene = load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
+            stage.setScene(new Scene((Parent) scene));
+            stage.setTitle("Main Screen");
+            stage.show();
+        }
     }
 }

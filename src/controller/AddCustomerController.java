@@ -101,9 +101,7 @@ public class AddCustomerController implements Initializable {
 
     }
 
-
-
-    /** Close window method.
+    /** Cancel method.
      @param event Closes window and returns to Main Screen. */
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {

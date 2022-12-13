@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="429.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ContactReportsController">
-            <TableView fx:id="contactReportTable" layoutX="17.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="873.0">
+            <TableView fx:id="contactReportTable" layoutX="17.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="873.0">
                 <columns>
                     <TableColumn fx:id="contactReportAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
                     <TableColumn fx:id="contactReportTitleColumn" prefWidth="68.0" text="Title" />
@@ -29,6 +29,7 @@
          <Font name="System Bold" size="14.0" />
       </font>
    </Label>
-   <Button fx:id="logoutButton" layoutX="834.0" layoutY="390.0" mnemonicParsing="false" onAction="#onActionLogout" text="Log out" />
+   <Button fx:id="cancelButton" layoutX="767.0" layoutY="390.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+   <Button fx:id="logoutButton" layoutX="834.0" layoutY="390.0" mnemonicParsing="false" onAction="#onActionLogout" text="Logout" />
 
 </AnchorPane>
