@@ -115,8 +115,8 @@ public class UpdateAppointmentController implements Initializable {
         LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
         LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
         int customerId = customerIdComboBox.getValue().getCustomerId();
-        int userId = userIdComboBox.getValue().getUserId();
-        System.out.println(userId);
+        int userId = userIdComboBox.getValue().getUserId(); // NOT SENDING
+        System.out.println(userId); //
         DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
 
         this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -139,7 +139,7 @@ public class UpdateAppointmentController implements Initializable {
         startTimeComboBox.setValue(appointments.getStartTime());
         endTimeComboBox.setValue(appointments.getEndTime());
         customerIdComboBox.setValue(customerNameFromID(appointments.getCustomerId()));
-        userIdComboBox.setValue(userNameFromID(appointments.getCustomerId()));
+        userIdComboBox.setValue(userNameFromID(appointments.getCustomerId())); // NOT SENDING
 
     }
 

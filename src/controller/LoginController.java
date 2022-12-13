@@ -3,6 +3,7 @@ package controller;
 import database.DBAppointments;
 import database.DBUser;
 import javafx.animation.AnimationTimer;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -103,23 +104,69 @@ public class LoginController implements Initializable {
 
         // Checks is login credentials are valid
         if (loginIsValid()) {
+
+            ObservableList<Appointments> upcomingAppointments = FXCollections.observableArrayList();
+            LocalDate localDateNow = LocalDate.now();
+            LocalTime localTimeNow = LocalTime.now();
+            LocalTime localTimePlus15 = LocalTime.now().plusMinutes(15);
+            int currentUserUserId = Users.currentUser.getUserId();
+
+            try {
+                ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
+                for(Appointments appointments : allAppointments) {
+                    if((appointments.getAppointmentDay().equals(localDateNow)) && (appointments.getStartTime().isAfter(localTimeNow)) &&
+                            (appointments.getStartTime().isBefore(localTimePlus15)) && (appointments.getAppointmentId() == currentUserUserId)) {
+                        upcomingAppointments.add(appointments);
+                        System.out.println(upcomingAppointments); // not printing
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(Main.rb.getString("upcomingAppointmentTitle"));
+                        alert.setContentText((Main.rb.getString("appointmentId") + appointments.getAppointmentId() + "\n" +
+                                (Main.rb.getString( "appointmentDate")) + appointments.getAppointmentDay() + "\n" +
+                                (Main.rb.getString("appointmentTime")) + appointments.getStartTime()));
+                        alert.showAndWait();
+                    }
+                }
+                if(upcomingAppointments.size()<1) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(Main.rb.getString("upcomingAppointmentTitle"));
+                    alert.setContentText(Main.rb.getString("noAppointmentsMessage"));
+                    alert.showAndWait();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             /*
             ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
 
-            LocalDateTime localTimeNow = LocalDateTime.now();
-            LocalDateTime localTimePlus15 = LocalDateTime.now().plusMinutes(15);
+            LocalDate localDateNow = LocalDate.now();
+            LocalTime localTimeNow = LocalTime.now();
+            LocalTime localTimePlus15 = LocalTime.now().plusMinutes(15);
             AtomicBoolean hasAppointmentSoon = new AtomicBoolean(true);
 
             int currentUserUserId = Users.currentUser.getUserId();
 
             allAppointments.forEach(appointments -> {
-                LocalDateTime startTime = appointments.getStartTime();
-                if((startTime.isAfter(localTimeNow)) && (startTime.isBefore(localTimePlus15))
-                        && appointments.getAppointmentId() == currentUserUserId) {
-                    hasAppointmentSoon.set(true);
-
+                LocalDate startDate = appointments.getAppointmentDay();
+                LocalTime startTime = appointments.getStartTime();
+                if((startDate.equals(localDateNow)) && (startTime.isAfter(localTimeNow)) &&
+                        (startTime.isBefore(localTimePlus15)) && appointments.getAppointmentId() == currentUserUserId) {
+                            hasAppointmentSoon.set(true);
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle(Main.rb.getString("upcomingAppointmentTitle"));
+                            alert.setContentText((Main.rb.getString("appointmentId") + appointments.getAppointmentId() + "\n" +
+                            (Main.rb.getString( "appointmentDate")) + appointments.getAppointmentDay() + "\n" +
+                            (Main.rb.getString("appointmentTime")) + appointments.getStartTime()));
+                            alert.showAndWait();
+                        }
+                else {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(Main.rb.getString("upcomingAppointmentTitle"));
+                    alert.setContentText(Main.rb.getString("noAppointmentsMessage"));
+                    alert.showAndWait();
                 }
-                    });
+            });
 
              */
 

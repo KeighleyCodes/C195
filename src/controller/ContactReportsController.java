@@ -76,4 +76,5 @@ public class ContactReportsController implements Initializable {
             this.stage.show();
         }
     }
+
 }

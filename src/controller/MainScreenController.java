@@ -485,20 +485,26 @@ public class MainScreenController implements Initializable {
 
         //  Contacts selectedContact = contactSelectorBox.getValue();
 
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/ContactReports.fxml"));
         loader.load();
 
-        //  UpdateAppointmentController UAController = loader.getController();
-        //  UAController.sendAppointment(allAppointmentsTable.getSelectionModel().getSelectedItem());
 
+       // MainScreenController CRController = loader.getController();
+       // CRController.sendContactAppointment(contactSelectorBox.getValue());
+
+        contactSelectorBox.getValue();
+        // loop
 
         stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.setTitle("Appointments by contact");
         stage.show();
+    }
+
+    private void sendContactAppointment(ObservableList<Appointments> appointmentsObservableList) {
+
     }
 }
 
