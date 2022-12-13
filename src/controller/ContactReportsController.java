@@ -49,7 +49,6 @@ public class ContactReportsController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // APPOINTMENT TABLE
-        ObservableList<Appointments> appointmentsList = DBAppointments.appointmentsByContact();
         contactReportAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         contactReportTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         contactReportDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -61,7 +60,7 @@ public class ContactReportsController implements Initializable {
         contactReportEndColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         contactReportCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         contactReportUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
-        contactReportTable.setItems(appointmentsList);
+
 
     }
 
@@ -77,4 +76,8 @@ public class ContactReportsController implements Initializable {
         }
     }
 
+    public void sendContactAppointment(Contacts contacts) {
+        contactReportTable.setItems(DBAppointments.appointmentsByContact(contacts.getContactId()));
+        contactNameLabel.setText(contacts.getContactName());
+    }
 }

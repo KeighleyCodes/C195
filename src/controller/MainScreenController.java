@@ -441,14 +441,14 @@ public class MainScreenController implements Initializable {
             alert.showAndWait();
         }
         else{
-            reportsMonthAndTypeLabel.setText(String.valueOf(DBAppointments.appointmentsByMonthAndType(monthSelectorBox.getValue(), typeSelectorBox.getValue())));
+             reportsByMonthLabel.setText(String.valueOf(DBAppointments.appointmentsByMonthAndType(monthSelectorBox.getValue(), typeSelectorBox.getValue())));
         }
     }
 
     /** Contact report method
      * @param event Totals the amount of appointments by contact.
      */
-
+/*
     public void OnActionContactSelection(ActionEvent event) {
             if(contactSelectorBox.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -461,6 +461,8 @@ public class MainScreenController implements Initializable {
             }
     }
 
+
+ */
     /** Customer report method
      * @param event Totals the amount of appointments by customer.
      */
@@ -479,32 +481,21 @@ public class MainScreenController implements Initializable {
 
     public void onSelectionContact(ActionEvent event) throws IOException {
 
-        // select contact
-        // send info into table
-        // appointmentsByContact() method DB Query
-
-        //  Contacts selectedContact = contactSelectorBox.getValue();
-
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/ContactReports.fxml"));
         loader.load();
 
+        ContactReportsController CRController = loader.getController();
+        CRController.sendContactAppointment(contactSelectorBox.getValue());
 
-       // MainScreenController CRController = loader.getController();
-       // CRController.sendContactAppointment(contactSelectorBox.getValue());
 
-        contactSelectorBox.getValue();
-        // loop
-
-        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage = (Stage) ((ComboBox) event.getSource()).getScene().getWindow();
         Parent scene = loader.getRoot();
         stage.setScene(new Scene(scene));
         stage.setTitle("Appointments by contact");
         stage.show();
     }
 
-    private void sendContactAppointment(ObservableList<Appointments> appointmentsObservableList) {
 
-    }
 }
 

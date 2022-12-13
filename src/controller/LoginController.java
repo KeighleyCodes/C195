@@ -114,10 +114,16 @@ public class LoginController implements Initializable {
             try {
                 ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
                 for(Appointments appointments : allAppointments) {
+                    System.out.println(appointments.getAppointmentDay());
+                    System.out.println(appointments.getStartTime());
+                    System.out.println(appointments.getUserId());
+                    System.out.println(currentUserUserId);
+                    System.out.println(localTimeNow);
+                    System.out.println(localTimePlus15);
+                    System.out.println(localDateNow);
                     if((appointments.getAppointmentDay().equals(localDateNow)) && (appointments.getStartTime().isAfter(localTimeNow)) &&
-                            (appointments.getStartTime().isBefore(localTimePlus15)) && (appointments.getAppointmentId() == currentUserUserId)) {
+                            (appointments.getStartTime().isBefore(localTimePlus15)) && (appointments.getUserId() == currentUserUserId)) {
                         upcomingAppointments.add(appointments);
-                        System.out.println(upcomingAppointments); // not printing
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle(Main.rb.getString("upcomingAppointmentTitle"));
                         alert.setContentText((Main.rb.getString("appointmentId") + appointments.getAppointmentId() + "\n" +
@@ -136,39 +142,6 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
 
-
-            /*
-            ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
-
-            LocalDate localDateNow = LocalDate.now();
-            LocalTime localTimeNow = LocalTime.now();
-            LocalTime localTimePlus15 = LocalTime.now().plusMinutes(15);
-            AtomicBoolean hasAppointmentSoon = new AtomicBoolean(true);
-
-            int currentUserUserId = Users.currentUser.getUserId();
-
-            allAppointments.forEach(appointments -> {
-                LocalDate startDate = appointments.getAppointmentDay();
-                LocalTime startTime = appointments.getStartTime();
-                if((startDate.equals(localDateNow)) && (startTime.isAfter(localTimeNow)) &&
-                        (startTime.isBefore(localTimePlus15)) && appointments.getAppointmentId() == currentUserUserId) {
-                            hasAppointmentSoon.set(true);
-                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                            alert.setTitle(Main.rb.getString("upcomingAppointmentTitle"));
-                            alert.setContentText((Main.rb.getString("appointmentId") + appointments.getAppointmentId() + "\n" +
-                            (Main.rb.getString( "appointmentDate")) + appointments.getAppointmentDay() + "\n" +
-                            (Main.rb.getString("appointmentTime")) + appointments.getStartTime()));
-                            alert.showAndWait();
-                        }
-                else {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle(Main.rb.getString("upcomingAppointmentTitle"));
-                    alert.setContentText(Main.rb.getString("noAppointmentsMessage"));
-                    alert.showAndWait();
-                }
-            });
-
-             */
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainScreen.fxml"));

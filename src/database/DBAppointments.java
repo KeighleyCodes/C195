@@ -202,6 +202,7 @@ public class DBAppointments {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        System.out.println(count + "test");
         return count;
     }
 
@@ -243,11 +244,11 @@ public class DBAppointments {
         return 0;
     }
 
-    public static ObservableList<Appointments> appointmentsByContact() {
+    public static ObservableList<Appointments> appointmentsByContact(int selectedContactId) {
 
         ObservableList<Appointments> appointmentsByContactList = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT * FROM appointments WHERE Contact_ID = ?";
+            String sql = "SELECT * FROM appointments WHERE Contact_ID = " + selectedContactId;
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();

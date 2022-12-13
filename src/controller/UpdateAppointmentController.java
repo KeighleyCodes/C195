@@ -139,7 +139,7 @@ public class UpdateAppointmentController implements Initializable {
         startTimeComboBox.setValue(appointments.getStartTime());
         endTimeComboBox.setValue(appointments.getEndTime());
         customerIdComboBox.setValue(customerNameFromID(appointments.getCustomerId()));
-        userIdComboBox.setValue(userNameFromID(appointments.getCustomerId())); // NOT SENDING
+        userIdComboBox.setValue(userNameFromID(appointments.getUserId())); // NOT SENDING
 
     }
 
