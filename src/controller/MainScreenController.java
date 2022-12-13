@@ -116,15 +116,15 @@ public class MainScreenController implements Initializable {
     private Object scene;
 
 
-    /**
-     * Initialize method, initializes Main Screen.
+    /** Initialize method
+     * @param url Initializes Main Screen.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // ---------------------------- TABLE VIEWS ---------------------------------------
 
-        // Initializes customer table
+        // CUSTOMER TABLE
         ObservableList<Customer> customerList = DBCustomer.getAllCustomers();
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -135,7 +135,7 @@ public class MainScreenController implements Initializable {
         customerTable.setItems(customerList);
 
 
-        // Initializes appointment table
+        // APPOINTMENT TABLE
         ObservableList<Appointments> appointmentsList = DBAppointments.getAllAppointments();
         allAppointmentsIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         allAppointmentsTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
@@ -151,7 +151,7 @@ public class MainScreenController implements Initializable {
         allAppointmentsTable.setItems(appointmentsList);
 
 
-        // Initializes monthly appointment table
+        // MONTHLY APPOINTMENT TABLE
         monthlyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         monthlyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         monthlyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -164,7 +164,7 @@ public class MainScreenController implements Initializable {
         monthlyCustomerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         monthlyUserIdColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        // Lambda expression to filter appointments by month
+        // LAMBDA EXPRESSION TO FILTER APPOINTMENTS BY MONTH
         LocalDateTime currentDay = LocalDateTime.now();
         ObservableList<Appointments> monthlyAppointments = FXCollections.observableArrayList();
         appointmentsList.forEach(appointments -> {
@@ -175,7 +175,7 @@ public class MainScreenController implements Initializable {
         monthlyViewTable.setItems(monthlyAppointments);
 
 
-        // Initializes weekly appointment table
+        // WEEKLY APPOINTMENT TABLE
         weeklyAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         weeklyTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         weeklyDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -193,21 +193,17 @@ public class MainScreenController implements Initializable {
 
         // --------------------------- COMBO BOXES --------------------------------------
 
-        // Fills contact combo box
         ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
         contactSelectorBox.setItems(allContacts);
 
-        //Fills customer combo box
         ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
         customerIdSelectorBox.setItems(allCustomers);
 
-        // Populates combo box with types
         ObservableList<String> typesList = FXCollections.observableArrayList(
                 "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
         );
         typeSelectorBox.setItems(typesList);
 
-        // Populates combo box with months
         ObservableList<String> monthsList = FXCollections.observableArrayList(
                 "January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"
@@ -233,8 +229,7 @@ public class MainScreenController implements Initializable {
 
         }
 
-        /**
-         * Update customer method.
+        /** Update customer method.
          * @param event Opens Update Customer screen when update button clicked.
          */
         @FXML
@@ -262,36 +257,35 @@ public class MainScreenController implements Initializable {
 
         }
 
-
-        /** Delete customer method. Deletes customer data when delete button clicked. */
+    /** Delete customer method
+     * @param event Deletes customer data when delete button clicked. */
 
         @FXML
         void OnActionDeleteCustomer (ActionEvent event) throws SQLException {
-              Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
-                if (selectedCustomer == null) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("You must select a customer to delete.");
-                    alert.showAndWait();
-                } else if (customerTable.getSelectionModel().getSelectedItem() != null) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to delete " + selectedCustomer.getCustomerName() + " from customer records?");
-                    Optional<ButtonType> result = alert.showAndWait();
+            Customer selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+            if (selectedCustomer == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("You must select a customer to delete.");
+                alert.showAndWait();
+            } else if (customerTable.getSelectionModel().getSelectedItem() != null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Would you like to delete " + selectedCustomer.getCustomerName() + " from customer records?");
+                Optional<ButtonType> result = alert.showAndWait();
 
-                    if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                        try {
-                            DBCustomer.deleteCustomer(selectedCustomer);
-                            customerTable.getItems().clear();
-                            customerTable.setItems(DBCustomer.getAllCustomers());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                    try {
+                        DBCustomer.deleteCustomer(selectedCustomer);
+                        customerTable.getItems().clear();
+                        customerTable.setItems(DBCustomer.getAllCustomers());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
+            }
         }
 
-        /**
-         * Logout customer method.
-         * @param event Goes back to log in screen when log out button clicked.
+        /** Logout customer method.
+         * @param event Returns to log in screen when log out button clicked.
          */
 
         @FXML
@@ -311,11 +305,9 @@ public class MainScreenController implements Initializable {
 
     // -------------------------------- APPOINTMENTS ----------------------------------------
 
-        /**
-         * Add appointment method.
+        /** Add appointment method.
          * @param event Opens Add Appointment screen when add button clicked.
          */
-
 
         @FXML
         void  OnActionAddAppointment (ActionEvent event) throws IOException {
@@ -328,9 +320,7 @@ public class MainScreenController implements Initializable {
         }
 
 
-
-        /**
-         * Update appointment method.
+        /** Update appointment method.
          * @param event Opens Update Appointment screen when update button clicked.
          */
 
@@ -357,7 +347,9 @@ public class MainScreenController implements Initializable {
             }
         }
 
-        /** Delete appointment method in all appointment view. Deletes appointment when delete button clicked. */
+
+    /** Delete appointment method
+     * @param event Deletes appointment data when delete button clicked. */
 
         @FXML
         void OnActionDeleteAppointment(ActionEvent event) {
@@ -387,11 +379,14 @@ public class MainScreenController implements Initializable {
                     }
                 }
             }
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  "Appointment " +
+                    selectedAppointment.getAppointmentId() + ", " + selectedAppointment.getType() +
+                    " has been deleted.");
+            Optional<ButtonType> result = alert.showAndWait();
         }
 
 
-        /**
-         * Logout appointment method.
+        /** Logout appointment method.
          * @param event Goes back to log in screen when log out button clicked.
          */
 
@@ -412,8 +407,7 @@ public class MainScreenController implements Initializable {
 
     // -------------------------------- REPORTS ----------------------------------------
 
-        /**
-         * Logout report method.
+        /** Logout report method.
          * @param event Goes back to log in screen when log out button clicked.
          */
 
@@ -435,8 +429,12 @@ public class MainScreenController implements Initializable {
 
         // *************** FIX ME! ********************
 
+    /** Month and type report method
+     * @param event Totals the amount of appointments by month and type.
+     */
+
     public void OnActionMonthAndTypeSelection(ActionEvent event) {
-       if(monthSelectorBox.getValue() == null || typeSelectorBox.getValue() == null) {
+         if(monthSelectorBox.getValue() == null || typeSelectorBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("You must select a month and type");
@@ -446,6 +444,10 @@ public class MainScreenController implements Initializable {
             reportsMonthAndTypeLabel.setText(String.valueOf(DBAppointments.appointmentsByMonthAndType(monthSelectorBox.getValue(), typeSelectorBox.getValue())));
         }
     }
+
+    /** Contact report method
+     * @param event Totals the amount of appointments by contact.
+     */
 
     public void OnActionContactSelection(ActionEvent event) {
             if(contactSelectorBox.getValue() == null) {
@@ -459,6 +461,10 @@ public class MainScreenController implements Initializable {
             }
     }
 
+    /** Customer report method
+     * @param event Totals the amount of appointments by customer.
+     */
+
     public void OnActionCustomerSelection(ActionEvent event) {
         if(customerIdSelectorBox.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -469,6 +475,30 @@ public class MainScreenController implements Initializable {
         else {
             reportsByCustomerLabel.setText(String.valueOf(DBAppointments.totalCustomers(customerIdSelectorBox.getValue().getCustomerId())));
         }
+    }
+
+    public void onSelectionContact(ActionEvent event) throws IOException {
+
+        // select contact
+        // send info into table
+        // appointmentsByContact() method DB Query
+
+        //  Contacts selectedContact = contactSelectorBox.getValue();
+
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/view/ContactReports.fxml"));
+        loader.load();
+
+        //  UpdateAppointmentController UAController = loader.getController();
+        //  UAController.sendAppointment(allAppointmentsTable.getSelectionModel().getSelectedItem());
+
+
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        Parent scene = loader.getRoot();
+        stage.setScene(new Scene(scene));
+        stage.setTitle("Appointments by contact");
+        stage.show();
     }
 }
 

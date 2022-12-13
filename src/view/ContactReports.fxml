@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="429.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ContactReportsController">
+            <TableView fx:id="contactReportTable" layoutX="17.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="348.0" prefWidth="873.0">
+                <columns>
+                    <TableColumn fx:id="contactReportAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
+                    <TableColumn fx:id="contactReportTitleColumn" prefWidth="68.0" text="Title" />
+                    <TableColumn fx:id="contactReportDescriptionColumn" prefWidth="81.0" text="Description" />
+                    <TableColumn fx:id="contactReportLocationColumn" prefWidth="71.0" text="Location" />
+                    <TableColumn fx:id="contactReportContactIdColumn" prefWidth="78.0" text="Contact ID" />
+                    <TableColumn fx:id="contactReportTypeColumn" prefWidth="62.0" text="Type" />
+                    <TableColumn fx:id="contactReportDateColumn" prefWidth="64.0" text="Date" />
+                    <TableColumn fx:id="contactReportStartColumn" prefWidth="82.0" text="Start Time" />
+                    <TableColumn fx:id="contactReportEndColumn" prefWidth="88.0" text="End Time" />
+                    <TableColumn fx:id="contactReportCustomerIdColumn" prefWidth="83.0" text="Customer ID" />
+                    <TableColumn fx:id="contactReportUserIdColumn" minWidth="0.0" prefWidth="84.0" text="User ID" />
+                </columns>
+            </TableView>
+   <Label layoutX="26.0" layoutY="14.0" text="Appointments for contact ">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
+   <Label fx:id="contactNameLabel" layoutX="201.0" layoutY="14.0" text="(label)">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font>
+   </Label>
+   <Button fx:id="logoutButton" layoutX="834.0" layoutY="390.0" mnemonicParsing="false" onAction="#onActionLogout" text="Log out" />
+
+</AnchorPane>

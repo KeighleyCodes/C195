@@ -43,23 +43,22 @@ public class AddAppointmentsController implements Initializable {
     public ComboBox <LocalTime> endTimeComboBox;
     public ComboBox<Customer> customerIdComboBox;
     public ComboBox<Users> userIdComboBox;
-    public ComboBox typeComboBox;
-
-    private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
-    private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
-
-    private ObservableList<Users> allUsers = DBUser.getAllUsers();
-    private ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
+    public ComboBox<String> typeComboBox;
 
     Stage stage;
     Parent scene;
 
-    // Sets Contacts observable list
-    ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
+    // OBSERVABLE LISTS
+    private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
+    private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
+    private ObservableList<Users> allUsers = DBUser.getAllUsers();
+    private ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
+    private ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Fills combo boxes
+
+        // ---------------- COMBO BOXES ----------------------------
         contactComboBox.setItems(allContacts);
 
         customerIdComboBox.setItems(allCustomers);
@@ -68,7 +67,6 @@ public class AddAppointmentsController implements Initializable {
 
         fillTimeComboBoxes();
 
-        // Populates combo box with types
         ObservableList<String> typesList = FXCollections.observableArrayList(
                 "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
         );

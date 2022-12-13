@@ -1,5 +1,6 @@
 package controller;
 
+import database.DBAppointments;
 import database.DBUser;
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
@@ -12,13 +13,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import main.Main;
+import model.Appointments;
 import model.Users;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /** Login controller - initializes the login form UI where the program begins for the user. */
@@ -98,6 +103,25 @@ public class LoginController implements Initializable {
 
         // Checks is login credentials are valid
         if (loginIsValid()) {
+            /*
+            ObservableList<Appointments> allAppointments = DBAppointments.getAllAppointments();
+
+            LocalDateTime localTimeNow = LocalDateTime.now();
+            LocalDateTime localTimePlus15 = LocalDateTime.now().plusMinutes(15);
+            AtomicBoolean hasAppointmentSoon = new AtomicBoolean(true);
+
+            int currentUserUserId = Users.currentUser.getUserId();
+
+            allAppointments.forEach(appointments -> {
+                LocalDateTime startTime = appointments.getStartTime();
+                if((startTime.isAfter(localTimeNow)) && (startTime.isBefore(localTimePlus15))
+                        && appointments.getAppointmentId() == currentUserUserId) {
+                    hasAppointmentSoon.set(true);
+
+                }
+                    });
+
+             */
 
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/MainScreen.fxml"));

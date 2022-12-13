@@ -4,6 +4,7 @@ import database.DBAppointments;
 import database.DBCountries;
 import database.DBCustomer;
 import database.DBDivision;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +24,9 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static database.DBCountries.selectedCountryName;
+import static java.lang.Integer.parseInt;
 
 public class AddCustomerController implements Initializable {
 
@@ -59,7 +63,7 @@ public class AddCustomerController implements Initializable {
 
         // NEED TO FILTER DIVISIONS BASED ON COUNTRIES
         countryComboBox.setItems(allCountries);
-        divisionComboBox.setItems(allDivisions);
+       // divisionComboBox.setItems(allDivisions);
 
     }
 
@@ -83,6 +87,17 @@ public class AddCustomerController implements Initializable {
         this.stage.setScene(new Scene(this.scene));
         this.stage.setTitle("Main Screen");
         this.stage.show();
+
+    }
+
+    // ************* FIX ME **********************
+    // 1 is empty, 2 is 1, 3 is 2
+    // getSelectedIndex() is wrong
+    public void onSelectCountry(ActionEvent event) {
+
+        int selectedCountry = countryComboBox.getSelectionModel().getSelectedIndex();
+        System.out.println(selectedCountry);
+        divisionComboBox.setItems(DBDivision.countryFromDivision(selectedCountry));
 
     }
 

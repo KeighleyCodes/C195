@@ -51,6 +51,9 @@ public class UpdateAppointmentController implements Initializable {
     public ComboBox<Users> userIdComboBox;
     public ComboBox typeCombobox;
 
+    Stage stage;
+    Parent scene;
+
     private int appointmentId;
 
     private static Appointments appointments;
@@ -61,8 +64,7 @@ public class UpdateAppointmentController implements Initializable {
     private ObservableList<Users> allUsers = DBUser.getAllUsers();
     private ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
 
-    Stage stage;
-    Parent scene;
+
 
     // Sets Contacts observable list
     ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
@@ -102,17 +104,6 @@ public class UpdateAppointmentController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
-    public void OnActionCancel(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-            this.stage.setScene(new Scene(this.scene));
-            this.stage.setTitle("Main Screen");
-            this.stage.show();
-        }
-    }
 
     public void OnActionSaveAppointment(ActionEvent event) throws SQLException, IOException {
 
@@ -152,6 +143,16 @@ public class UpdateAppointmentController implements Initializable {
 
     }
 
+    public void OnActionCancel(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage.setScene(new Scene(this.scene));
+            this.stage.setTitle("Main Screen");
+            this.stage.show();
+        }
+    }
 
 }
-// SQL month (select all from appts where month start = ?)  - make observable list

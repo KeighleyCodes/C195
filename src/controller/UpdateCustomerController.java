@@ -118,9 +118,6 @@ public class UpdateCustomerController implements Initializable {
         divisionComboBox.setValue(divisionNameFromId(customer.getDivisionId()));
         int custId = DBDivision.divisionFromCountry(customer.getDivisionId());
         countryComboBox.setValue(selectedCountryName(custId));
-
-        // query database, pass division ID and ask to return division
-       // Localdatetime has month, get current month (.now) extract month
     }
 
 }

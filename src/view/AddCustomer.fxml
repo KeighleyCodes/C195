@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="298.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
+<AnchorPane prefHeight="298.0" prefWidth="518.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
    <children>
       <AnchorPane prefHeight="298.0" prefWidth="518.0" style="-fx-border-radius: 10; -fx-border-color: black;">
          <children>
@@ -27,7 +27,7 @@
             <Label layoutX="275.0" layoutY="184.0" text="Country:" />
             <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionSaveCustomer" text="Save" />
             <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionCancel" text="Cancel" />
-            <ComboBox fx:id="countryComboBox" layoutX="346.0" layoutY="180.0" prefWidth="150.0" promptText="Select country" />
+            <ComboBox fx:id="countryComboBox" layoutX="346.0" layoutY="180.0" onAction="#onSelectCountry" prefWidth="150.0" promptText="Select country" />
             <ComboBox fx:id="divisionComboBox" layoutX="346.0" layoutY="225.0" prefWidth="150.0" promptText="Select Division" />
          </children></AnchorPane>
    </children>

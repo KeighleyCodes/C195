@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="882.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
     <children>
         <TabPane layoutX="10.0" layoutY="12.0" prefHeight="491.0" prefWidth="858.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -41,7 +41,7 @@
                                                     <children>
                                                         <AnchorPane layoutX="6.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="363.0" prefWidth="837.0">
                                                             <children>
-                                                                <TableView fx:id="allAppointmentsTable" layoutX="3.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="835.0">
+                                                                <TableView fx:id="allAppointmentsTable" layoutX="3.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" prefWidth="835.0">
                                                                     <columns>
                                                                         <TableColumn fx:id="allAppointmentsIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
                                                                         <TableColumn fx:id="allAppointmentsTitleColumn" prefWidth="68.0" text="Title" />
@@ -67,7 +67,7 @@
                                                     <children>
                                                         <AnchorPane layoutX="7.0" layoutY="7.0" minHeight="0.0" minWidth="0.0" prefHeight="370.0" prefWidth="836.0">
                                              <children>
-                                                <TableView fx:id="monthlyViewTable" layoutX="2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="836.0">
+                                                <TableView fx:id="monthlyViewTable" layoutX="2.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" prefWidth="836.0">
                                                    <columns>
                                                       <TableColumn fx:id="monthlyAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
                                                       <TableColumn fx:id="monthlyTitleColumn" prefWidth="68.0" text="Title" />
@@ -91,7 +91,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="weeklyViewTable" layoutX="9.0" layoutY="7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="368.0" prefWidth="835.0">
+                                          <TableView fx:id="weeklyViewTable" layoutX="9.0" layoutY="7.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="361.0" prefWidth="835.0">
                                              <columns>
                                                 <TableColumn fx:id="weeklyAppointmentIdColumn" prefWidth="110.20000648498535" text="Appointment ID" />
                                                 <TableColumn fx:id="weeklyTitleColumn" prefWidth="68.0" text="Title" />
@@ -130,7 +130,7 @@
                                        <children>
                                           <Label fx:id="reportsByContactLabel" layoutX="483.0" layoutY="63.0" />
                                                         <ComboBox fx:id="monthSelectorBox" layoutX="40.0" layoutY="59.0" prefWidth="150.0" promptText="Select month" />
-                                          <Label layoutX="40.0" layoutY="27.0" text="Total appointments by month and type:">
+                                          <Label layoutX="40.0" layoutY="14.0" text="Total appointments by month and type:">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
@@ -140,30 +140,30 @@
                                        </children></AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="117.0" prefWidth="717.0">
                                        <children>
-                                                        <ComboBox fx:id="contactSelectorBox" layoutX="38.0" layoutY="59.0" prefWidth="150.0" promptText="Select contact" />
-                                          <Label layoutX="38.0" layoutY="25.0" text="Total appointments by contact:">
+                                          <Button fx:id="totalCustomerReportButton" layoutX="410.0" layoutY="55.0" mnemonicParsing="false" onAction="#OnActionCustomerSelection" text="Total:" />
+                                          <Label fx:id="reportsByCustomerLabel" layoutX="488.0" layoutY="57.0" prefHeight="17.0" prefWidth="10.0" text="0" />
+                                          <ComboBox fx:id="customerIdSelectorBox" layoutX="41.0" layoutY="55.0" prefWidth="150.0" promptText="Select customer" />
+                                          <Label layoutX="41.0" layoutY="17.0" text="Total appointments by customer:">
                                              <font>
                                                 <Font size="13.0" />
                                              </font>
                                           </Label>
-                                          <Button fx:id="totalContactReportButton" layoutX="416.0" layoutY="59.0" mnemonicParsing="false" onAction="#OnActionContactSelection" text="Total:" />
-                                          <Label fx:id="reportsByContactLabel" layoutX="493.0" layoutY="60.0" text="0" />
                                        </children>
                                     </AnchorPane>
                                 </items>
                               </SplitPane>
                                             <ComboBox fx:id="typeSelectorBox" layoutX="258.0" layoutY="77.0" prefWidth="150.0" promptText="Select type" />
-                              <ComboBox fx:id="customerIdSelectorBox" layoutX="85.0" layoutY="326.0" prefWidth="150.0" promptText="Select customer" />
-                              <Label fx:id="reportsByCustomerLabel" layoutX="543.0" layoutY="321.0" prefHeight="17.0" prefWidth="10.0" text="0" />
-                              <Label layoutX="85.0" layoutY="298.0" text="Total appointments by customer:">
+                              <Separator layoutX="46.0" layoutY="260.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
+                              <Separator layoutX="794.0" layoutY="257.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
+                              <Separator layoutX="48.0" layoutY="379.0" prefHeight="4.0" prefWidth="748.0" />
+                              <Label fx:id="totalReportsContactLabel" layoutX="538.0" layoutY="312.0" text="0" />
+                              <Button fx:id="totalContactReportButton" layoutX="462.0" layoutY="308.0" mnemonicParsing="false" onAction="#OnActionContactSelection" text="Total:" />
+                                            <ComboBox fx:id="contactSelectorBox" layoutX="88.0" layoutY="320.0" onAction="#onSelectionContact" prefWidth="150.0" promptText="Select contact" />
+                              <Label layoutX="88.0" layoutY="284.0" text="Schedule by contact">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Separator layoutX="46.0" layoutY="260.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
-                              <Separator layoutX="794.0" layoutY="257.0" orientation="VERTICAL" prefHeight="120.0" prefWidth="3.0" />
-                              <Separator layoutX="48.0" layoutY="379.0" prefHeight="4.0" prefWidth="748.0" />
-                              <Button fx:id="totalCustomerReportButton" layoutX="466.0" layoutY="317.0" mnemonicParsing="false" onAction="#OnActionCustomerSelection" text="Total:" />
                                         </children>
                         </AnchorPane>
                                 <Button fx:id="logoutReportsButton" layoutX="790.0" layoutY="418.0" mnemonicParsing="false" onAction="#OnActionLogoutReports" text="Logout" />
