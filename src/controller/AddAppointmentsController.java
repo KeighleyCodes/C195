@@ -104,14 +104,6 @@ public class AddAppointmentsController implements Initializable {
             return false;
         }
 
-        // ******************* FIX ME *********************
-        if(startDate.equals(Calendar.SATURDAY) || (startDate.equals(Calendar.SUNDAY))) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid date");
-            alert.setContentText("Please select a weekday.");
-            alert.showAndWait();
-            return false;
-        }
 
         if(startTime.isBefore(LocalTime.of(8,0)) ||
                 (endTime.isAfter(LocalTime.of(22,0)))){
@@ -133,6 +125,16 @@ public class AddAppointmentsController implements Initializable {
         return true;
     }
 
+    public Boolean validAppointments() {
+
+        int customerId = contactComboBox.getValue().getContactId();
+
+
+
+        return true;
+    }
+
+    // Make method for scheduling appointments
     // Could populate through observable list and loop through or query database
 
     // populate combo with lambda or filter with lambda (chose division based on country)
@@ -142,6 +144,7 @@ public class AddAppointmentsController implements Initializable {
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
 
         boolean timesAreValid = validTimes();
+       // boolean appointmentsAreValid = validAppointments();
 
         if(timesAreValid) {
             int contactId = contactComboBox.getValue().getContactId();

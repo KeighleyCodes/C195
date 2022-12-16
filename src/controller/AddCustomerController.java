@@ -90,7 +90,6 @@ public class AddCustomerController implements Initializable {
 
     }
 
-    // ************* FIX ME **********************
 
     public void onSelectCountry(ActionEvent event) {
 

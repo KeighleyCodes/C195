@@ -84,6 +84,9 @@ public class UpdateCustomerController implements Initializable {
     }
 
     public void OnActionSelectCountry(ActionEvent event) {
+
+        divisionComboBox.setItems(DBDivision.countryFromDivision(countryComboBox.getValue().getCountryId()));
+
     }
 
     public void OnActionSelectDivision(ActionEvent event) {
