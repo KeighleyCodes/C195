@@ -206,24 +206,6 @@ public class DBAppointments {
         return count;
     }
 
-    // Counts total by contact
-    public static int totalContacts(int contactId) {
-        try {
-            String sql = "SELECT COUNT(Appointment_ID) FROM Appointments WHERE Contact_ID = ?";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
-            ps.setInt(1, contactId);
-            ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
-                return rs.getInt("COUNT(Appointment_ID)");
-            }
-        }
-
-        catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return 0;
-    }
 
     // Counts total by customer
     public static int totalCustomers(int customerId) {

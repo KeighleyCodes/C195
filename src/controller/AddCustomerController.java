@@ -26,6 +26,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static database.DBCountries.selectedCountryName;
+import static database.DBDivision.divisionNameFromId;
 import static java.lang.Integer.parseInt;
 
 public class AddCustomerController implements Initializable {
@@ -35,7 +36,7 @@ public class AddCustomerController implements Initializable {
     public TextField nameTextField;
     public TextArea addressTextField;
     public TextField phoneTextField;
-    public ComboBox countryComboBox;
+    public ComboBox<Countries> countryComboBox;
     public ComboBox<Divisions> divisionComboBox;
     public Button saveButton;
     public Button cancelButton;
@@ -68,7 +69,6 @@ public class AddCustomerController implements Initializable {
     }
 
 
-    // ******* FIX ME! *******
     /** Save customer method.
      @param event Saves modified part info and returns to Main Screen.
      */
@@ -91,13 +91,10 @@ public class AddCustomerController implements Initializable {
     }
 
     // ************* FIX ME **********************
-    // 1 is empty, 2 is 1, 3 is 2
-    // getSelectedIndex() is wrong
+
     public void onSelectCountry(ActionEvent event) {
 
-        int selectedCountry = countryComboBox.getSelectionModel().getSelectedIndex();
-        System.out.println(selectedCountry);
-        divisionComboBox.setItems(DBDivision.countryFromDivision(selectedCountry));
+        divisionComboBox.setItems(DBDivision.countryFromDivision(countryComboBox.getValue().getCountryId()));
 
     }
 

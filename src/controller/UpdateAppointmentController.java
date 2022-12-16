@@ -21,6 +21,7 @@ import model.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Objects;
@@ -55,8 +56,6 @@ public class UpdateAppointmentController implements Initializable {
     Parent scene;
 
     private int appointmentId;
-
-    private static Appointments appointments;
 
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
@@ -104,26 +103,66 @@ public class UpdateAppointmentController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
+    // CHECKS TO SEE IF DATE AND TIMES ARE AFTER CURRENT DAY AND START TIME ISN'T BEFORE, AFTER
+    // OR THE SAME AS THE END TIME.
+    public Boolean validTimes() {
+        LocalDate startDate = datePicker.getValue();
+        LocalTime startTime = startTimeComboBox.getValue();
+        LocalTime endTime = endTimeComboBox.getValue();
+
+        if(startDate.isBefore(LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid date");
+            alert.setContentText("Please select a valid date.");
+            alert.showAndWait();
+            return false;
+        }
+
+        if(startTime.isBefore(LocalTime.of(8,0)) ||
+                (endTime.isAfter(LocalTime.of(22,0)))){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Outside business hours");
+            alert.setContentText("Please select a time during business hours.");
+            alert.showAndWait();
+            return false;
+        }
+
+        if(endTime.isBefore(startTime) || endTime.equals(startTime)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Incorrect times");
+            alert.setContentText("Please choose valid start and end times.");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
 
     public void OnActionSaveAppointment(ActionEvent event) throws SQLException, IOException {
 
-        int contactId = contactComboBox.getValue().getContactId();
-        String title = titleTextField.getText();
-        String description = descriptionTextField.getText();
-        String location = locationTextField.getText();
-        String type = typeCombobox.getValue().toString();
-        LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
-        LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
-        int customerId = customerIdComboBox.getValue().getCustomerId();
-        int userId = userIdComboBox.getValue().getUserId(); // NOT SENDING
-        System.out.println(userId); //
-        DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
+        boolean timesAreValid = validTimes();
 
-        this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-        this.stage.setScene(new Scene(this.scene));
-        this.stage.setTitle("Main Screen");
-        this.stage.show();
+        if(timesAreValid) {
+
+            int contactId = contactComboBox.getValue().getContactId();
+            String title = titleTextField.getText();
+            String description = descriptionTextField.getText();
+            String location = locationTextField.getText();
+            String type = typeCombobox.getValue().toString();
+            LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
+            LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
+            int customerId = customerIdComboBox.getValue().getCustomerId();
+            int userId = userIdComboBox.getValue().getUserId(); // NOT SENDING
+            System.out.println(userId); //
+            DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
+
+            this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage.setScene(new Scene(this.scene));
+            this.stage.setTitle("Main Screen");
+            this.stage.show();
+        }
     }
 
 

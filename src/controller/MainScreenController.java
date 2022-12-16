@@ -368,6 +368,10 @@ public class MainScreenController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && (result.get() == ButtonType.OK)) {
+                    // delete customer first (method in appt where pass cust id where deleting appointment
+                    // where cust id = selected appt selectedappointment.getCustomerId)
+                    // DB appts delete customer
+                    // method to delete appointment
                     try {
                         DBAppointments.cancelAppointment(selectedAppointment);
                         allAppointmentsTable.getItems().clear();
@@ -425,7 +429,6 @@ public class MainScreenController implements Initializable {
                 stage.show();
             }
         }
-
 
 
     /** Month and type report method.

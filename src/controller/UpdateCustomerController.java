@@ -118,6 +118,7 @@ public class UpdateCustomerController implements Initializable {
         divisionComboBox.setValue(divisionNameFromId(customer.getDivisionId()));
         int custId = DBDivision.divisionFromCountry(customer.getDivisionId());
         countryComboBox.setValue(selectedCountryName(custId));
+
     }
 
 }

@@ -14,16 +14,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Appointments;
 import model.Contacts;
 import model.Customer;
 import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Calendar;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -33,8 +33,6 @@ public class AddAppointmentsController implements Initializable {
     public TextField titleTextField;
     public TextField descriptionTextField;
     public TextField locationTextField;
-    public TextField typeTextField;
-    public TextField userIdTextField;
     public TextField appointmentIdTextField;
     public DatePicker datePicker;
     public Button cancelButton;
@@ -68,12 +66,12 @@ public class AddAppointmentsController implements Initializable {
         fillTimeComboBoxes();
 
         ObservableList<String> typesList = FXCollections.observableArrayList(
-                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
-        );
+                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other");
         typeComboBox.setItems(typesList);
 
     }
 
+    // Method to fill time combo boxes
     public void fillTimeComboBoxes() {
         ObservableList<LocalTime> times = FXCollections.observableArrayList();
         LocalTime startTimes = LocalTime.of(8, 0);
@@ -90,25 +88,80 @@ public class AddAppointmentsController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
+    // CHECKS TO SEE IF DATE AND TIMES ARE AFTER CURRENT DAY AND START TIME ISN'T BEFORE, AFTER
+    // OR THE SAME AS THE END TIME.
+    public Boolean validTimes() {
+
+        LocalDate startDate = datePicker.getValue();
+        LocalTime startTime = startTimeComboBox.getValue();
+        LocalTime endTime = endTimeComboBox.getValue();
+
+        if(startDate.isBefore(LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid date");
+            alert.setContentText("Please select a valid date.");
+            alert.showAndWait();
+            return false;
+        }
+
+        // ******************* FIX ME *********************
+        if(startDate.equals(Calendar.SATURDAY) || (startDate.equals(Calendar.SUNDAY))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid date");
+            alert.setContentText("Please select a weekday.");
+            alert.showAndWait();
+            return false;
+        }
+
+        if(startTime.isBefore(LocalTime.of(8,0)) ||
+                (endTime.isAfter(LocalTime.of(22,0)))){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Outside business hours");
+            alert.setContentText("Please select a time during business hours.");
+            alert.showAndWait();
+            return false;
+        }
+
+        if(endTime.isBefore(startTime) || endTime.equals(startTime)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Incorrect times");
+            alert.setContentText("Please choose valid start and end times.");
+            alert.showAndWait();
+            return false;
+        }
+
+        return true;
+    }
+
+    // Could populate through observable list and loop through or query database
+
+    // populate combo with lambda or filter with lambda (chose division based on country)
+
+
     @FXML
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
 
-        int contactId = contactComboBox.getValue().getContactId();
-        String title = titleTextField.getText();
-        String description = descriptionTextField.getText();
-        String location = locationTextField.getText();
-        String type = typeComboBox.getValue().toString();
-        LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
-        LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
-        int customerId = customerIdComboBox.getValue().getCustomerId();
-        int userId = userIdComboBox.getValue().getUserId();
-        DBAppointments.insertAppointment(contactId, title, description, location, type, startTime, endTime, customerId, userId);
+        boolean timesAreValid = validTimes();
 
-        this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-        this.stage.setScene(new Scene(this.scene));
-        this.stage.setTitle("Main Screen");
-        this.stage.show();
+        if(timesAreValid) {
+            int contactId = contactComboBox.getValue().getContactId();
+            String title = titleTextField.getText();
+            String description = descriptionTextField.getText();
+            String location = locationTextField.getText();
+            String type = typeComboBox.getValue();
+            LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
+            LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
+            int customerId = customerIdComboBox.getValue().getCustomerId();
+            int userId = userIdComboBox.getValue().getUserId();
+            DBAppointments.insertAppointment(contactId, title, description, location, type, startTime, endTime, customerId, userId);
+
+            this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage.setScene(new Scene(this.scene));
+            this.stage.setTitle("Main Screen");
+            this.stage.show();
+        }
+
     }
 
     /** Close window method.
