@@ -350,6 +350,9 @@ public class MainScreenController implements Initializable {
         }
 
 
+
+
+
     /** Delete appointment method.
        @param event Deletes appointment data when delete button clicked. */
 
@@ -373,7 +376,7 @@ public class MainScreenController implements Initializable {
                     // DB appts delete customer
                     // method to delete appointment
                     try {
-                        DBAppointments.cancelAppointment(selectedAppointment);
+                        DBAppointments.deleteAppointment(selectedAppointment);
                         allAppointmentsTable.getItems().clear();
                         allAppointmentsTable.setItems(DBAppointments.getAllAppointments());
                         monthlyViewTable.getItems().clear();
@@ -385,6 +388,7 @@ public class MainScreenController implements Initializable {
                     }
                 }
             }
+            assert selectedAppointment != null;
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION,  "Appointment " +
                     selectedAppointment.getAppointmentId() + ", " + selectedAppointment.getType() +
                     " has been deleted.");

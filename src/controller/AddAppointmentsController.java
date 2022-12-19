@@ -14,12 +14,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Contacts;
 import model.Customer;
 import model.Users;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -88,6 +90,7 @@ public class AddAppointmentsController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
+
     // CHECKS TO SEE IF DATE AND TIMES ARE AFTER CURRENT DAY AND START TIME ISN'T BEFORE, AFTER
     // OR THE SAME AS THE END TIME.
     public Boolean validTimes() {
@@ -96,6 +99,7 @@ public class AddAppointmentsController implements Initializable {
         LocalTime startTime = startTimeComboBox.getValue();
         LocalTime endTime = endTimeComboBox.getValue();
 
+
         if(startDate.isBefore(LocalDate.now())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid date");
@@ -103,7 +107,6 @@ public class AddAppointmentsController implements Initializable {
             alert.showAndWait();
             return false;
         }
-
 
         if(startTime.isBefore(LocalTime.of(8,0)) ||
                 (endTime.isAfter(LocalTime.of(22,0)))){
@@ -122,17 +125,69 @@ public class AddAppointmentsController implements Initializable {
             return false;
         }
 
+        // CHECK FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER
+
+        LocalTime selectedStartTime = startTimeComboBox.getValue();
+        LocalTime selectedEndTime = endTimeComboBox.getValue();
+
+        ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
+        for (Appointments appointments: customerAppointments) {
+            LocalTime proposedStart = appointments.getStartTime();
+            LocalTime proposedEnd = appointments.getEndTime();
+
+            if ((proposedStart.isAfter(selectedStartTime) || proposedStart.equals(selectedStartTime))
+                    && proposedStart.isBefore(selectedEndTime)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Overlapping appointments");
+                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.showAndWait();
+                return false;
+            }
+            if (proposedEnd.isAfter(selectedStartTime) && (proposedEnd.isBefore(selectedEndTime) ||
+                    (proposedEnd.equals(selectedEndTime)))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Overlapping appointments");
+                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.showAndWait();
+                return false;
+            }
+            if ((proposedStart.isBefore(selectedStartTime) || proposedStart.equals(selectedStartTime)) &&
+                    (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Overlapping appointments");
+                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
         return true;
     }
+
+    // ************************ FIX ME ***********************************************
+
 
     public Boolean validAppointments() {
 
-        int customerId = contactComboBox.getValue().getContactId();
 
 
+        /*
+        try {
+            for (Appointments appointments: customerAppointments) {
+
+
+            }
+        }
+        catch (SQLException e) {
+
+        }
+
+         */
 
         return true;
     }
+
+
 
     // Make method for scheduling appointments
     // Could populate through observable list and loop through or query database

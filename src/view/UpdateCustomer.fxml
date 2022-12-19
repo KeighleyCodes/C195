@@ -8,27 +8,27 @@
    <children>
       <AnchorPane prefHeight="298.0" prefWidth="518.0" style="-fx-border-radius: 10; -fx-border-color: black;">
          <children>
-            <TextField fx:id="idTextField" editable="false" layoutX="109.0" layoutY="70.0" prefHeight="26.0" prefWidth="132.0" promptText="auto-generated" />
-            <TextField fx:id="postalCodeTextField" layoutX="346.0" layoutY="136.0" />
             <TextField fx:id="nameTextField" layoutX="109.0" layoutY="138.0" prefHeight="26.0" prefWidth="132.0" />
+            <TextField fx:id="phoneTextField" layoutX="109.0" layoutY="202.0" prefHeight="26.0" prefWidth="132.0" />
+            <TextArea fx:id="addressTextField" layoutX="347.0" layoutY="66.0" prefHeight="53.0" prefWidth="147.0" />
+            <TextField fx:id="postalCodeTextField" layoutX="346.0" layoutY="136.0" />
+            <ComboBox fx:id="countryComboBox" layoutX="346.0" layoutY="180.0" onAction="#OnActionSelectCountry" prefWidth="150.0" promptText="Select country" />
+            <ComboBox fx:id="divisionComboBox" layoutX="346.0" layoutY="225.0" prefWidth="150.0" promptText="Select division" />
+            <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionSaveUpdate" text="Save" />
+            <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionCancelCustomer" text="Cancel" />
             <Label layoutX="273.0" layoutY="142.0" text="Postal Code:" />
             <Label layoutX="275.0" layoutY="74.0" text="Address:" />
             <Label layoutX="17.0" layoutY="140.0" text="Name:" />
+            <TextField fx:id="idTextField" editable="false" layoutX="109.0" layoutY="70.0" prefHeight="26.0" prefWidth="132.0" promptText="auto-generated" />
             <Label layoutX="14.0" layoutY="207.0" text="Phone Number:" />
             <Label layoutX="23.0" layoutY="24.0" text="Customer Information">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <TextArea fx:id="addressTextField" layoutX="347.0" layoutY="66.0" prefHeight="53.0" prefWidth="147.0" />
             <Label layoutX="18.0" layoutY="74.0" text="ID Number:" />
-            <TextField fx:id="phoneTextField" layoutX="109.0" layoutY="202.0" prefHeight="26.0" prefWidth="132.0" />
             <Label layoutX="275.0" layoutY="229.0" text="Division:" />
             <Label layoutX="275.0" layoutY="184.0" text="Country:" />
-            <Button fx:id="saveButton" layoutX="373.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionSaveUpdate" text="Save" />
-            <Button fx:id="cancelButton" layoutX="444.0" layoutY="264.0" mnemonicParsing="false" onAction="#OnActionCancelCustomer" text="Cancel" />
-            <ComboBox fx:id="countryComboBox" layoutX="346.0" layoutY="180.0" onAction="#OnActionSelectCountry" prefWidth="150.0" promptText="Select country" />
-            <ComboBox fx:id="divisionComboBox" layoutX="346.0" layoutY="225.0" onAction="#OnActionSelectDivision" prefWidth="150.0" promptText="Select division" />
          </children></AnchorPane>
    </children>
 </AnchorPane>

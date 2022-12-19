@@ -136,12 +136,12 @@
                                              </font>
                                           </Label>
                                           <Button fx:id="totalMonthAndTypeReport" layoutX="411.0" layoutY="60.0" mnemonicParsing="false" onAction="#OnActionMonthAndTypeSelection" text="Total:" />
-                                          <Label fx:id="reportsByMonthLabel" layoutX="493.0" layoutY="63.0" text="0" />
+                                          <Label fx:id="reportsByMonthLabel" layoutX="493.0" layoutY="63.0" />
                                        </children></AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="117.0" prefWidth="717.0">
                                        <children>
                                           <Button fx:id="totalCustomerReportButton" layoutX="410.0" layoutY="55.0" mnemonicParsing="false" onAction="#OnActionCustomerSelection" text="Total:" />
-                                          <Label fx:id="reportsByCustomerLabel" layoutX="488.0" layoutY="57.0" prefHeight="17.0" prefWidth="10.0" text="0" />
+                                          <Label fx:id="reportsByCustomerLabel" layoutX="488.0" layoutY="57.0" prefHeight="17.0" prefWidth="10.0" />
                                           <ComboBox fx:id="customerIdSelectorBox" layoutX="41.0" layoutY="55.0" prefWidth="150.0" promptText="Select customer" />
                                           <Label layoutX="41.0" layoutY="17.0" text="Total appointments by customer:">
                                              <font>

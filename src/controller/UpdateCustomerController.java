@@ -40,10 +40,6 @@ public class UpdateCustomerController implements Initializable {
     public Button cancelButton;
 
     private int customerId;
-    private String divisionName;
-    private String country;
-
-    private static Customer customer;
 
     Stage stage;
     Parent scene;
@@ -83,14 +79,13 @@ public class UpdateCustomerController implements Initializable {
         }
     }
 
+    // FILTERS DIVISION BASED ON COUNTRY SELECTED FROM COMBO BOX
     public void OnActionSelectCountry(ActionEvent event) {
 
         divisionComboBox.setItems(DBDivision.countryFromDivision(countryComboBox.getValue().getCountryId()));
 
     }
 
-    public void OnActionSelectDivision(ActionEvent event) {
-    }
 
     public void OnActionSaveUpdate(ActionEvent event) throws IOException, SQLException {
 

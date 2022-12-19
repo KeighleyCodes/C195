@@ -41,13 +41,6 @@ public class AddCustomerController implements Initializable {
     public Button saveButton;
     public Button cancelButton;
 
-
-    private String customerName;
-    private String address;
-    private String postalCode;
-    private String phone;
-    private int divisionId;
-
     Stage stage;
     Parent scene;
 
@@ -62,9 +55,7 @@ public class AddCustomerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // NEED TO FILTER DIVISIONS BASED ON COUNTRIES
         countryComboBox.setItems(allCountries);
-       // divisionComboBox.setItems(allDivisions);
 
     }
 
@@ -75,11 +66,11 @@ public class AddCustomerController implements Initializable {
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
-        customerName = nameTextField.getText();
-        address = addressTextField.getText();
-        postalCode = postalCodeTextField.getText();
-        phone = phoneTextField.getText();
-        divisionId = divisionComboBox.getValue().getDivisionId();
+        String customerName = nameTextField.getText();
+        String address = addressTextField.getText();
+        String postalCode = postalCodeTextField.getText();
+        String phone = phoneTextField.getText();
+        int divisionId = divisionComboBox.getValue().getDivisionId();
         DBCustomer.insertCustomer(customerName, address, postalCode, phone, divisionId);
 
         this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -91,11 +82,13 @@ public class AddCustomerController implements Initializable {
     }
 
 
+    // FILTERS DIVISION BASED ON COUNTRY SELECTED FROM COMBO BOX
     public void onSelectCountry(ActionEvent event) {
 
         divisionComboBox.setItems(DBDivision.countryFromDivision(countryComboBox.getValue().getCountryId()));
 
     }
+
 
     /** Cancel method.
      @param event Closes window and returns to Main Screen. */

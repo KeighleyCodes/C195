@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 import static database.DBContacts.contactNameFromId;
 import static database.DBCustomer.customerNameFromID;
 import static database.DBUser.userNameFromID;
-//import static database.DBCustomer.selectedCustomerName;
+
 
 public class UpdateAppointmentController implements Initializable {
     public ComboBox<Contacts> contactComboBox;
@@ -44,13 +44,12 @@ public class UpdateAppointmentController implements Initializable {
     public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
-    public TextField typeTextField;
     public DatePicker datePicker;
     public ComboBox<LocalTime> startTimeComboBox;
     public ComboBox<LocalTime> endTimeComboBox;
     public ComboBox<Customer> customerIdComboBox;
     public ComboBox<Users> userIdComboBox;
-    public ComboBox typeCombobox;
+    public ComboBox<String> typeCombobox;
 
     Stage stage;
     Parent scene;
@@ -135,6 +134,42 @@ public class UpdateAppointmentController implements Initializable {
             return false;
         }
 
+        // CHECK FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER
+
+        LocalTime selectedStartTime = startTimeComboBox.getValue();
+        LocalTime selectedEndTime = endTimeComboBox.getValue();
+
+        ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
+        for (Appointments appointments: customerAppointments) {
+            LocalTime proposedStart = appointments.getStartTime();
+            LocalTime proposedEnd = appointments.getEndTime();
+
+            if ((proposedStart.isAfter(selectedStartTime) || proposedStart.equals(selectedStartTime))
+                    && proposedStart.isBefore(selectedEndTime)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Overlapping appointments");
+                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.showAndWait();
+                return false;
+            }
+            if (proposedEnd.isAfter(selectedStartTime) && (proposedEnd.isBefore(selectedEndTime) ||
+                    (proposedEnd.equals(selectedEndTime)))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Overlapping appointments");
+                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.showAndWait();
+                return false;
+            }
+            if ((proposedStart.isBefore(selectedStartTime) || proposedStart.equals(selectedStartTime)) &&
+                    (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Overlapping appointments");
+                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.showAndWait();
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -153,7 +188,7 @@ public class UpdateAppointmentController implements Initializable {
             LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
             LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
             int customerId = customerIdComboBox.getValue().getCustomerId();
-            int userId = userIdComboBox.getValue().getUserId(); // NOT SENDING
+            int userId = userIdComboBox.getValue().getUserId();
             System.out.println(userId); //
             DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
 

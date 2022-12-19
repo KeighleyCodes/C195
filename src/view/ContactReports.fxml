@@ -29,7 +29,7 @@
          <Font name="System Bold" size="14.0" />
       </font>
    </Label>
-   <Button fx:id="cancelButton" layoutX="767.0" layoutY="390.0" mnemonicParsing="false" onAction="#onActionCancel" text="Cancel" />
+   <Button fx:id="backButton" layoutX="767.0" layoutY="390.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
    <Button fx:id="logoutButton" layoutX="834.0" layoutY="390.0" mnemonicParsing="false" onAction="#onActionLogout" text="Logout" />
 
 </AnchorPane>

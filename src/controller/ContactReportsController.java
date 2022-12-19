@@ -41,6 +41,7 @@ public class ContactReportsController implements Initializable {
     public Label contactNameLabel;
     public Button logoutButton;
     public Button cancelButton;
+    public Button backButton;
 
     Stage stage;
     Parent scene;
@@ -77,8 +78,9 @@ public class ContactReportsController implements Initializable {
     /** Cancel method.
      @param event Closes window and returns to Main Screen. */
 
-    public void onActionCancel(ActionEvent event) throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);
+    public void onActionBack(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to return to previous screen?"
+        );
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();

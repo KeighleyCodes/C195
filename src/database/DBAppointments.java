@@ -165,7 +165,7 @@ public class DBAppointments {
 
 
     // Deletes appointment
-    public static int cancelAppointment(Appointments appointments) {
+    public static int deleteAppointment(Appointments appointments) {
         try {
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
             PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
@@ -255,5 +255,36 @@ public class DBAppointments {
         }
 
         return appointmentsByContactList;
+    }
+
+    public static ObservableList<Appointments> appointmentsByCustomer(int selectedCustomerId) {
+
+        ObservableList<Appointments> appointmentsByCustomerList = FXCollections.observableArrayList();
+        try {
+            String sql = "SELECT * FROM appointments WHERE Customer_ID = " + selectedCustomerId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int appointmentId = rs.getInt("Appointment_ID");
+                String title = rs.getString("Title");
+                String description = rs.getString("Description");
+                String location = rs.getString("Location");
+                int contactId = rs.getInt("Contact_ID");
+                String type = rs.getString("Type");
+                LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
+                LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
+                LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
+                int customerId = rs.getInt("Customer_ID");
+                int userId = rs.getInt("Contact_ID");
+                Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
+                        type, appointmentDay, startTime, endTime, customerId, userId);
+                appointmentsByCustomerList.add(appointmentObject);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        return appointmentsByCustomerList;
     }
 }
