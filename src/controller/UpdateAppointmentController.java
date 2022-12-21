@@ -102,8 +102,8 @@ public class UpdateAppointmentController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
-    // CHECKS FOR APPOINTMENT TIME ERRORS
-    public Boolean validTimes() {
+    // CHECKS FOR APPOINTMENT SCHEDULING ERRORS
+    public Boolean validAppointments() {
         LocalDate startDate = datePicker.getValue();
         LocalTime startTime = startTimeComboBox.getValue();
         LocalTime endTime = endTimeComboBox.getValue();
@@ -139,50 +139,51 @@ public class UpdateAppointmentController implements Initializable {
 
         LocalTime selectedStartTime = startTimeComboBox.getValue();
         LocalTime selectedEndTime = endTimeComboBox.getValue();
-        String selectedAppointment = appointmentIdTextField.getText();
-        // ADD PARAMETER TO GET VALUE FROM SELECTED APPOINTMENT ID
-        // IF STATEMENT TO EXCLUDE SELECTED APPOINTMENT ID
+        int selectedAppointment = Integer.parseInt(appointmentIdTextField.getText());
 
         ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
         for (Appointments appointments: customerAppointments) {
             LocalTime proposedStart = appointments.getStartTime();
             LocalTime proposedEnd = appointments.getEndTime();
+            int proposedAppointment = appointments.getAppointmentId();
 
-            if ((proposedStart.isAfter(selectedStartTime) || proposedStart.equals(selectedStartTime))
-                    && proposedStart.isBefore(selectedEndTime)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Overlapping appointments");
-                alert.setContentText("New appointments cannot overlap with existing appointments.");
-                alert.showAndWait();
-                return false;
-            }
-            if (proposedEnd.isAfter(selectedStartTime) && (proposedEnd.isBefore(selectedEndTime) ||
-                    (proposedEnd.equals(selectedEndTime)))) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Overlapping appointments");
-                alert.setContentText("New appointments cannot overlap with existing appointments.");
-                alert.showAndWait();
-                return false;
-            }
-            if ((proposedStart.isBefore(selectedStartTime) || proposedStart.equals(selectedStartTime)) &&
-                    (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Overlapping appointments");
-                alert.setContentText("New appointments cannot overlap with existing appointments.");
-                alert.showAndWait();
-                return false;
+            if (proposedAppointment != selectedAppointment) {
+
+                if ((proposedStart.isAfter(selectedStartTime) || proposedStart.equals(selectedStartTime))
+                        && proposedStart.isBefore(selectedEndTime)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Overlapping appointments");
+                    alert.setContentText("New appointments cannot overlap with existing appointments.");
+                    alert.showAndWait();
+                    return false;
+                }
+                if (proposedEnd.isAfter(selectedStartTime) && (proposedEnd.isBefore(selectedEndTime) ||
+                        (proposedEnd.equals(selectedEndTime)))) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Overlapping appointments");
+                    alert.setContentText("New appointments cannot overlap with existing appointments.");
+                    alert.showAndWait();
+                    return false;
+                }
+                if ((proposedStart.isBefore(selectedStartTime) || proposedStart.equals(selectedStartTime)) &&
+                        (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Overlapping appointments");
+                    alert.setContentText("New appointments cannot overlap with existing appointments.");
+                    alert.showAndWait();
+                    return false;
+                }
             }
         }
-
         return true;
     }
 
 
     public void OnActionSaveAppointment(ActionEvent event) throws SQLException, IOException {
 
-        boolean timesAreValid = validTimes();
+        boolean appointmentsAreValid = validAppointments();
 
-        if(timesAreValid) {
+        if(appointmentsAreValid) {
 
             int contactId = contactComboBox.getValue().getContactId();
             String title = titleTextField.getText();

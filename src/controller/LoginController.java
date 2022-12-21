@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 import main.Main;
 import model.Appointments;
 import model.Users;
+
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,6 +51,14 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
+    String filename = "login_activity.txt";
+    // write to text first and then convert to lambda
+    // code repository Print Writer
+
+    PrintWriter loginActivity = new PrintWriter(filename);
+
+    public LoginController() throws FileNotFoundException {
+    }
 
     /** Initialize method.
      * @param url
@@ -98,6 +110,13 @@ public class LoginController implements Initializable {
         return false;
     }
 
+    public void loginSuccessful() {
+
+    }
+
+    public void loginUnsuccessful() {
+
+    }
 
     /** Enter method.
        @param event
