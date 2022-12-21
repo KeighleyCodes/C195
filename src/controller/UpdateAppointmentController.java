@@ -102,12 +102,13 @@ public class UpdateAppointmentController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
-    // CHECKS TO SEE IF DATE AND TIMES ARE AFTER CURRENT DAY AND START TIME ISN'T BEFORE, AFTER
-    // OR THE SAME AS THE END TIME.
+    // CHECKS FOR APPOINTMENT TIME ERRORS
     public Boolean validTimes() {
         LocalDate startDate = datePicker.getValue();
         LocalTime startTime = startTimeComboBox.getValue();
         LocalTime endTime = endTimeComboBox.getValue();
+
+        // CHECKS THAT SELECTED DATE AND TIMES ARE VALID
 
         if(startDate.isBefore(LocalDate.now())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -134,10 +135,13 @@ public class UpdateAppointmentController implements Initializable {
             return false;
         }
 
-        // CHECK FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER
+        // CHECKS FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER
 
         LocalTime selectedStartTime = startTimeComboBox.getValue();
         LocalTime selectedEndTime = endTimeComboBox.getValue();
+        String selectedAppointment = appointmentIdTextField.getText();
+        // ADD PARAMETER TO GET VALUE FROM SELECTED APPOINTMENT ID
+        // IF STATEMENT TO EXCLUDE SELECTED APPOINTMENT ID
 
         ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
         for (Appointments appointments: customerAppointments) {

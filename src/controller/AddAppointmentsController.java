@@ -90,15 +90,15 @@ public class AddAppointmentsController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
-
-    // CHECKS TO SEE IF DATE AND TIMES ARE AFTER CURRENT DAY AND START TIME ISN'T BEFORE, AFTER
-    // OR THE SAME AS THE END TIME.
+    // ******** FIX ME - EXCLUDE APPOINTMENT WITH SAME APPT ID BEING EDITED ****************
+    // CHECKS FOR APPOINTMENT TIME ERRORS
     public Boolean validTimes() {
 
         LocalDate startDate = datePicker.getValue();
         LocalTime startTime = startTimeComboBox.getValue();
         LocalTime endTime = endTimeComboBox.getValue();
 
+        // CHECKS THAT SELECTED DATE AND TIMES ARE VALID
 
         if(startDate.isBefore(LocalDate.now())) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -129,6 +129,7 @@ public class AddAppointmentsController implements Initializable {
 
         LocalTime selectedStartTime = startTimeComboBox.getValue();
         LocalTime selectedEndTime = endTimeComboBox.getValue();
+
 
         ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
         for (Appointments appointments: customerAppointments) {
@@ -164,29 +165,6 @@ public class AddAppointmentsController implements Initializable {
         return true;
     }
 
-    // ************************ FIX ME ***********************************************
-
-
-    public Boolean validAppointments() {
-
-
-
-        /*
-        try {
-            for (Appointments appointments: customerAppointments) {
-
-
-            }
-        }
-        catch (SQLException e) {
-
-        }
-
-         */
-
-        return true;
-    }
-
 
 
     // Make method for scheduling appointments
@@ -199,7 +177,6 @@ public class AddAppointmentsController implements Initializable {
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
 
         boolean timesAreValid = validTimes();
-       // boolean appointmentsAreValid = validAppointments();
 
         if(timesAreValid) {
             int contactId = contactComboBox.getValue().getContactId();
