@@ -17,11 +17,9 @@ import main.Main;
 import model.Appointments;
 import model.Users;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -51,13 +49,15 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
-    String filename = "login_activity.txt";
+    String loginActivity = "login_activity.txt";
     // write to text first and then convert to lambda
     // code repository Print Writer
 
-    PrintWriter loginActivity = new PrintWriter(filename);
+    FileWriter fileWriter = new FileWriter(loginActivity);
+    PrintWriter printWriter = new PrintWriter(fileWriter);
 
-    public LoginController() throws FileNotFoundException {
+
+    public LoginController() throws IOException {
     }
 
     /** Initialize method.
@@ -104,19 +104,22 @@ public class LoginController implements Initializable {
         for (Users user : allUsers) {
             if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
                 Users.currentUser = user;
+
+                printWriter.println(" LOGIN STATUS: Successful\n" + "USER: " + user.getUsername() + "\n" +
+                        "DATE: " + LocalDate.now() + "\n" + "TIME: " + LocalTime.now());
+                printWriter.close();
+
                 return true;
+            }
+            else {
+                printWriter.println("LOGIN STATUS: Not Successful\n" + "USER: " + user.getUsername() + "\n" +
+                        "DATE: " + LocalDate.now()  + "\n" + "TIME: " + LocalTime.now());
+                printWriter.close();
             }
         }
         return false;
     }
 
-    public void loginSuccessful() {
-
-    }
-
-    public void loginUnsuccessful() {
-
-    }
 
     /** Enter method.
        @param event
