@@ -3,14 +3,17 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Contacts;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Database Contacts. Contains SQL code pertaining to the Contacts table. */
+
 public class DBContacts {
 
-    // Pulls contact list into observable list
+    /** Contact observable list.
+      @return Creates observable list of all contacts from database. */
+
     public static ObservableList<Contacts> getAllContacts() {
         ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
         try {
@@ -34,8 +37,10 @@ public class DBContacts {
         return allContacts;
     }
 
+    /** Contact name from ID method.
+      @param contactId
+      @return Creates contact object from contact ID. */
 
-    // Creates Contact object from ID
     public static Contacts contactNameFromId(int contactId) {
 
         Contacts contactObject = null;

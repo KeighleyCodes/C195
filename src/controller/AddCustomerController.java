@@ -1,10 +1,8 @@
 package controller;
 
-import database.DBAppointments;
 import database.DBCountries;
 import database.DBCustomer;
 import database.DBDivision;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,9 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Countries;
-import model.Customer;
 import model.Divisions;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -25,9 +21,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static database.DBCountries.selectedCountryName;
-import static database.DBDivision.divisionNameFromId;
-import static java.lang.Integer.parseInt;
+/** Add Customer Controller.
+     Opens add customer screen. Here the customer is able to add a new customer to the database. */
 
 public class AddCustomerController implements Initializable {
 
@@ -44,13 +39,15 @@ public class AddCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
-
-    // Sets Countries observable list
+    // SETS COUNTRIES OBSERVABLE LIST
         ObservableList<Countries> allCountries = DBCountries.getAllCountries();
 
-    // Sets division observable list
+    // SETS DIVISION OBSERVABLE LIST
         ObservableList<Divisions> allDivisions = DBDivision.getAllDivisions();
 
+    /** Initialize method.
+     @param url
+     @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -61,8 +58,7 @@ public class AddCustomerController implements Initializable {
 
 
     /** Save customer method.
-     @param event Saves modified part info and returns to Main Screen.
-     */
+     @param event Adds new customer to the database and returns to the Main Screen. */
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
@@ -81,8 +77,9 @@ public class AddCustomerController implements Initializable {
 
     }
 
+    /** On Select Country method
+     @param event Filters division combo box based on selection from country combo box. */
 
-    // FILTERS DIVISION BASED ON COUNTRY SELECTED FROM COMBO BOX
     public void onSelectCountry(ActionEvent event) {
 
         divisionComboBox.setItems(DBDivision.countryFromDivision(countryComboBox.getValue().getCountryId()));
@@ -92,6 +89,7 @@ public class AddCustomerController implements Initializable {
 
     /** Cancel method.
      @param event Closes window and returns to Main Screen. */
+
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);

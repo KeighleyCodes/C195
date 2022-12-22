@@ -18,17 +18,17 @@ import model.Appointments;
 import model.Contacts;
 import model.Customer;
 import model.Users;
-
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+/** Add Appointment Controller.
+    Opens add appointment screen. Here the customer is able to add a new appointment to the database. */
 
 public class AddAppointmentsController implements Initializable {
     public ComboBox<Contacts> contactComboBox;
@@ -48,17 +48,20 @@ public class AddAppointmentsController implements Initializable {
     Stage stage;
     Parent scene;
 
-    // OBSERVABLE LISTS
+    // CREATES OBSERVABLE LISTS
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
     private ObservableList<Users> allUsers = DBUser.getAllUsers();
     private ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
     private ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
 
+    /** Initialize method.
+      @param url
+      @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // ---------------- COMBO BOXES ----------------------------
         contactComboBox.setItems(allContacts);
 
         customerIdComboBox.setItems(allCustomers);
@@ -67,13 +70,16 @@ public class AddAppointmentsController implements Initializable {
 
         fillTimeComboBoxes();
 
+        // POPULATES COMBO BOX WITH TYPES
         ObservableList<String> typesList = FXCollections.observableArrayList(
                 "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other");
         typeComboBox.setItems(typesList);
 
     }
 
-    // Method to fill time combo boxes
+
+    /** Method to fill time combo boxes. */
+
     public void fillTimeComboBoxes() {
         ObservableList<LocalTime> times = FXCollections.observableArrayList();
         LocalTime startTimes = LocalTime.of(8, 0);
@@ -90,9 +96,11 @@ public class AddAppointmentsController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
-    // ******** FIX ME - EXCLUDE APPOINTMENT WITH SAME APPT ID BEING EDITED ****************
-    // CHECKS FOR APPOINTMENT TIME ERRORS
-    public Boolean validTimes() {
+
+    /** Method to check for appointment scheduling errors.
+      @return */
+
+    public Boolean validAppointments() {
 
         LocalDate startDate = datePicker.getValue();
         LocalTime startTime = startTimeComboBox.getValue();
@@ -130,7 +138,6 @@ public class AddAppointmentsController implements Initializable {
         LocalTime selectedStartTime = startTimeComboBox.getValue();
         LocalTime selectedEndTime = endTimeComboBox.getValue();
 
-
         ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
         for (Appointments appointments: customerAppointments) {
             LocalTime proposedStart = appointments.getStartTime();
@@ -166,19 +173,16 @@ public class AddAppointmentsController implements Initializable {
     }
 
 
-
-    // Make method for scheduling appointments
-    // Could populate through observable list and loop through or query database
-
-    // populate combo with lambda or filter with lambda (chose division based on country)
-
+    /** Save appointment method.
+      @param event
+      @throws IOException Checks if appointments are valid, then saves entered information into database. */
 
     @FXML
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
 
-        boolean timesAreValid = validTimes();
+        boolean appointmentsAreValid = validAppointments();
 
-        if(timesAreValid) {
+        if(appointmentsAreValid) {
             int contactId = contactComboBox.getValue().getContactId();
             String title = titleTextField.getText();
             String description = descriptionTextField.getText();
@@ -199,8 +203,9 @@ public class AddAppointmentsController implements Initializable {
 
     }
 
-    /** Close window method.
+    /** Cancel method.
      @param event Closes window and returns to Main Screen. */
+
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);

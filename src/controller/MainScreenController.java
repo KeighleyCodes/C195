@@ -124,7 +124,6 @@ public class MainScreenController implements Initializable {
 
         // ---------------------------- TABLE VIEWS ---------------------------------------
 
-
         // CUSTOMER TABLE
         ObservableList<Customer> customerList = DBCustomer.getAllCustomers();
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -221,7 +220,7 @@ public class MainScreenController implements Initializable {
 
     // -------------------------------- CUSTOMERS ----------------------------------------
 
-        /** Add customer method.
+        /** Add Customer method.
            @param event Opens Add Customer screen when add button clicked. */
 
         @FXML
@@ -235,7 +234,7 @@ public class MainScreenController implements Initializable {
 
         }
 
-        /** Update customer method.
+        /** Update Customer method.
            @param event Opens Update Customer screen when update button clicked. */
 
         @FXML
@@ -262,7 +261,8 @@ public class MainScreenController implements Initializable {
             }
         }
 
-    /** Delete customer method.
+
+    /** Delete Customer method.
        @param event Deletes customer data when delete button clicked. */
 
         @FXML
@@ -299,7 +299,8 @@ public class MainScreenController implements Initializable {
             }
         }
 
-        /** Logout customer method.
+
+        /** Logout Customer method.
            @param event Returns to log in screen when log out button clicked. */
 
         @FXML
@@ -317,9 +318,10 @@ public class MainScreenController implements Initializable {
             }
         }
 
+
     // -------------------------------- APPOINTMENTS ----------------------------------------
 
-        /** Add appointment method.
+        /** Add Appointment method.
            @param event Opens Add Appointment screen when add button clicked. */
 
         @FXML
@@ -333,7 +335,7 @@ public class MainScreenController implements Initializable {
         }
 
 
-        /** Update appointment method.
+        /** Update Appointment method.
            @param event Opens Update Appointment screen when update button clicked. */
 
         @FXML
@@ -360,11 +362,7 @@ public class MainScreenController implements Initializable {
         }
 
 
-
-
-
-
-    /** Delete appointment method.
+    /** Delete Appointment method.
        @param event Deletes appointment data when delete button clicked. */
 
         @FXML
@@ -403,7 +401,7 @@ public class MainScreenController implements Initializable {
         }
 
 
-        /** Logout appointment method.
+        /** Logout Appointment method.
            @param event Goes back to log in screen when log out button clicked. */
 
         @FXML
@@ -421,9 +419,10 @@ public class MainScreenController implements Initializable {
             }
         }
 
+
     // -------------------------------- REPORTS ----------------------------------------
 
-        /** Logout report method.
+        /** Logout Report method.
            @param event Goes back to log in screen when log out button clicked. */
 
         @FXML
@@ -476,6 +475,7 @@ public class MainScreenController implements Initializable {
     /** Contact report method.
        @param event Opens new window containing table view populated with appointment
                     info filtered by selected contact in combo box. */
+
     public void onSelectionContact(ActionEvent event) throws IOException {
 
         FXMLLoader loader = new FXMLLoader();

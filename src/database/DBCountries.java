@@ -3,15 +3,17 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Countries;
-import model.Divisions;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Database Countries. Contains SQL code pertaining to the Countries table. */
+
 public class DBCountries {
 
-    // Pulls country list into observable list
+    /** Countries observable list.
+       @return Creates observable list of all countries in database. */
+
     public static ObservableList<Countries> getAllCountries() {
         ObservableList<Countries> allCountries = FXCollections.observableArrayList();
         try {
@@ -35,6 +37,10 @@ public class DBCountries {
     }
 
 
+    /**
+     * @param countryId
+     * @return
+     */
     // Creates country object name from ID
     public static Countries selectedCountryName(int countryId) {
 

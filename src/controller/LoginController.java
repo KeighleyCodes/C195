@@ -16,10 +16,8 @@ import javafx.stage.Stage;
 import main.Main;
 import model.Appointments;
 import model.Users;
-
 import java.io.*;
 import java.net.URL;
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -49,29 +47,24 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
-    String loginActivity = "login_activity.txt";
-    // write to text first and then convert to lambda
-    // code repository Print Writer
-
-    FileWriter fileWriter = new FileWriter(loginActivity);
+    FileWriter fileWriter = new FileWriter("login_activity.txt", true);
     PrintWriter printWriter = new PrintWriter(fileWriter);
-
 
     public LoginController() throws IOException {
     }
 
     /** Initialize method.
-     * @param url
-     * @param rb Allows the user to log in using username and password. User's local time and zone are displayed.
-       Translates page to French if determined necessary by user's Zone ID. */
+        @param url
+        @param rb Allows the user to log in using username and password. User's local time and zone are displayed.
+        Translates page to French if determined necessary by user's Zone ID. */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        // Displays local time zone
+        // DISPLAYS LOCAL TIME ZONE
         zoneIdLabel.setText(String.valueOf(ZoneId.of(TimeZone.getDefault().getID())));
 
-        // Displays local date and time
+        // DISPLAYS LOCAL DATE AND TIME
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -80,12 +73,12 @@ public class LoginController implements Initializable {
         };
         timer.start();
 
-        // Checks if locale is French
+        // CHECKS IF LOCALE IS FRENCH
         Locale fr = new Locale("fr");
 
         if(Locale.getDefault().equals(fr)) {
 
-            // Translates login page to French
+            // TRANSLATES LOGIN SCREEN TO FRENCH
             usernameText.setText(Main.rb.getString("userNamePrompt"));
             passwordText.setText(Main.rb.getString("passwordPrompt"));
             promptTextLabel.setText(Main.rb.getString("promptText"));
@@ -98,23 +91,25 @@ public class LoginController implements Initializable {
     /** Log-in validation method.
      * @return Checks if username and password matches those of the database. */
 
-    // Boolean to check if login credentials are valid
+    // BOOLEAN TO CHECK IF LOGIN CREDENTIALS ARE VALID
     private boolean loginIsValid() {
         ObservableList<Users> allUsers = DBUser.getAllUsers();
         for (Users user : allUsers) {
             if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
                 Users.currentUser = user;
 
-                printWriter.println(" LOGIN STATUS: Successful\n" + "USER: " + user.getUsername() + "\n" +
-                        "DATE: " + LocalDate.now() + "\n" + "TIME: " + LocalTime.now());
+                printWriter.println("STATUS: Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
+                        "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
                 printWriter.close();
+                System.out.println("Successful login");
 
                 return true;
             }
             else {
-                printWriter.println("LOGIN STATUS: Not Successful\n" + "USER: " + user.getUsername() + "\n" +
-                        "DATE: " + LocalDate.now()  + "\n" + "TIME: " + LocalTime.now());
+                printWriter.println("STATUS: Not Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
+                        "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
                 printWriter.close();
+                System.out.println("Unsuccessful login");
             }
         }
         return false;
@@ -131,10 +126,10 @@ public class LoginController implements Initializable {
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {
 
-        // Checks is login credentials are valid
+        // CHECKS IF LOGIN CREDENTIALS ARE VALID
         if (loginIsValid()) {
 
-            // Checks if user has appointment in the next 15 minutes, alerts in either case
+            // CHECKS IF USER HAS APPOINTMENT IN THE NEXT 15 MINUTES, ALERTS IN EITHER CASE
             ObservableList<Appointments> upcomingAppointments = FXCollections.observableArrayList();
             LocalDate localDateNow = LocalDate.now();
             LocalTime localTimeNow = LocalTime.now();

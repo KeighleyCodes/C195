@@ -17,7 +17,6 @@ import model.Appointments;
 import model.Contacts;
 import model.Customer;
 import model.Users;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -27,21 +26,19 @@ import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import static database.DBContacts.contactNameFromId;
 import static database.DBCustomer.customerNameFromID;
 import static database.DBUser.userNameFromID;
 
+/** Update Appointment Controller.
+     Opens update appointment screen. Here the customer is able to update an appointment in the database. */
 
 public class UpdateAppointmentController implements Initializable {
     public ComboBox<Contacts> contactComboBox;
     public TextField titleTextField;
     public TextField descriptionTextField;
     public TextField locationTextField;
-    public TextField userIdTextField;
     public TextField appointmentIdTextField;
-    public DatePicker startTimeDatePicker;
-    public DatePicker endTimeDatePicker;
     public Button cancelButton;
     public Button saveButton;
     public DatePicker datePicker;
@@ -56,16 +53,16 @@ public class UpdateAppointmentController implements Initializable {
 
     private int appointmentId;
 
+    // CREATES OBSERVABLE LISTS
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
-
     private ObservableList<Users> allUsers = DBUser.getAllUsers();
     private ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
+    private ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
 
-
-
-    // Sets Contacts observable list
-    ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
+    /** Initialize method.
+      @param url
+      @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,13 +75,15 @@ public class UpdateAppointmentController implements Initializable {
 
         fillTimeComboBoxes();
 
-        // Populates combo box with types
+        // POPULATES COMBO BOX WITH TYPES
         ObservableList<String> typesList = FXCollections.observableArrayList(
-                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other"
-        );
+                "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other");
         typeCombobox.setItems(typesList);
 
     }
+
+
+    /** Method to fill time combo boxes. */
 
     public void fillTimeComboBoxes() {
         ObservableList<LocalTime> times = FXCollections.observableArrayList();
@@ -135,7 +134,7 @@ public class UpdateAppointmentController implements Initializable {
             return false;
         }
 
-        // CHECKS FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER
+        // CHECKS FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER, EXCLUDING CURRENT APPOINTMENT
 
         LocalTime selectedStartTime = startTimeComboBox.getValue();
         LocalTime selectedEndTime = endTimeComboBox.getValue();
@@ -179,6 +178,10 @@ public class UpdateAppointmentController implements Initializable {
     }
 
 
+    /** Save appointment method.
+     @param event
+     @throws IOException Checks if appointments are valid, then saves entered information into database. */
+
     public void OnActionSaveAppointment(ActionEvent event) throws SQLException, IOException {
 
         boolean appointmentsAreValid = validAppointments();
@@ -206,6 +209,9 @@ public class UpdateAppointmentController implements Initializable {
     }
 
 
+    /** Send Appointment method.
+       @param appointments Sends selected appointment information to be modified. */
+
     public void sendAppointment(Appointments appointments) {
 
         appointmentId = appointments.getAppointmentId();
@@ -222,6 +228,9 @@ public class UpdateAppointmentController implements Initializable {
 
     }
 
+
+    /** Cancel method.
+     @param event Closes window and returns to Main Screen. */
     public void OnActionCancel(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);
         Optional<ButtonType> result = alert.showAndWait();

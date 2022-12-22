@@ -1,7 +1,6 @@
 package controller;
 
 import database.DBAppointments;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,9 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Appointments;
 import model.Contacts;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
@@ -49,10 +46,11 @@ public class ContactReportsController implements Initializable {
     /** Initialize method.
      * @param url
      * @param resourceBundle Sets table view with filtered observable list of appointments from database. */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // APPOINTMENT TABLE
+        // POPULATES APPOINTMENT TABLE
         contactReportAppointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         contactReportTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         contactReportDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -67,6 +65,7 @@ public class ContactReportsController implements Initializable {
 
     }
 
+
     /** Send Contact Appointment method.
      * @param contacts Sends appointments filtered by contact to table view. */
 
@@ -75,7 +74,8 @@ public class ContactReportsController implements Initializable {
         contactNameLabel.setText(contacts.getContactName());
     }
 
-    /** Cancel method.
+
+    /** Back method.
      @param event Closes window and returns to Main Screen. */
 
     public void onActionBack(ActionEvent event) throws IOException {
@@ -90,6 +90,7 @@ public class ContactReportsController implements Initializable {
             this.stage.show();
         }
     }
+
 
     /** Logout method.
      * @param event Returns to log in screen when log out button clicked. */

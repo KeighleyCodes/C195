@@ -3,6 +3,8 @@ package database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
+/** Database connection method. Contains code to connect to databse. */
+
 public class DBConnection {
 
     private static final String protocol = "jdbc";

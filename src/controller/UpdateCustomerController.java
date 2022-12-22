@@ -15,17 +15,17 @@ import javafx.stage.Stage;
 import model.Countries;
 import model.Customer;
 import model.Divisions;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
 import static database.DBCountries.selectedCountryName;
 import static database.DBDivision.divisionNameFromId;
 
+/** Update Customer Controller.
+    Opens update appointment screen. Here the customer is able to update a customer in the database. */
 
 public class UpdateCustomerController implements Initializable {
 
@@ -45,47 +45,37 @@ public class UpdateCustomerController implements Initializable {
     Parent scene;
 
 
-    // Sets Countries observable list
-    ObservableList<Countries> allCountries = DBCountries.getAllCountries();
+    // CREATES OBSERVABLE LISTS
 
-    // Sets division observable list
+    ObservableList<Countries> allCountries = DBCountries.getAllCountries();
     ObservableList<Divisions> allDivisions = DBDivision.getAllDivisions();
 
+    /** Initialize method.
+     @param url
+     @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        // Populates combo boxes with countries and divisions
         countryComboBox.setItems(allCountries);
         divisionComboBox.setItems(allDivisions);
 
     }
 
 
-    /** Close window method.
-     @param event Closes window and returns to Main Screen. */
-    @FXML
-    void OnActionCancelCustomer(ActionEvent event) throws IOException {
+    /** On Select Country method.
+       @param event Filters division based on selection from country combo box. */
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-            this.stage.setScene(new Scene(this.scene));
-            this.stage.setTitle("Main Screen");
-            this.stage.show();
-        }
-    }
-
-    // FILTERS DIVISION BASED ON COUNTRY SELECTED FROM COMBO BOX
     public void OnActionSelectCountry(ActionEvent event) {
 
         divisionComboBox.setItems(DBDivision.countryFromDivision(countryComboBox.getValue().getCountryId()));
 
     }
 
+
+    /** Save customer method.
+     @param event
+     @throws IOException Saves modified customer information into database. */
 
     public void OnActionSaveUpdate(ActionEvent event) throws IOException, SQLException {
 
@@ -105,6 +95,9 @@ public class UpdateCustomerController implements Initializable {
 
         }
 
+    /** Send Customer method.
+        @param customer Sends selected customer information to be modified. */
+
    public void sendCustomer(Customer customer) {
 
         customerId = customer.getCustomerId();
@@ -117,6 +110,24 @@ public class UpdateCustomerController implements Initializable {
         int custId = DBDivision.divisionFromCountry(customer.getDivisionId());
         countryComboBox.setValue(selectedCountryName(custId));
 
+    }
+
+    /** Cancel method.
+     @param event Closes window and returns to Main Screen. */
+
+    @FXML
+    void OnActionCancelCustomer(ActionEvent event) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to cancel?", new ButtonType[0]);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage.setScene(new Scene(this.scene));
+            this.stage.setTitle("Main Screen");
+            this.stage.show();
+        }
     }
 
 }
