@@ -47,10 +47,11 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
+
+    //************************************ LAMBDA *********************************
+
     public LoginController() throws IOException {
     }
-
-    // ********************* FILE WRITER DECLARATION **********************************************
 
     public interface LoginActivity {
 
@@ -58,8 +59,11 @@ public class LoginController implements Initializable {
 
     }
 
+
     LoginActivity loginActivity = () -> "login_activity.txt";
 
+
+    // ********************* FILE WRITER DECLARATION **********************************************
 
     FileWriter fileWriter = new FileWriter(loginActivity.activity(), true);
     PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -112,7 +116,6 @@ public class LoginController implements Initializable {
         }
     }
 
-    // *********************** HERE'S WHERE THE ERROR IS *****************************************
 
     /** Log-in validation method.
      * @return Checks if username and password matches those of the database. */
@@ -124,29 +127,19 @@ public class LoginController implements Initializable {
             if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
                 Users.currentUser = user;
 
-                successfulLogin();
-                System.out.println("Successful login loginIsValid()");
-
                 return true;
-            }
-            else {
-
-                unsuccessfulLogin();
-
-                System.out.println("Unsuccessful login loginIsValid()");
-
             }
         }
         return false;
     }
+
+    //**************************** METHODS FOR PRINTING ***********************************************
 
     private void successfulLogin() throws IOException {
 
         printWriter.println("STATUS: Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
                 "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
         printWriter.close();
-
-        System.out.println("Successful login successfulLogin()");
 
     }
 
@@ -156,9 +149,9 @@ public class LoginController implements Initializable {
                 "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
         printWriter.close();
 
-        System.out.println("Unsuccessful login unsuccessfulLogin()");
-
     }
+
+    // *************** THIS IS WHERE I'M CALLING THE METHODS ***********************
 
     /** Enter method.
         @param event
@@ -174,6 +167,8 @@ public class LoginController implements Initializable {
 
         // CHECKS IF LOGIN CREDENTIALS ARE VALID
         if (loginIsValid()) {
+
+            successfulLogin();
 
             // CHECKS IF USER HAS APPOINTMENT IN THE NEXT 15 MINUTES, ALERTS IN EITHER CASE
             ObservableList<Appointments> upcomingAppointments = FXCollections.observableArrayList();
@@ -219,6 +214,8 @@ public class LoginController implements Initializable {
         }
 
         else {
+
+            unsuccessfulLogin();
 
             enterButton.setText(Main.rb.getString("enterButton"));
             enterButton.setText(Main.rb.getString("enterButton"));
