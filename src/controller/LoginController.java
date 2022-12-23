@@ -54,20 +54,19 @@ public class LoginController implements Initializable {
 
     public interface LoginActivity {
 
-       String activity(String a);
+       String activity();
 
     }
 
-    LoginActivity loginActivity = a -> "login_activity.txt";
+    LoginActivity loginActivity = () -> "login_activity.txt";
 
 
-    // ****************** WHAT DO I PASS IN HERE?? ************************
-    FileWriter fileWriter = new FileWriter(loginActivity.activity()); // THIS NEEDS SOMETHING
+    FileWriter fileWriter = new FileWriter(loginActivity.activity(), true);
     PrintWriter printWriter = new PrintWriter(fileWriter);
 
     private void createFile(){
         try {
-            File newLoginFile = new File(loginActivity.activity()); // THIS NEEDS SOMETHING
+            File newLoginFile = new File(loginActivity.activity());
             if (newLoginFile.createNewFile()) {
                 System.out.println("File created:" + newLoginFile.getName());
             } else {
@@ -143,7 +142,6 @@ public class LoginController implements Initializable {
 
     private void successfulLogin() throws IOException {
 
-      //  FileWriter fileWriter = new FileWriter(LoginActivity.filename, true);
         printWriter.println("STATUS: Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
                 "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
         printWriter.close();
