@@ -47,7 +47,6 @@ public class DBAppointments {
     }
 
 
-
     /** Weekly Appointments method.
         @return Creates observable list of appointments by current week. */
 

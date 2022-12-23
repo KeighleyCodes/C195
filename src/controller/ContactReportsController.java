@@ -1,6 +1,7 @@
 package controller;
 
 import database.DBAppointments;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,7 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Contacts;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;

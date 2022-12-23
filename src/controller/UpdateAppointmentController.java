@@ -48,6 +48,7 @@ public class UpdateAppointmentController implements Initializable {
     public ComboBox<Users> userIdComboBox;
     public ComboBox<String> typeCombobox;
 
+
     Stage stage;
     Parent scene;
 
