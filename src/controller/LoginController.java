@@ -47,6 +47,8 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
+    // ********************* FILE WRITER DECLARATION **********************************************
+
     FileWriter fileWriter = new FileWriter("login_activity.txt", true);
     PrintWriter printWriter = new PrintWriter(fileWriter);
 
@@ -88,6 +90,8 @@ public class LoginController implements Initializable {
         }
     }
 
+    // *********************** HERE'S WHERE THE ERROR IS *****************************************
+
     /** Log-in validation method.
      * @return Checks if username and password matches those of the database. */
 
@@ -117,11 +121,11 @@ public class LoginController implements Initializable {
 
 
     /** Enter method.
-       @param event
-       @throws IOException Checks if user login credentials are valid. Loops through appointments in database
-       and checks if current user has an appointment within the next 15 minutes. An alert pops up in either
-       case, to inform user no appointments found or to inform the user of the appointment ID, title,
-       date and time. All text and alerts translated to French if required by Zone ID. */
+        @param event
+        @throws IOException Checks if user login credentials are valid. Loops through appointments in database
+        and checks if current user has an appointment within the next 15 minutes. An alert pops up in either
+        case, to inform user no appointments found or to inform the user of the appointment ID, title,\
+        date and time. All text and alerts translated to French if required by Zone ID. */
 
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {

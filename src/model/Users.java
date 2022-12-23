@@ -1,13 +1,15 @@
 package model;
 
+/** Users class - provides user objects. */
+
+// CONSTRUCTOR
+
 public class Users {
     private int userId;
     private String username;
     private String password;
-
     public static Users currentUser;
 
-    // Constructors
     public Users(int userId, String username, String password) {
         this.userId = userId;
         this.username = username;
@@ -19,7 +21,8 @@ public class Users {
         this.username = userName;
     }
 
-    // Getters and setters
+    // GETTERS AND SETTERS
+
     public int getUserId() {
         return userId;
     }
@@ -44,7 +47,8 @@ public class Users {
         this.password = password;
     }
 
-    // toString method for the combo box to return
+    // TO STRING METHOD FOR COMBO BOX TO RETURN
+
     public String toString() {
         return username;
     }

@@ -1,18 +1,23 @@
 package model;
 
+/** Divisions class - provides division objects. */
+
+// CONSTRUCTOR
+
 public class Divisions {
+
     private int divisionId;
     private String divisionName;
     private int countryId;
 
-    // Constructor
     public Divisions(int divisionId, String division, int countryId) {
         this.divisionId = divisionId;
         this.divisionName = division;
         this.countryId = countryId;
     }
 
-    // Getters and setters
+    // GETTERS AND SETTERS
+
     public int getDivisionId() {
         return divisionId;
     }
@@ -37,7 +42,8 @@ public class Divisions {
         this.countryId = countryId;
     }
 
-    // toString method for the combo box to return
+    // TO STRING METHOD FOR COMBO BOX TO RETURN
+
     public String toString() {
         return divisionName;
     }

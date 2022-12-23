@@ -2,16 +2,17 @@ package database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Customer;
 import model.Users;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Database User. Contains SQL code pertaining to the Users table. */
 public class DBUser {
 
-    // Pulls user list into observable list
+    /** Get all users method.
+        @return Creates observable list of all users from database. */
+
     public static ObservableList<Users> getAllUsers() {
         ObservableList<Users> allUsers = FXCollections.observableArrayList();
         try {
@@ -35,8 +36,11 @@ public class DBUser {
         return allUsers;
     }
 
-    // Creates User object from ID
-    public static Users userNameFromID(int userId) {
+    /** Selected username method.
+        @param userId
+        @return Creates an object from the user ID. */
+
+    public static Users selectedUserName(int userId) {
 
         Users userObject = null;
         try {

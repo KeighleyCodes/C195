@@ -44,8 +44,8 @@ public class ContactReportsController implements Initializable {
     Parent scene;
 
     /** Initialize method.
-     * @param url
-     * @param resourceBundle Sets table view with filtered observable list of appointments from database. */
+        @param url
+        @param resourceBundle Sets table view with filtered observable list of appointments from database. */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,7 +67,7 @@ public class ContactReportsController implements Initializable {
 
 
     /** Send Contact Appointment method.
-     * @param contacts Sends appointments filtered by contact to table view. */
+        @param contacts Sends appointments filtered by contact to table view. */
 
     public void sendContactAppointment(Contacts contacts) {
         contactReportTable.setItems(DBAppointments.appointmentsByContact(contacts.getContactId()));
@@ -93,7 +93,7 @@ public class ContactReportsController implements Initializable {
 
 
     /** Logout method.
-     * @param event Returns to log in screen when log out button clicked. */
+        @param event Returns to log in screen when log out button clicked. */
 
     public void onActionLogout(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to exit?");

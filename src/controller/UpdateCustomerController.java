@@ -22,7 +22,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import static database.DBCountries.selectedCountryName;
-import static database.DBDivision.divisionNameFromId;
+import static database.DBDivision.selectedDivisionName;
 
 /** Update Customer Controller.
     Opens update appointment screen. Here the customer is able to update a customer in the database. */
@@ -106,7 +106,7 @@ public class UpdateCustomerController implements Initializable {
         phoneTextField.setText(String.valueOf(customer.getPhone()));
         addressTextField.setText(String.valueOf(customer.getAddress()));
         postalCodeTextField.setText(String.valueOf(customer.getPostalCode()));
-        divisionComboBox.setValue(divisionNameFromId(customer.getDivisionId()));
+        divisionComboBox.setValue(selectedDivisionName(customer.getDivisionId()));
         int custId = DBDivision.divisionFromCountry(customer.getDivisionId());
         countryComboBox.setValue(selectedCountryName(custId));
 

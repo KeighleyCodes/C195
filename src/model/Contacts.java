@@ -4,13 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /** Contacts class - provides contact objects. */
+
 public class Contacts {
+
+    // CONSTRUCTOR
 
     private int contactId;
     private String contactName;
     private String email;
 
-    // Constructor
     public Contacts(int contactId, String contactName, String email) {
         this.contactId = contactId;
         this.contactName = contactName;
@@ -22,7 +24,8 @@ public class Contacts {
         this.contactName = contactName;
     }
 
-    // Getters and setters
+    // GETTERS AND SETTERS
+
     public int getContactId() {
         return contactId;
     }
@@ -47,10 +50,12 @@ public class Contacts {
         this.email = email;
     }
 
-    // Observable list
+    // CREATES ALL CONTACTS OBSERVABLE LIST
+
     public static ObservableList<Contacts> allContacts = FXCollections.observableArrayList();
 
-    // toString method for the combo box to return
+    // TO STRING METHOD FOR COMBO BOX TO RETURN
+
     public String toString() {
         return contactName;
     }

@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 public class DBCountries {
 
-    /** Countries observable list.
-       @return Creates observable list of all countries in database. */
+    /** Get all countries method.
+        @return Creates observable list of all countries in database. */
 
     public static ObservableList<Countries> getAllCountries() {
         ObservableList<Countries> allCountries = FXCollections.observableArrayList();
@@ -37,11 +37,10 @@ public class DBCountries {
     }
 
 
-    /**
-     * @param countryId
-     * @return
-     */
-    // Creates country object name from ID
+    /** Selected country name method.
+        @param countryId
+        @return Creates country object name from ID. */
+
     public static Countries selectedCountryName(int countryId) {
 
         Countries countryObject = null;

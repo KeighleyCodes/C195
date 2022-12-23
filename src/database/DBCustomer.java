@@ -3,13 +3,17 @@ package database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/** Database Customer. Contains SQL code pertaining to the Customer table. */
+
 public class DBCustomer {
-    // Pulls customer list into observable list
+
+    /** Get all customers method.
+        @return Creates observable list of all customers in database. */
+
     public static ObservableList<Customer> getAllCustomers() {
         ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
 
@@ -37,11 +41,16 @@ public class DBCustomer {
         return allCustomers;
     }
 
+    /** Insert customer method.
+         @param customerName
+         @param address
+         @param postalCode
+         @param phone
+         @param divisionId
+         @throws SQLException Inserts new customer into the database. */
 
     public static void insertCustomer(String customerName, String address, String postalCode, String phone,
                                        int divisionId) throws SQLException {
-
-        // Need to change division ID to division name?
 
         try {
             Customer.customerList().clear();
@@ -64,12 +73,18 @@ public class DBCustomer {
 
     }
 
+    /** Update customer method.
+         @param customerName
+         @param address
+         @param postalCode
+         @param phone
+         @param divisionId
+         @param customerId
+         @throws SQLException Saved modified customer information into the database. */
 
     public static void updateCustomer(String customerName, String address, String postalCode, String phone,
                                       int divisionId, int customerId) throws SQLException {
 
-        // Need to change division ID to division name?
-        // Divisions divisionString = DBDivision.getDivisionId();
         try {
            Customer.customerList().clear();
             String sql =  "UPDATE customers SET Customer_Name = ?, Address = ?, " +
@@ -92,6 +107,12 @@ public class DBCustomer {
 
     }
 
+
+    /** Delete customer method.
+        @param customer
+        @return
+        @throws SQLException Deletes selected customer from the database. */
+
     public static int deleteCustomer(Customer customer) throws SQLException {
         String sql = "SELECT * FROM customers";
         PreparedStatement ps = DBConnection.getConnection().prepareStatement("DELETE FROM customers WHERE Customer_ID=?");
@@ -102,8 +123,11 @@ public class DBCustomer {
 
     }
 
-    // Creates Customer object from ID
-    public static Customer customerNameFromID(int customerId) {
+    /** Selected customer name method.
+        @param customerId
+        @return Creates customer object from selected customer ID. */
+
+    public static Customer selectedCustomerName(int customerId) {
 
         Customer customerObject = null;
         try {

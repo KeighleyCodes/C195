@@ -12,7 +12,8 @@ import java.time.LocalTime;
 
 public class DBAppointments {
 
-    // PULLS APPOINTMENT LIST INTO OBSERVABLE LIST
+    /** Get all appointments method.
+        @return Creates observable list of all appointments in database. */
 
     public static ObservableList<Appointments> getAllAppointments() {
 
@@ -45,46 +46,10 @@ public class DBAppointments {
         return allAppointments;
     }
 
-    /** Monthly Appointments observable list.
-       @return Creates observable list of appointments by current month and year. */
 
-    /*
 
-    public static ObservableList<Appointments> monthlyAppointments() {
-        ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
-        try {
-            String sql = "SELECT * FROM appointments WHERE monthname(Start) = monthname(now()) " +
-                    "AND YEAR(Start) = YEAR(NOW())";
-            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
-
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                int appointmentId = rs.getInt("Appointment_ID");
-                String title = rs.getString("Title");
-                String description = rs.getString("Description");
-                String location = rs.getString("Location");
-                int contactId = rs.getInt("Contact_ID");
-                String type = rs.getString("Type");
-                LocalDate appointmentDay = rs.getTimestamp("Start").toLocalDateTime().toLocalDate();
-                LocalTime startTime = rs.getTimestamp("Start").toLocalDateTime().toLocalTime();
-                LocalTime endTime = rs.getTimestamp("End").toLocalDateTime().toLocalTime();
-                int customerId = rs.getInt("Customer_ID");
-                int userId = rs.getInt("Contact_ID");
-                Appointments appointmentObject = new Appointments(appointmentId, title, description, location, contactId,
-                        type, appointmentDay, startTime, endTime, customerId, userId);
-                allAppointments.add(appointmentObject);
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        return allAppointments;
-    }
-
-     */
-
-    /** Weekly Appointments observable list.
-     @return Creates observable list of appointments by current week. */
+    /** Weekly Appointments method.
+        @return Creates observable list of appointments by current week. */
 
     public static ObservableList<Appointments> weeklyAppointments() {
         ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
@@ -119,15 +84,15 @@ public class DBAppointments {
 
 
     /** Insert Appointment method.
-      @param contactId
-      @param title
-      @param description
-      @param location
-      @param type
-      @param start
-      @param end
-      @param customerId
-      @param userId Inserts appointment into database. */
+        @param contactId
+        @param title
+        @param description
+        @param location
+        @param type
+        @param start
+        @param end
+        @param customerId
+        @param userId Inserts appointment into database. */
 
     public static void insertAppointment(int contactId, String title, String description, String location, String type, LocalDateTime start,
                                          LocalDateTime end, int customerId, int userId) {
@@ -155,17 +120,17 @@ public class DBAppointments {
 
 
     /** Update appointment method.
-      @param title
-      @param description
-      @param location
-      @param contactId
-      @param type
-      @param startTime
-      @param endTime
-      @param customerId
-      @param userId
-      @param appointmentId
-      @throws SQLException Updates appointment in database. */
+        @param title
+        @param description
+        @param location
+        @param contactId
+        @param type
+        @param startTime
+        @param endTime
+        @param customerId
+        @param userId
+        @param appointmentId
+        @throws SQLException Updates appointment in database. */
 
     public static void updateAppointment(String title, String description, String location,
                                          int contactId, String type, LocalDateTime startTime, LocalDateTime endTime,
@@ -197,8 +162,8 @@ public class DBAppointments {
 
 
     /** Delete appointment method.
-      @param appointments
-      @return Deletes appointment in database. */
+        @param appointments
+        @return Deletes appointment in database. */
 
     public static int deleteAppointment(Appointments appointments) {
         try {
@@ -216,9 +181,9 @@ public class DBAppointments {
     }
 
 
-    /** Appointments by customer observable list.
-     * @param selectedCustomerId
-     * @return Creates an observable list of appointments from selected customer. */
+    /** Appointments by customer method.
+        @param selectedCustomerId
+        @return Creates an observable list of appointments from selected customer. */
 
     public static ObservableList<Appointments> appointmentsByCustomer(int selectedCustomerId) {
 
@@ -256,8 +221,8 @@ public class DBAppointments {
 
 
     /** Total customers method.
-     * @param customerId
-     * @return Counts total appointments by selected customer. */
+        @param customerId
+        @return Counts total appointments by selected customer. */
 
     public static int totalCustomers(int customerId) {
         try {
@@ -279,9 +244,9 @@ public class DBAppointments {
 
 
     /** Appointments by month and type method.
-     * @param month
-     * @param type
-     * @return Counts total of appointments on selected month and type. */
+        @param month
+        @param type
+        @return Counts total of appointments on selected month and type. */
 
     public static int appointmentsByMonthAndType(String month, String type) {
         int count = 0;
@@ -305,9 +270,9 @@ public class DBAppointments {
     }
 
 
-    /** Appointments by contact observale list.
-     * @param selectedContactId
-     * @return Creates observable list based on selected contact. */
+    /** Appointments by contact observable list.
+        @param selectedContactId
+        @return Creates observable list based on selected contact. */
 
     public static ObservableList<Appointments> appointmentsByContact(int selectedContactId) {
 

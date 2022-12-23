@@ -1,10 +1,10 @@
 package model;
 
-
 import database.DBCustomer;
 import javafx.collections.ObservableList;
 
 /** Customer class creates customer objects. */
+
 public class Customer {
     private int customerId;
     private String customerName;
@@ -14,7 +14,8 @@ public class Customer {
     private int divisionId;
 
 
-    // Constructor
+    // CONSTRUCTOR
+
     public Customer(int customerId, String customerName, String address, String postalCode, String phone, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;

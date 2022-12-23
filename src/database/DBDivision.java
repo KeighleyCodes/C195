@@ -2,24 +2,18 @@ package database;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Appointments;
 import model.Divisions;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
 
+/** Database Division. Contains SQL code pertaining to the Division table. */
 
 public class DBDivision {
 
-    /**
-     * Division name from ID method.
-     * Creates observable list of all divisions from database.
-     */
-    // Pulls division list into observable list
+    /** Get all divisions method.
+        @return Creates observable list of divisions. */
+
     public static ObservableList<Divisions> getAllDivisions() {
         ObservableList<Divisions> allDivisions = FXCollections.observableArrayList();
         try {
@@ -41,12 +35,10 @@ public class DBDivision {
         return allDivisions;
     }
 
-    /**
-     * Division name from ID method
-     *
-     * @param divisionId Provides division name object from the division ID in database.
-     */
-    public static Divisions divisionNameFromId(int divisionId) {
+    /** Selected division name method.
+        @param divisionId Provides division name object from the division ID. */
+
+    public static Divisions selectedDivisionName(int divisionId) {
 
         Divisions divisionsObject = null;
 
@@ -62,7 +54,6 @@ public class DBDivision {
 
             }
 
-
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -70,11 +61,9 @@ public class DBDivision {
         return divisionsObject;
     }
 
-    /**
-     * Division from country method
-     *
-     * @param divisionId Provides division name object from the division ID in database.
-     */
+    /**  Division from country method
+        @param divisionId Provides division name object from selected division ID. */
+
     public static int divisionFromCountry(int divisionId) {
 
         int countryId = 0;
@@ -97,7 +86,7 @@ public class DBDivision {
     }
 
     // ********************************** FIX ME **************************************************
-    /**method.
+    /**
      @param selectedCountryId Provides observable list of divisions from corresponding country in database.
      @return divisionsByCountryList. */
 

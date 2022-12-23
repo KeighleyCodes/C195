@@ -1,14 +1,14 @@
 package model;
 
 import database.DBAppointments;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /** Contacts class - provides contact objects. */
+
+// CONSTRUCTOR
+
 public class Appointments {
     private int appointmentId;
     private String title;
@@ -22,7 +22,6 @@ public class Appointments {
     private int customerId;
     private int userId;
 
-    // Constructor
     public Appointments(int appointmentId, String title, String description, String location, int contactId,
                         String type, LocalDate appointmentDay, LocalTime startTime, LocalTime endTime, int customerId, int userId) {
         this.appointmentId = appointmentId;
@@ -39,7 +38,9 @@ public class Appointments {
 
     }
 
-    // Getters and setters
+
+    // GETTERS AND SETTERS
+
     public int getAppointmentId() {
         return appointmentId;
     }
@@ -128,12 +129,14 @@ public class Appointments {
         this.appointmentDay = appointmentDay;
     }
 
-    // toString method for the combo box to return
+    // TO STRING METHOD FOR COMBO BOX TO RETURN
+
     public String toString() {
         return type;
     }
 
-    // Observable list for all appointments
+    // OBSERVABLE LIST FOR ALL APPOINTMENTS
+
     public static ObservableList<Appointments> allAppointments() {
         return DBAppointments.getAllAppointments();
     }

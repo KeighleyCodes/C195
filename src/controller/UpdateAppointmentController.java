@@ -26,9 +26,9 @@ import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import static database.DBContacts.contactNameFromId;
-import static database.DBCustomer.customerNameFromID;
-import static database.DBUser.userNameFromID;
+import static database.DBContacts.selectedContactName;
+import static database.DBCustomer.selectedCustomerName;
+import static database.DBUser.selectedUserName;
 
 /** Update Appointment Controller.
      Opens update appointment screen. Here the customer is able to update an appointment in the database. */
@@ -215,7 +215,7 @@ public class UpdateAppointmentController implements Initializable {
     public void sendAppointment(Appointments appointments) {
 
         appointmentId = appointments.getAppointmentId();
-        contactComboBox.setValue(contactNameFromId(appointments.getContactId()));
+        contactComboBox.setValue(selectedContactName(appointments.getContactId()));
         titleTextField.setText(appointments.getTitle());
         descriptionTextField.setText(appointments.getDescription());
         locationTextField.setText(appointments.getLocation());
@@ -223,8 +223,8 @@ public class UpdateAppointmentController implements Initializable {
         datePicker.setValue(appointments.getAppointmentDay());
         startTimeComboBox.setValue(appointments.getStartTime());
         endTimeComboBox.setValue(appointments.getEndTime());
-        customerIdComboBox.setValue(customerNameFromID(appointments.getCustomerId()));
-        userIdComboBox.setValue(userNameFromID(appointments.getUserId())); // NOT SENDING
+        customerIdComboBox.setValue(selectedCustomerName(appointments.getCustomerId()));
+        userIdComboBox.setValue(selectedUserName(appointments.getUserId())); // NOT SENDING
 
     }
 

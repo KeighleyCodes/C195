@@ -56,8 +56,8 @@ public class AddAppointmentsController implements Initializable {
     private ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
 
     /** Initialize method.
-      @param url
-      @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
+        @param url
+        @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,8 +97,8 @@ public class AddAppointmentsController implements Initializable {
     }
 
 
-    /** Method to check for appointment scheduling errors.
-      @return */
+    /** Valid appointments method.
+        @return  Checks for appointment scheduling errors. */
 
     public Boolean validAppointments() {
 
@@ -174,8 +174,8 @@ public class AddAppointmentsController implements Initializable {
 
 
     /** Save appointment method.
-      @param event
-      @throws IOException Checks if appointments are valid, then saves entered information into database. */
+        @param event
+        @throws IOException Checks if appointments are valid, then saves entered information into database. */
 
     @FXML
     void OnActionSaveAppointment(ActionEvent event) throws IOException {
@@ -204,7 +204,7 @@ public class AddAppointmentsController implements Initializable {
     }
 
     /** Cancel method.
-     @param event Closes window and returns to Main Screen. */
+        @param event Closes window and returns to Main Screen. */
 
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {

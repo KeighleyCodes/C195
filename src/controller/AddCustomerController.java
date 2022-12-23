@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /** Add Customer Controller.
-     Opens add customer screen. Here the customer is able to add a new customer to the database. */
+    Opens add customer screen. Here the customer is able to add a new customer to the database. */
 
 public class AddCustomerController implements Initializable {
 
@@ -46,8 +46,8 @@ public class AddCustomerController implements Initializable {
         ObservableList<Divisions> allDivisions = DBDivision.getAllDivisions();
 
     /** Initialize method.
-     @param url
-     @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
+        @param url
+        @param resourceBundle Initializes screen, fills combo boxes with appropriate values. */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -58,7 +58,7 @@ public class AddCustomerController implements Initializable {
 
 
     /** Save customer method.
-     @param event Adds new customer to the database and returns to the Main Screen. */
+        @param event Adds new customer to the database and returns to the Main Screen. */
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
@@ -78,7 +78,7 @@ public class AddCustomerController implements Initializable {
     }
 
     /** On Select Country method
-     @param event Filters division combo box based on selection from country combo box. */
+        @param event Filters division combo box based on selection from country combo box. */
 
     public void onSelectCountry(ActionEvent event) {
 
@@ -88,7 +88,7 @@ public class AddCustomerController implements Initializable {
 
 
     /** Cancel method.
-     @param event Closes window and returns to Main Screen. */
+        @param event Closes window and returns to Main Screen. */
 
     @FXML
     void OnActionCancel(ActionEvent event) throws IOException {

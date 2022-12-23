@@ -1,17 +1,21 @@
 package model;
 
+/** Countries class - provides country objects. */
+
+// CONSTRUCTOR
+
 public class Countries {
+
     private int countryId;
     private String country;
 
-    // Constructor
     public Countries(int countryId, String country) {
         this.countryId = countryId;
         this.country =  country;
-
     }
 
-    // Getters and setters
+    // GETTERS AND SETTERS
+
     public int getCountryId() {
         return countryId;
     }
@@ -28,10 +32,10 @@ public class Countries {
         this.country = country;
     }
 
-    // toString method for the combo box to return
+    // TO STRING METHOD FOR COMBO BOX TO RETURN
+
     public String toString() {
         return country;
     }
-
 
 }
