@@ -49,15 +49,21 @@ public class LoginController implements Initializable {
 
     // ********************* FILE WRITER DECLARATION **********************************************
 
-    interface loginActivity {
-        public String filename();
+    public interface LoginActivity {
+
+       String fileName(String f);
+
     }
 
-    FileWriter fileWriter = new FileWriter("login_activity.txt", true);
+    // TRYING TO FIGURE OUT OUT TO MIX A LAMBDA AND A FILE WRITE
+    String fileName = "login_activity.txt";
+    FileWriter fileWriter = new FileWriter(fileName, true);
     PrintWriter printWriter = new PrintWriter(fileWriter);
 
     public LoginController() throws IOException {
-
+        LoginActivity loginActivity = f -> {
+            return "login_activity.txt";
+        };
     }
 
     /** Initialize method.
@@ -101,29 +107,55 @@ public class LoginController implements Initializable {
      * @return Checks if username and password matches those of the database. */
 
     // BOOLEAN TO CHECK IF LOGIN CREDENTIALS ARE VALID
-    private boolean loginIsValid() {
+    private boolean loginIsValid() throws IOException {
         ObservableList<Users> allUsers = DBUser.getAllUsers();
         for (Users user : allUsers) {
             if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
                 Users.currentUser = user;
 
+                /*
                 printWriter.println("STATUS: Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
                         "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
                 printWriter.close();
-                System.out.println("Successful login");
+
+                 */
+                successfulLogin();
+                //System.out.println("Successful login");
 
                 return true;
             }
             else {
+                unsuccessfulLogin();
+                /*
                 printWriter.println("STATUS: Not Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
                         "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
                 printWriter.close();
+
+
                 System.out.println("Unsuccessful login");
+                 */
+
             }
         }
         return false;
     }
 
+    private void successfulLogin() throws IOException {
+
+      //  FileWriter fileWriter = new FileWriter(LoginActivity.filename, true);
+        printWriter.println("STATUS: Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
+                "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
+        printWriter.close();
+
+    }
+
+    private void unsuccessfulLogin() {
+
+        printWriter.println("STATUS: Not Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
+                "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
+        printWriter.close();
+
+    }
 
     /** Enter method.
         @param event

@@ -1,28 +1,12 @@
+STATUS: Successful
+USER: test
+DATE/TIME: 2022-12-23 13:43:38
+
+STATUS: Not Successful
+USER: test
+DATE/TIME: 2022-12-23 13:44:26
+
 STATUS: Not Successful
 USER: admin
-DATE/TIME: 2022-12-21 18:21:35
-
-STATUS: Not Successful
-USER: test
-DATE/TIME: 2022-12-21 18:22:25
-
-STATUS: Not Successful
-USER: admin
-DATE/TIME: 2022-12-21 18:22:41
-
-STATUS: Successful
-USER: test
-DATE/TIME: 2022-12-23 10:52:26
-
-STATUS: Successful
-USER: test
-DATE/TIME: 2022-12-23 11:23:51
-
-STATUS: Not Successful
-USER: test
-DATE/TIME: 2022-12-23 11:51:38
-
-STATUS: Successful
-USER: test
-DATE/TIME: 2022-12-23 12:22:35
+DATE/TIME: 2022-12-23 13:44:43
 
