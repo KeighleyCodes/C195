@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -117,7 +116,7 @@ public class MainScreenController implements Initializable {
 
 
     /** Initialize method
-       @param url Initializes Main Screen. */
+        @param url Initializes Main Screen. */
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -221,7 +220,7 @@ public class MainScreenController implements Initializable {
     // -------------------------------- CUSTOMERS ----------------------------------------
 
         /** Add Customer method.
-           @param event Opens Add Customer screen when add button clicked. */
+            @param event Opens Add Customer screen when add button clicked. */
 
         @FXML
         void OnActionAddCustomer (ActionEvent event) throws IOException {
@@ -235,7 +234,7 @@ public class MainScreenController implements Initializable {
         }
 
         /** Update Customer method.
-           @param event Opens Update Customer screen when update button clicked. */
+            @param event Opens Update Customer screen when update button clicked. */
 
         @FXML
         void OnActionUpdateCustomer (ActionEvent event) throws IOException {
@@ -263,7 +262,7 @@ public class MainScreenController implements Initializable {
 
 
     /** Delete Customer method.
-       @param event Deletes customer data when delete button clicked. */
+        @param event Deletes customer data when delete button clicked. */
 
         @FXML
         void OnActionDeleteCustomer (ActionEvent event) throws SQLException {
@@ -301,7 +300,7 @@ public class MainScreenController implements Initializable {
 
 
         /** Logout Customer method.
-           @param event Returns to log in screen when log out button clicked. */
+            @param event Returns to log in screen when log out button clicked. */
 
         @FXML
         void OnActionLogoutCustomer (ActionEvent event) throws IOException {
@@ -322,7 +321,7 @@ public class MainScreenController implements Initializable {
     // -------------------------------- APPOINTMENTS ----------------------------------------
 
         /** Add Appointment method.
-           @param event Opens Add Appointment screen when add button clicked. */
+            @param event Opens Add Appointment screen when add button clicked. */
 
         @FXML
         void  OnActionAddAppointment (ActionEvent event) throws IOException {
@@ -336,7 +335,7 @@ public class MainScreenController implements Initializable {
 
 
         /** Update Appointment method.
-           @param event Opens Update Appointment screen when update button clicked. */
+            @param event Opens Update Appointment screen when update button clicked. */
 
         @FXML
         void OnActionUpdateAppointment (ActionEvent event) throws IOException {
@@ -363,7 +362,7 @@ public class MainScreenController implements Initializable {
 
 
     /** Delete Appointment method.
-       @param event Deletes appointment data when delete button clicked. */
+        @param event Deletes appointment data when delete button clicked. */
 
         @FXML
         void OnActionDeleteAppointment(ActionEvent event) {
@@ -402,7 +401,7 @@ public class MainScreenController implements Initializable {
 
 
         /** Logout Appointment method.
-           @param event Goes back to log in screen when log out button clicked. */
+            @param event Goes back to log in screen when log out button clicked. */
 
         @FXML
         void onActionLogoutAppointments(ActionEvent event) throws IOException {
@@ -423,7 +422,7 @@ public class MainScreenController implements Initializable {
     // -------------------------------- REPORTS ----------------------------------------
 
         /** Logout Report method.
-           @param event Goes back to log in screen when log out button clicked. */
+            @param event Goes back to log in screen when log out button clicked. */
 
         @FXML
         void OnActionLogoutReports (ActionEvent event) throws IOException {
@@ -442,7 +441,7 @@ public class MainScreenController implements Initializable {
 
 
     /** Month and type report method.
-       @param event Totals the amount of appointments by month and type. */
+        @param event Totals the amount of appointments by month and type. */
 
     public void OnActionMonthAndTypeSelection(ActionEvent event) {
          if(monthSelectorBox.getValue() == null || typeSelectorBox.getValue() == null) {
@@ -458,7 +457,7 @@ public class MainScreenController implements Initializable {
 
 
     /** Customer report method.
-       @param event Totals the amount of appointments by customer. */
+        @param event Totals the amount of appointments by customer. */
 
     public void OnActionCustomerSelection(ActionEvent event) {
         if(customerIdSelectorBox.getValue() == null) {
@@ -473,8 +472,8 @@ public class MainScreenController implements Initializable {
     }
 
     /** Contact report method.
-       @param event Opens new window containing table view populated with appointment
-                    info filtered by selected contact in combo box. */
+        @param event Opens new window containing table view populated with appointment
+        info filtered by selected contact in combo box. */
 
     public void onSelectionContact(ActionEvent event) throws IOException {
 
