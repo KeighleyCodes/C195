@@ -49,10 +49,15 @@ public class LoginController implements Initializable {
 
     // ********************* FILE WRITER DECLARATION **********************************************
 
+    interface loginActivity {
+        public String filename();
+    }
+
     FileWriter fileWriter = new FileWriter("login_activity.txt", true);
     PrintWriter printWriter = new PrintWriter(fileWriter);
 
     public LoginController() throws IOException {
+
     }
 
     /** Initialize method.
