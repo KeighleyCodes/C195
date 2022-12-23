@@ -47,23 +47,35 @@ public class LoginController implements Initializable {
     @FXML
     public Label zoneIdLabel;
 
+    public LoginController() throws IOException {
+    }
+
     // ********************* FILE WRITER DECLARATION **********************************************
 
     public interface LoginActivity {
 
-       String fileName(String f);
+       String activity(String a);
 
     }
 
-    // TRYING TO FIGURE OUT OUT TO MIX A LAMBDA AND A FILE WRITE
-    String fileName = "login_activity.txt";
-    FileWriter fileWriter = new FileWriter(fileName, true);
+    LoginActivity loginActivity = a -> "login_activity.txt";
+
+
+    // ****************** WHAT DO I PASS IN HERE?? ************************
+    FileWriter fileWriter = new FileWriter(loginActivity.activity()); // THIS NEEDS SOMETHING
     PrintWriter printWriter = new PrintWriter(fileWriter);
 
-    public LoginController() throws IOException {
-        LoginActivity loginActivity = f -> {
-            return "login_activity.txt";
-        };
+    private void createFile(){
+        try {
+            File newLoginFile = new File(loginActivity.activity()); // THIS NEEDS SOMETHING
+            if (newLoginFile.createNewFile()) {
+                System.out.println("File created:" + newLoginFile.getName());
+            } else {
+                System.out.println("File already exists. Location: "+ newLoginFile.getPath());
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     /** Initialize method.
@@ -113,27 +125,16 @@ public class LoginController implements Initializable {
             if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
                 Users.currentUser = user;
 
-                /*
-                printWriter.println("STATUS: Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
-                        "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
-                printWriter.close();
-
-                 */
                 successfulLogin();
-                //System.out.println("Successful login");
+                System.out.println("Successful login loginIsValid()");
 
                 return true;
             }
             else {
+
                 unsuccessfulLogin();
-                /*
-                printWriter.println("STATUS: Not Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
-                        "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
-                printWriter.close();
 
-
-                System.out.println("Unsuccessful login");
-                 */
+                System.out.println("Unsuccessful login loginIsValid()");
 
             }
         }
@@ -147,6 +148,8 @@ public class LoginController implements Initializable {
                 "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
         printWriter.close();
 
+        System.out.println("Successful login successfulLogin()");
+
     }
 
     private void unsuccessfulLogin() {
@@ -154,6 +157,8 @@ public class LoginController implements Initializable {
         printWriter.println("STATUS: Not Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
                 "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
         printWriter.close();
+
+        System.out.println("Unsuccessful login unsuccessfulLogin()");
 
     }
 
@@ -166,6 +171,8 @@ public class LoginController implements Initializable {
 
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {
+
+        createFile();
 
         // CHECKS IF LOGIN CREDENTIALS ARE VALID
         if (loginIsValid()) {
