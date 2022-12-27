@@ -21,9 +21,8 @@ import model.Users;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,6 +48,9 @@ public class AddAppointmentsController implements Initializable {
 
     Stage stage;
     Parent scene;
+
+    private ZonedDateTime zonedStartTime;
+    private ZonedDateTime zonedEndTime;
 
     // CREATES OBSERVABLE LISTS
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
@@ -98,6 +100,14 @@ public class AddAppointmentsController implements Initializable {
         endTimeComboBox.setItems(times);
     }
 
+    // TIME ZONE FOR CHECKING AGAINST BUSINESS HOURS
+    private ZonedDateTime easternTimeZone(LocalDateTime time) {
+        return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
+    }
+
+    private ZonedDateTime convertToTimeZone(LocalDateTime time, String zoneId) {
+        return ZonedDateTime.of(time, ZoneId.of(zoneId));
+    }
 
     /** Valid appointments method.
         @return  Checks for appointment scheduling errors. */
@@ -135,6 +145,7 @@ public class AddAppointmentsController implements Initializable {
             return false;
         }
 
+
         // CHECK FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER
 
         LocalTime selectedStartTime = startTimeComboBox.getValue();
@@ -167,6 +178,51 @@ public class AddAppointmentsController implements Initializable {
                 alert.setTitle("Overlapping appointments");
                 alert.setContentText("New appointments cannot overlap with existing appointments.");
                 alert.showAndWait();
+                return false;
+            }
+
+            // CHECK IF APPOINTMENTS ARE DURING EST BUSINESS HOURS
+
+          zonedStartTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue()));
+          zonedEndTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue()));
+
+            if(zonedStartTime.toLocalTime().isBefore(LocalTime.of(8,0))) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointments must be within EST business hours.");
+                alert.showAndWait();
+
+                return false;
+            }
+
+            if(zonedStartTime.toLocalTime().isAfter(LocalTime.of(22,0))) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointments must be within EST business hours.");
+                alert.showAndWait();
+
+                return false;
+            }
+
+            if(zonedEndTime.toLocalTime().isAfter(LocalTime.of(8,0))) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointments must be within EST business hours.");
+                alert.showAndWait();
+
+                return false;
+            }
+
+            if(zonedEndTime.toLocalTime().isAfter(LocalTime.of(22,0))) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointments must be within EST business hours.");
+                alert.showAndWait();
+
                 return false;
             }
         }
@@ -222,3 +278,16 @@ public class AddAppointmentsController implements Initializable {
     }
 
 }
+
+
+
+/*
+
+            zonedStartTime = easternTimeZone(LocalDateTime.of(startDate,
+                    LocalTime.parse(selectedStartTime.format((DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))))));
+            zonedEndTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(),
+                   LocalTime.parse(selectedEndTime.format((DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))))));
+
+
+             */
+

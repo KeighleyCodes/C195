@@ -59,27 +59,14 @@ public class LoginController implements Initializable {
 
     }
 
-
     LoginActivity loginActivity = () -> "login_activity.txt";
 
 
     // ********************* FILE WRITER DECLARATION **********************************************
 
-    FileWriter fileWriter = new FileWriter(loginActivity.activity(), true);
+    FileWriter fileWriter = new FileWriter(loginActivity.activity(),true);
     PrintWriter printWriter = new PrintWriter(fileWriter);
 
-    private void createFile(){
-        try {
-            File newLoginFile = new File(loginActivity.activity());
-            if (newLoginFile.createNewFile()) {
-                System.out.println("File created:" + newLoginFile.getName());
-            } else {
-                System.out.println("File already exists. Location: "+ newLoginFile.getPath());
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 
     /** Initialize method.
         @param url
@@ -121,7 +108,7 @@ public class LoginController implements Initializable {
      * @return Checks if username and password matches those of the database. */
 
     // BOOLEAN TO CHECK IF LOGIN CREDENTIALS ARE VALID
-    private boolean loginIsValid() throws IOException {
+    private boolean loginIsValid() {
         ObservableList<Users> allUsers = DBUser.getAllUsers();
         for (Users user : allUsers) {
             if (user.getUsername().equals(usernameTextField.getText()) && user.getPassword().equals(passwordTextField.getText())) {
@@ -162,8 +149,6 @@ public class LoginController implements Initializable {
 
     @FXML
     void OnActionEnter(ActionEvent event) throws IOException {
-
-        createFile();
 
         // CHECKS IF LOGIN CREDENTIALS ARE VALID
         if (loginIsValid()) {
