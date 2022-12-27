@@ -264,7 +264,6 @@ public class DBAppointments {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        System.out.println(count + "test");
         return count;
     }
 

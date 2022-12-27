@@ -48,24 +48,19 @@ public class LoginController implements Initializable {
     public Label zoneIdLabel;
 
 
-    //************************************ LAMBDA *********************************
 
     public LoginController() throws IOException {
     }
+
+    /** Lambda expression to track login activity and print it to file. This reduces code repetition */
 
     public interface LoginActivity {
 
        String activity();
 
     }
-
     LoginActivity loginActivity = () -> "login_activity.txt";
 
-
-    // ********************* FILE WRITER DECLARATION **********************************************
-
-    FileWriter fileWriter = new FileWriter(loginActivity.activity(),true);
-    PrintWriter printWriter = new PrintWriter(fileWriter);
 
 
     /** Initialize method.
@@ -120,25 +115,33 @@ public class LoginController implements Initializable {
         return false;
     }
 
-    //**************************** METHODS FOR PRINTING ***********************************************
+
+    /** Successful login method.
+        @throws IOException Prints successful log-in message to file. */
 
     private void successfulLogin() throws IOException {
 
+        FileWriter fileWriter = new FileWriter(loginActivity.activity(), true);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println("STATUS: Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
                 "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
         printWriter.close();
 
     }
 
-    private void unsuccessfulLogin() {
 
+    /** Unsuccessful login method. Prints unsuccessful log-in message to file. */
+
+    private void unsuccessfulLogin() throws IOException {
+
+        FileWriter fileWriter = new FileWriter(loginActivity.activity(), true);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println("STATUS: Not Successful\n" + "USER: " + usernameTextField.getText() + "\n" +
                 "DATE/TIME: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) + "\n");
         printWriter.close();
 
     }
 
-    // *************** THIS IS WHERE I'M CALLING THE METHODS ***********************
 
     /** Enter method.
         @param event

@@ -105,9 +105,6 @@ public class AddAppointmentsController implements Initializable {
         return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
     }
 
-    private ZonedDateTime convertToTimeZone(LocalDateTime time, String zoneId) {
-        return ZonedDateTime.of(time, ZoneId.of(zoneId));
-    }
 
     /** Valid appointments method.
         @return  Checks for appointment scheduling errors. */
@@ -281,13 +278,11 @@ public class AddAppointmentsController implements Initializable {
 
 
 
+
+
 /*
-
-            zonedStartTime = easternTimeZone(LocalDateTime.of(startDate,
-                    LocalTime.parse(selectedStartTime.format((DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))))));
-            zonedEndTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(),
-                   LocalTime.parse(selectedEndTime.format((DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))))));
-
-
-             */
+ private ZonedDateTime convertToTimeZone(LocalDateTime time, String zoneId) {
+        return ZonedDateTime.of(time, ZoneId.of(zoneId));
+    }
+ */
 

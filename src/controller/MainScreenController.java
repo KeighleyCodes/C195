@@ -166,7 +166,7 @@ public class MainScreenController implements Initializable {
 
         /** Lambda expression compares the local month of current user to that of all the appointments
             in the database. If they are equal, the appointment record is added to an observable list
-            and then used to populate the monthly tableview. */
+            and then used to populate the monthly tableview. This expression reduces code required. */
 
         // LAMBDA EXPRESSION TO FILTER APPOINTMENTS BY MONTH
         LocalDateTime currentDay = LocalDateTime.now();
