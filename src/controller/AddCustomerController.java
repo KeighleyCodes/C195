@@ -56,25 +56,49 @@ public class AddCustomerController implements Initializable {
 
     }
 
+    public Boolean validAppointments() {
+
+        // LOGICAL ERROR CHECKS
+        if(nameTextField.getText().isEmpty() ||
+            phoneTextField.getText().isEmpty() ||
+            addressTextField.getText().isEmpty() ||
+            postalCodeTextField.getText().isEmpty() ||
+            countryComboBox.getValue() == null ||
+            divisionComboBox.getValue() == null){
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Empty fields");
+            alert.setContentText("Please ensure no fields are empty.");
+            alert.showAndWait();
+            return false;
+
+        }
+
+        return true;
+    }
 
     /** Save customer method.
         @param event Adds new customer to the database and returns to the Main Screen. */
 
     @FXML
     void OnActionSaveCustomer(ActionEvent event) throws IOException, SQLException {
-        String customerName = nameTextField.getText();
-        String address = addressTextField.getText();
-        String postalCode = postalCodeTextField.getText();
-        String phone = phoneTextField.getText();
-        int divisionId = divisionComboBox.getValue().getDivisionId();
-        DBCustomer.insertCustomer(customerName, address, postalCode, phone, divisionId);
 
-        this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-        this.stage.setScene(new Scene(this.scene));
-        this.stage.setTitle("Main Screen");
-        this.stage.show();
+        boolean appointmentsAreValid = validAppointments();
 
+        if (appointmentsAreValid) {
+            String customerName = nameTextField.getText();
+            String address = addressTextField.getText();
+            String postalCode = postalCodeTextField.getText();
+            String phone = phoneTextField.getText();
+            int divisionId = divisionComboBox.getValue().getDivisionId();
+            DBCustomer.insertCustomer(customerName, address, postalCode, phone, divisionId);
+
+            this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage.setScene(new Scene(this.scene));
+            this.stage.setTitle("Main Screen");
+            this.stage.show();
+        }
     }
 
     /** On Select Country method

@@ -72,6 +72,27 @@ public class UpdateCustomerController implements Initializable {
 
     }
 
+    public Boolean validAppointments() {
+
+        // LOGICAL ERROR CHECKS
+        if(nameTextField.getText().isEmpty() ||
+                phoneTextField.getText().isEmpty() ||
+                addressTextField.getText().isEmpty() ||
+                postalCodeTextField.getText().isEmpty() ||
+                countryComboBox.getValue() == null ||
+                divisionComboBox.getValue() == null){
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Empty fields");
+            alert.setContentText("Please ensure no fields are empty.");
+            alert.showAndWait();
+            return false;
+
+        }
+
+        return true;
+    }
+
 
     /** Save customer method.
      @param event
@@ -79,21 +100,25 @@ public class UpdateCustomerController implements Initializable {
 
     public void OnActionSaveUpdate(ActionEvent event) throws IOException, SQLException {
 
-        String customerName = nameTextField.getText();
-        String address = addressTextField.getText();
-        String phone = phoneTextField.getText();
-        String postalCode = postalCodeTextField.getText();
-        int divisionId = divisionComboBox.getValue().getDivisionId();
-        String country = countryComboBox.getValue().getCountry();
-        DBCustomer.updateCustomer(customerName, address, postalCode, phone, divisionId, customerId);
+        boolean appointmentsAreValid = validAppointments();
 
-        this.stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-        this.stage.setScene(new Scene(this.scene));
-        this.stage.setTitle("Main screen");
-        this.stage.show();
+        if(appointmentsAreValid) {
+            String customerName = nameTextField.getText();
+            String address = addressTextField.getText();
+            String phone = phoneTextField.getText();
+            String postalCode = postalCodeTextField.getText();
+            int divisionId = divisionComboBox.getValue().getDivisionId();
+            String country = countryComboBox.getValue().getCountry();
+            DBCustomer.updateCustomer(customerName, address, postalCode, phone, divisionId, customerId);
 
+            this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+            this.stage.setScene(new Scene(this.scene));
+            this.stage.setTitle("Main screen");
+            this.stage.show();
         }
+
+    }
 
     /** Send Customer method.
         @param customer Sends selected customer information to be modified. */

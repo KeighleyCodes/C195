@@ -10,7 +10,7 @@
       <TextField fx:id="descriptionTextField" layoutX="137.0" layoutY="163.0" />
       <TextField fx:id="locationTextField" layoutX="139.0" layoutY="211.0" />
       <ComboBox fx:id="contactComboBox" layoutX="137.0" layoutY="261.0" prefWidth="150.0" promptText="Select contact" />
-      <ComboBox fx:id="typeCombobox" layoutX="139.0" layoutY="313.0" prefWidth="150.0" promptText="Select type" />
+      <ComboBox fx:id="typeComboBox" layoutX="139.0" layoutY="313.0" prefWidth="150.0" promptText="Select type" />
       <ComboBox fx:id="customerIdComboBox" layoutX="389.0" layoutY="60.0" prefWidth="150.0" promptText="Select customer" />
       <ComboBox fx:id="userIdComboBox" layoutX="389.0" layoutY="109.0" prefWidth="150.0" promptText="Select user" />
       <DatePicker fx:id="datePicker" layoutX="390.0" layoutY="163.0" />

@@ -111,6 +111,25 @@ public class AddAppointmentsController implements Initializable {
 
     public Boolean validAppointments() {
 
+        // LOGICAL ERROR CHECKS
+        if(titleTextField.getText().isEmpty() ||
+            descriptionTextField.getText().isEmpty() ||
+            locationTextField.getText().isEmpty() ||
+            contactComboBox.getValue() == null ||
+            typeComboBox.getValue() == null ||
+            customerIdComboBox.getValue() == null ||
+            userIdComboBox.getValue() == null ||
+            datePicker.getValue() == null ||
+            startTimeComboBox.getValue() == null ||
+            endTimeComboBox.getValue() == null){
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Empty fields");
+            alert.setContentText("Please ensure no fields are empty.");
+            alert.showAndWait();
+            return false;
+        }
+
         LocalDate startDate = datePicker.getValue();
         LocalTime startTime = startTimeComboBox.getValue();
         LocalTime endTime = endTimeComboBox.getValue();

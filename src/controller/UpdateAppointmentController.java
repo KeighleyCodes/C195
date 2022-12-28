@@ -44,7 +44,7 @@ public class UpdateAppointmentController implements Initializable {
     public ComboBox<LocalTime> endTimeComboBox;
     public ComboBox<Customer> customerIdComboBox;
     public ComboBox<Users> userIdComboBox;
-    public ComboBox<String> typeCombobox;
+    public ComboBox<String> typeComboBox;
 
 
     Stage stage;
@@ -80,7 +80,7 @@ public class UpdateAppointmentController implements Initializable {
         // POPULATES COMBO BOX WITH TYPES
         ObservableList<String> typesList = FXCollections.observableArrayList(
                 "Coffee Chat", "De-Briefing", "Mentoring", "Planning Session", "Sprint Meeting", "Other");
-        typeCombobox.setItems(typesList);
+        typeComboBox.setItems(typesList);
 
     }
 
@@ -111,6 +111,26 @@ public class UpdateAppointmentController implements Initializable {
 
     // CHECKS FOR APPOINTMENT SCHEDULING ERRORS
     public Boolean validAppointments() {
+
+        // LOGICAL ERROR CHECKS
+        if(titleTextField.getText().isEmpty() ||
+                descriptionTextField.getText().isEmpty() ||
+                locationTextField.getText().isEmpty() ||
+                contactComboBox.getValue() == null ||
+                typeComboBox.getValue() == null ||
+                customerIdComboBox.getValue() == null ||
+                userIdComboBox.getValue() == null ||
+                datePicker.getValue() == null ||
+                startTimeComboBox.getValue() == null ||
+                endTimeComboBox.getValue() == null){
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Empty fields");
+                alert.setContentText("Please ensure no fields are empty.");
+                alert.showAndWait();
+                return false;
+        }
+
         LocalDate startDate = datePicker.getValue();
         LocalTime startTime = startTimeComboBox.getValue();
         LocalTime endTime = endTimeComboBox.getValue();
@@ -246,7 +266,7 @@ public class UpdateAppointmentController implements Initializable {
             String title = titleTextField.getText();
             String description = descriptionTextField.getText();
             String location = locationTextField.getText();
-            String type = typeCombobox.getValue().toString();
+            String type = typeComboBox.getValue().toString();
             LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
             LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
             int customerId = customerIdComboBox.getValue().getCustomerId();
@@ -273,7 +293,7 @@ public class UpdateAppointmentController implements Initializable {
         titleTextField.setText(appointments.getTitle());
         descriptionTextField.setText(appointments.getDescription());
         locationTextField.setText(appointments.getLocation());
-        typeCombobox.setValue(appointments.toString());
+        typeComboBox.setValue(appointments.toString());
         datePicker.setValue(appointments.getAppointmentDay());
         startTimeComboBox.setValue(appointments.getStartTime());
         endTimeComboBox.setValue(appointments.getEndTime());
