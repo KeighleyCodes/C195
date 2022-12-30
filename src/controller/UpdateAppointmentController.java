@@ -262,7 +262,6 @@ public class UpdateAppointmentController implements Initializable {
             LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
             int customerId = customerIdComboBox.getValue().getCustomerId();
             int userId = userIdComboBox.getValue().getUserId();
-            System.out.println(userId); //
             DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
 
             this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

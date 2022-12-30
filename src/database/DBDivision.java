@@ -85,7 +85,6 @@ public class DBDivision {
         return countryId;
     }
 
-    // ********************************** FIX ME **************************************************
     /**
      @param selectedCountryId Provides observable list of divisions from corresponding country in database.
      @return divisionsByCountryList. */

@@ -296,12 +296,3 @@ public class AddAppointmentsController implements Initializable {
 }
 
 
-
-
-
-/*
- private ZonedDateTime convertToTimeZone(LocalDateTime time, String zoneId) {
-        return ZonedDateTime.of(time, ZoneId.of(zoneId));
-    }
- */
-
