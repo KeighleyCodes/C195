@@ -212,7 +212,7 @@ public class UpdateAppointmentController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
+                alert.setContentText("Appointments must be within EST business hours 1.");
                 alert.showAndWait();
 
                 return false;
@@ -222,27 +222,18 @@ public class UpdateAppointmentController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
+                alert.setContentText("Appointments must be within EST business hours 2.");
                 alert.showAndWait();
 
                 return false;
             }
 
-            if(zonedEndTime.toLocalTime().isAfter(LocalTime.of(8,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
-                alert.showAndWait();
-
-                return false;
-            }
 
             if(zonedEndTime.toLocalTime().isAfter(LocalTime.of(22,0))) {
 
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
+                alert.setContentText("Appointments must be within EST business hours 4.");
                 alert.showAndWait();
 
                 return false;
@@ -289,6 +280,7 @@ public class UpdateAppointmentController implements Initializable {
     public void sendAppointment(Appointments appointments) {
 
         appointmentId = appointments.getAppointmentId();
+        appointmentIdTextField.setText(String.valueOf(appointments.getAppointmentId()));
         contactComboBox.setValue(selectedContactName(appointments.getContactId()));
         titleTextField.setText(appointments.getTitle());
         descriptionTextField.setText(appointments.getDescription());
