@@ -215,8 +215,45 @@ public class DBAppointments {
         return appointmentsByCustomerList;
     }
 
+    /** Appointments by appointment ID method.
+     @param selectedAppointmentId
+     @return Creates an observable list of appointments from selected appointment ID. */
 
-    // ---------------------------------- FOR REPORTS TAB ----------------------------------------------
+    public static Appointments appointmentsByAppointmentId(int selectedAppointmentId) {
+
+        try {
+            String sql = "SELECT * FROM appointments WHERE Customer_ID = " + selectedAppointmentId;
+            PreparedStatement ps = DBConnection.getConnection().prepareStatement(sql);
+
+            ps.setInt(1, selectedAppointmentId);
+
+            ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Appointments newAppointment = new Appointments(
+                        rs.getInt("Appointment_ID"),
+                        rs.getString("Title"),
+                        rs.getString("Description"),
+                        rs.getString("Location"),
+                        rs.getInt("Contact_ID"),
+                        rs.getString("Type"),
+                        rs.getTimestamp("Start").toLocalDateTime().toLocalDate(),
+                        rs.getTimestamp("Start").toLocalDateTime().toLocalTime(),
+                        rs.getTimestamp("End").toLocalDateTime().toLocalTime(),
+                        rs.getInt("Customer_ID"),
+                        rs.getInt("Contact_ID")
+                );
+                return newAppointment;
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+
+        // ---------------------------------- FOR REPORTS TAB ----------------------------------------------
 
 
     /** Total customers method.

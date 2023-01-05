@@ -18,9 +18,12 @@ import model.Appointments;
 import model.Contacts;
 import model.Customer;
 import model.Users;
+import utility.TimeManager;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.SQLOutput;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
@@ -49,9 +52,6 @@ public class AddAppointmentsController implements Initializable {
     Stage stage;
     Parent scene;
 
-    private ZonedDateTime zonedStartTime;
-    private ZonedDateTime zonedEndTime;
-
     // CREATES OBSERVABLE LISTS
     private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
     private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
@@ -66,13 +66,13 @@ public class AddAppointmentsController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        startTimeComboBox.setItems(TimeManager.getBusinessHours(8));
+        endTimeComboBox.setItems(TimeManager.getBusinessHours(9));
         contactComboBox.setItems(allContacts);
-
         customerIdComboBox.setItems(allCustomers);
 
         userIdComboBox.setItems(allUsers);
 
-        fillTimeComboBoxes();
 
         // POPULATES COMBO BOX WITH TYPES
         ObservableList<String> typesList = FXCollections.observableArrayList(
@@ -81,33 +81,8 @@ public class AddAppointmentsController implements Initializable {
 
     }
 
-
-    /** Method to fill time combo boxes. */
-
-    public void fillTimeComboBoxes() {
-        ObservableList<LocalTime> times = FXCollections.observableArrayList();
-        LocalTime startTimes = LocalTime.of(8, 0);
-        LocalTime endTimes = LocalTime.of(22, 0);
-
-        times.add(startTimes);
-
-        while (startTimes.isBefore(endTimes)) {
-            startTimes = startTimes.plusMinutes(15);
-            times.add(startTimes);
-        }
-
-        startTimeComboBox.setItems(times);
-        endTimeComboBox.setItems(times);
-    }
-
-    // TIME ZONE FOR CHECKING AGAINST BUSINESS HOURS
-    private ZonedDateTime easternTimeZone(LocalDateTime time) {
-        return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
-    }
-
-
-    /** Valid appointments method.
-        @return  Checks for appointment scheduling errors. */
+        /** Valid appointments method.
+            @return  Checks for appointment scheduling errors. */
 
     public Boolean validAppointments() {
 
@@ -144,15 +119,6 @@ public class AddAppointmentsController implements Initializable {
             return false;
         }
 
-        if(startTime.isBefore(LocalTime.of(8,0)) ||
-                (endTime.isAfter(LocalTime.of(22,0)))){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Outside business hours");
-            alert.setContentText("Please select a time during business hours.");
-            alert.showAndWait();
-            return false;
-        }
-
         if(endTime.isBefore(startTime) || endTime.equals(startTime)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Incorrect times");
@@ -161,90 +127,62 @@ public class AddAppointmentsController implements Initializable {
             return false;
         }
 
+        // NO OVERLAPS ON DATE / TIMES (CUSTOMER DOESN'T MATTER) IF/ELSE IF
 
         // CHECK FOR OVERLAPPING APPOINTMENTS FOR SELECTED CUSTOMER
 
         LocalTime selectedStartTime = startTimeComboBox.getValue();
         LocalTime selectedEndTime = endTimeComboBox.getValue();
+        LocalDate selectedDate = datePicker.getValue();
+
+        // SQL appointments for the dates timestamp, result set process to that list
+        // start date, end date, datetime
+        // convert the times to UTC in SQL from boxes
 
         ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
         for (Appointments appointments: customerAppointments) {
+
             LocalTime proposedStart = appointments.getStartTime();
             LocalTime proposedEnd = appointments.getEndTime();
+            LocalDate proposedDate = appointments.getAppointmentDay();
+
 
             if ((proposedStart.isAfter(selectedStartTime) || proposedStart.equals(selectedStartTime))
-                    && proposedStart.isBefore(selectedEndTime)) {
+                    && proposedStart.isBefore(selectedEndTime) && proposedDate.equals(selectedDate)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Overlapping appointments");
-                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.setContentText("New appointments cannot overlap with existing appointments 2.");
                 alert.showAndWait();
                 return false;
             }
+
             if (proposedEnd.isAfter(selectedStartTime) && (proposedEnd.isBefore(selectedEndTime) ||
-                    (proposedEnd.equals(selectedEndTime)))) {
+                    (proposedEnd.equals(selectedEndTime))) && proposedDate.equals(selectedDate)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Overlapping appointments");
-                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.setContentText("New appointments cannot overlap with existing appointments 3.");
                 alert.showAndWait();
                 return false;
             }
+
             if ((proposedStart.isBefore(selectedStartTime) || proposedStart.equals(selectedStartTime)) &&
-                    (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)) {
+                    (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)
+                    && proposedDate.equals(selectedDate)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Overlapping appointments");
-                alert.setContentText("New appointments cannot overlap with existing appointments.");
+                alert.setContentText("New appointments cannot overlap with existing appointments 4.");
                 alert.showAndWait();
                 return false;
             }
 
-            // CHECK IF APPOINTMENTS ARE DURING EST BUSINESS HOURS
-
-          zonedStartTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue()));
-          zonedEndTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue()));
-
-            if(zonedStartTime.toLocalTime().isBefore(LocalTime.of(8,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
-                alert.showAndWait();
-
-                return false;
-            }
-
-            if(zonedStartTime.toLocalTime().isAfter(LocalTime.of(22,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
-                alert.showAndWait();
-
-                return false;
-            }
-
-            if(zonedEndTime.toLocalTime().isAfter(LocalTime.of(8,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
-                alert.showAndWait();
-
-                return false;
-            }
-
-            if(zonedEndTime.toLocalTime().isAfter(LocalTime.of(22,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours.");
-                alert.showAndWait();
-
-                return false;
-            }
         }
+
+
 
         return true;
     }
+
+
 
 
     /** Save appointment method.

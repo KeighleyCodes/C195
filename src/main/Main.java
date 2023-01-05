@@ -36,7 +36,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         DBConnection.openConnection();
 
-       // Locale.setDefault(new Locale("fr")); // to test that language changed to French
+        // Locale.setDefault(new Locale("fr")); // to test that language changed to French
         rb = ResourceBundle.getBundle("languages/localization");
 
         launch(args);

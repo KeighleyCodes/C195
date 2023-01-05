@@ -17,13 +17,18 @@ import model.Appointments;
 import model.Contacts;
 import model.Customer;
 import model.Users;
+import utility.TimeManager;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
+
 import static database.DBContacts.selectedContactName;
 import static database.DBCustomer.selectedCustomerName;
 import static database.DBUser.selectedUserName;
@@ -52,15 +57,17 @@ public class UpdateAppointmentController implements Initializable {
 
     private ZonedDateTime zonedStartTime;
     private ZonedDateTime zonedEndTime;
+    private static Appointments selectedAppointment;
 
     private int appointmentId;
 
     // CREATES OBSERVABLE LISTS
-    private ObservableList<LocalTime> startTimes = FXCollections.observableArrayList();
-    private ObservableList<LocalTime> endTimes = FXCollections.observableArrayList();
     private ObservableList<Users> allUsers = DBUser.getAllUsers();
     private ObservableList<Customer> allCustomers = DBCustomer.getAllCustomers();
     private ObservableList<Contacts> allContacts = DBContacts.getAllContacts();
+
+
+
 
     /** Initialize method.
       @param url
@@ -69,13 +76,15 @@ public class UpdateAppointmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        startTimeComboBox.setItems(TimeManager.getBusinessHours(8));
+        endTimeComboBox.setItems(TimeManager.getBusinessHours(9));
         contactComboBox.setItems(allContacts);
 
         customerIdComboBox.setItems(allCustomers);
 
         userIdComboBox.setItems(allUsers);
 
-        fillTimeComboBoxes();
+      //  fillTimeComboBoxes();
 
         // POPULATES COMBO BOX WITH TYPES
         ObservableList<String> typesList = FXCollections.observableArrayList(
@@ -84,30 +93,6 @@ public class UpdateAppointmentController implements Initializable {
 
     }
 
-
-    /** Method to fill time combo boxes. */
-
-    public void fillTimeComboBoxes() {
-        ObservableList<LocalTime> times = FXCollections.observableArrayList();
-        LocalTime startTimes = LocalTime.of(8, 0);
-        LocalTime endTimes = LocalTime.of(22, 0);
-
-        times.add(startTimes);
-
-        while (startTimes.isBefore(endTimes)) {
-            startTimes = startTimes.plusMinutes(15);
-            times.add(startTimes);
-        }
-
-        startTimeComboBox.setItems(times);
-        endTimeComboBox.setItems(times);
-    }
-
-
-    // TIME ZONE FOR CHECKING AGAINST BUSINESS HOURS
-    private ZonedDateTime easternTimeZone(LocalDateTime time) {
-        return ZonedDateTime.of(time, ZoneId.of("America/New_York"));
-    }
 
     // CHECKS FOR APPOINTMENT SCHEDULING ERRORS
     public Boolean validAppointments() {
@@ -144,7 +129,7 @@ public class UpdateAppointmentController implements Initializable {
             alert.showAndWait();
             return false;
         }
-
+/*
         if(startTime.isBefore(LocalTime.of(8,0)) ||
                 (endTime.isAfter(LocalTime.of(22,0)))){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -153,6 +138,8 @@ public class UpdateAppointmentController implements Initializable {
             alert.showAndWait();
             return false;
         }
+
+ */
 
         if(endTime.isBefore(startTime) || endTime.equals(startTime)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -166,34 +153,39 @@ public class UpdateAppointmentController implements Initializable {
 
         LocalTime selectedStartTime = startTimeComboBox.getValue();
         LocalTime selectedEndTime = endTimeComboBox.getValue();
+        LocalDate selectedDate = datePicker.getValue();
         int selectedAppointment = Integer.parseInt(appointmentIdTextField.getText());
 
         ObservableList<Appointments> customerAppointments = DBAppointments.appointmentsByCustomer(customerIdComboBox.getValue().getCustomerId());
         for (Appointments appointments: customerAppointments) {
             LocalTime proposedStart = appointments.getStartTime();
             LocalTime proposedEnd = appointments.getEndTime();
+            LocalDate proposedDate = appointments.getAppointmentDay();
             int proposedAppointment = appointments.getAppointmentId();
 
             if (proposedAppointment != selectedAppointment) {
 
                 if ((proposedStart.isAfter(selectedStartTime) || proposedStart.equals(selectedStartTime))
-                        && proposedStart.isBefore(selectedEndTime)) {
+                        && proposedStart.isBefore(selectedEndTime) && proposedDate.equals(selectedDate)) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Overlapping appointments");
                     alert.setContentText("New appointments cannot overlap with existing appointments.");
                     alert.showAndWait();
                     return false;
                 }
+
                 if (proposedEnd.isAfter(selectedStartTime) && (proposedEnd.isBefore(selectedEndTime) ||
-                        (proposedEnd.equals(selectedEndTime)))) {
+                        (proposedEnd.equals(selectedEndTime))) && proposedDate.equals(selectedDate)) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Overlapping appointments");
                     alert.setContentText("New appointments cannot overlap with existing appointments.");
                     alert.showAndWait();
                     return false;
                 }
+
                 if ((proposedStart.isBefore(selectedStartTime) || proposedStart.equals(selectedStartTime)) &&
-                        (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)) {
+                        (proposedEnd.isAfter(selectedEndTime)) || proposedEnd.equals(selectedEndTime)
+                        && proposedDate.equals(selectedDate)) {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Overlapping appointments");
                     alert.setContentText("New appointments cannot overlap with existing appointments.");
@@ -203,41 +195,6 @@ public class UpdateAppointmentController implements Initializable {
 
             }
 
-            // CHECK IF APPOINTMENTS ARE DURING EST BUSINESS HOURS
-
-            zonedStartTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue()));
-            zonedEndTime = easternTimeZone(LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue()));
-
-            if(zonedStartTime.toLocalTime().isBefore(LocalTime.of(8,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours 1.");
-                alert.showAndWait();
-
-                return false;
-            }
-
-            if(zonedStartTime.toLocalTime().isAfter(LocalTime.of(22,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours 2.");
-                alert.showAndWait();
-
-                return false;
-            }
-
-
-            if(zonedEndTime.toLocalTime().isAfter(LocalTime.of(22,0))) {
-
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Appointments must be within EST business hours 4.");
-                alert.showAndWait();
-
-                return false;
-            }
         }
         return true;
     }
@@ -251,26 +208,37 @@ public class UpdateAppointmentController implements Initializable {
 
         boolean appointmentsAreValid = validAppointments();
 
+
         if(appointmentsAreValid) {
 
-            int contactId = contactComboBox.getValue().getContactId();
-            String title = titleTextField.getText();
-            String description = descriptionTextField.getText();
-            String location = locationTextField.getText();
-            String type = typeComboBox.getValue().toString();
-            LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
-            LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
-            int customerId = customerIdComboBox.getValue().getCustomerId();
-            int userId = userIdComboBox.getValue().getUserId();
-            DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
+            try {
 
-            this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-            this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
-            this.stage.setScene(new Scene(this.scene));
-            this.stage.setTitle("Main Screen");
-            this.stage.show();
+                int contactId = contactComboBox.getValue().getContactId();
+                String title = titleTextField.getText();
+                String description = descriptionTextField.getText();
+                String location = locationTextField.getText();
+                String type = typeComboBox.getValue();
+                LocalDateTime startTime = LocalDateTime.of(datePicker.getValue(), startTimeComboBox.getValue());
+                LocalDateTime endTime = LocalDateTime.of(datePicker.getValue(), endTimeComboBox.getValue());
+                int customerId = customerIdComboBox.getValue().getCustomerId();
+                int userId = userIdComboBox.getValue().getUserId();
+                DBAppointments.updateAppointment(title, description, location, contactId, type, startTime, endTime, customerId, userId, appointmentId);
+
+                this.stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                this.scene = (Parent) FXMLLoader.load((URL) Objects.requireNonNull(this.getClass().getResource("/view/MainScreen.fxml")));
+                this.stage.setScene(new Scene(this.scene));
+                this.stage.setTitle("Main Screen");
+                this.stage.show();
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 
 
     /** Send Appointment method.

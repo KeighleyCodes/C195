@@ -283,17 +283,22 @@ public class MainScreenController implements Initializable {
                             DBCustomer.deleteCustomer(selectedCustomer);
                             customerTable.getItems().clear();
                             customerTable.setItems(DBCustomer.getAllCustomers());
+                            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Confirmation");
+                            alert.setContentText("Customer " + selectedCustomer.getCustomerName() +
+                                    " has been deleted.");
                         }
                         else {
                             Alert alert1 = new Alert(Alert.AlertType.ERROR);
                             alert.setTitle("Error");
                             alert.setContentText("You must first delete any appointments for " + selectedCustomer.getCustomerName() +
                                     " before deleting the customer.");
-                            alert.showAndWait();
                         }
+                        alert.showAndWait();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
             }
         }
